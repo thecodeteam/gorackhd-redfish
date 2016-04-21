@@ -1,4 +1,4 @@
-package gorackhdRedfish
+package redfish
 
 import (
 	"fmt"
@@ -9,9 +9,9 @@ import (
 	httptransport "github.com/go-swagger/go-swagger/httpkit/client"
 	"github.com/go-swagger/go-swagger/strfmt"
 
-	apiclientRedfish "github.com/emccode/gorackhdRedfish/client"
-	"github.com/emccode/gorackhdRedfish/client/redfish_v1"
-	"github.com/emccode/gorackhdRedfish/models"
+	apiclientRedfish "github.com/emccode/gorackhd-redfish/client"
+	"github.com/emccode/gorackhd-redfish/client/redfish_v1"
+	"github.com/emccode/gorackhd-redfish/models"
 )
 
 func TestRedfishGetRolesOperation(t *testing.T) {
