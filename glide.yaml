@@ -1,4 +1,4 @@
-package: github.com/emccode/gorackhd
+package: github.com/emccode/gorackhd-redfish
 import:
   - package: github.com/go-swagger/go-swagger
     ref:     6b712512cbe1f1a4882354856b57c61d760499cc
