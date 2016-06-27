@@ -2,8 +2,6 @@ glide.lock
 .go.get
 swagger
 vendor/
-client/
-models/
 
 # Compiled source #
 ###################
