@@ -1,4 +1,4 @@
-package: github.com/emccode/gorackhd
+package: github.com/emccode/gorackhd-redfish
 ignore:
 - client
 - models
