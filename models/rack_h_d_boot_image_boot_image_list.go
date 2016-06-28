@@ -15,13 +15,9 @@ import (
 
 /*RackHDBootImageBootImageList rack h d boot image boot image list
 
-swagger:model RackHD_BootImage_BootImageList
+swagger:model RackHD.BootImage_BootImageList
 */
 type RackHDBootImageBootImageList struct {
-
-	/* at odata type
-	 */
-	AtOdataType Odata400Type `json:"@odata.type,omitempty"`
 
 	/* os name
 	 */

@@ -4,10 +4,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
 	"github.com/go-swagger/go-swagger/errors"
+	"github.com/go-swagger/go-swagger/httpkit/validate"
 )
 
 /*Processor100Processor This is the schema definition for the Processor resource.  It represents the properties of a processor attached to a System.
@@ -17,30 +20,40 @@ swagger:model Processor.1.0.0_Processor
 type Processor100Processor struct {
 
 	/* at odata context
-	 */
-	AtOdataContext Odata400Context `json:"@odata.context,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataContext strfmt.URI `json:"@odata.context,omitempty"`
 
 	/* at odata id
-	 */
-	AtOdataID Odata400ID `json:"@odata.id,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataID strfmt.URI `json:"@odata.id,omitempty"`
 
 	/* at odata type
-	 */
-	AtOdataType Odata400Type `json:"@odata.type,omitempty"`
 
-	/* description
-	 */
-	Description ResourceDescription `json:"Description,omitempty"`
+	Read Only: true
+	*/
+	AtOdataType string `json:"@odata.type,omitempty"`
 
-	/* Id
-	 */
-	ID ResourceID `json:"Id,omitempty"`
+	/* Provides a description of this resource and is used for commonality  in the schema definitions.
+
+	Read Only: true
+	*/
+	Description string `json:"Description,omitempty"`
+
+	/* Uniquely identifies the resource within the collection of like resources.
+
+	Read Only: true
+	*/
+	ID string `json:"Id,omitempty"`
 
 	/* The instruction set of the processor
 
 	Read Only: true
 	*/
-	InstructionSet Processor100InstructionSet `json:"InstructionSet,omitempty"`
+	InstructionSet string `json:"InstructionSet,omitempty"`
 
 	/* The processor manufacturer
 
@@ -60,9 +73,11 @@ type Processor100Processor struct {
 	*/
 	Model string `json:"Model,omitempty"`
 
-	/* name
-	 */
-	Name ResourceName `json:"Name,omitempty"`
+	/* The name of the resource or array element.
+
+	Read Only: true
+	*/
+	Name string `json:"Name,omitempty"`
 
 	/* This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.
 	 */
@@ -72,7 +87,7 @@ type Processor100Processor struct {
 
 	Read Only: true
 	*/
-	ProcessorArchitecture Processor100ProcessorArchitecture `json:"ProcessorArchitecture,omitempty"`
+	ProcessorArchitecture string `json:"ProcessorArchitecture,omitempty"`
 
 	/* Identification information for this processor.
 	 */
@@ -82,7 +97,7 @@ type Processor100Processor struct {
 
 	Read Only: true
 	*/
-	ProcessorType Processor100ProcessorType `json:"ProcessorType,omitempty"`
+	ProcessorType string `json:"ProcessorType,omitempty"`
 
 	/* The socket or location of the processor
 
@@ -132,16 +147,55 @@ func (m *Processor100Processor) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+var processor100ProcessorTypeInstructionSetPropEnum []interface{}
+
+// prop value enum
+func (m *Processor100Processor) validateInstructionSetEnum(path, location string, value string) error {
+	if processor100ProcessorTypeInstructionSetPropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["x86","x86-64","IA-64","ARM-A32","ARM-A64","MIPS32","MIPS64","OEM"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			processor100ProcessorTypeInstructionSetPropEnum = append(processor100ProcessorTypeInstructionSetPropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, processor100ProcessorTypeInstructionSetPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *Processor100Processor) validateInstructionSet(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.InstructionSet) { // not required
 		return nil
 	}
 
-	if err := m.InstructionSet.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateInstructionSetEnum("InstructionSet", "body", m.InstructionSet); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+var processor100ProcessorTypeProcessorArchitecturePropEnum []interface{}
+
+// prop value enum
+func (m *Processor100Processor) validateProcessorArchitectureEnum(path, location string, value string) error {
+	if processor100ProcessorTypeProcessorArchitecturePropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["x86","IA-64","ARM","MIPS","OEM"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			processor100ProcessorTypeProcessorArchitecturePropEnum = append(processor100ProcessorTypeProcessorArchitecturePropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, processor100ProcessorTypeProcessorArchitecturePropEnum); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -151,10 +205,30 @@ func (m *Processor100Processor) validateProcessorArchitecture(formats strfmt.Reg
 		return nil
 	}
 
-	if err := m.ProcessorArchitecture.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateProcessorArchitectureEnum("ProcessorArchitecture", "body", m.ProcessorArchitecture); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+var processor100ProcessorTypeProcessorTypePropEnum []interface{}
+
+// prop value enum
+func (m *Processor100Processor) validateProcessorTypeEnum(path, location string, value string) error {
+	if processor100ProcessorTypeProcessorTypePropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["CPU","GPU","FPGA","DSP","Accelerator","OEM"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			processor100ProcessorTypeProcessorTypePropEnum = append(processor100ProcessorTypeProcessorTypePropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, processor100ProcessorTypeProcessorTypePropEnum); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -164,7 +238,8 @@ func (m *Processor100Processor) validateProcessorType(formats strfmt.Registry) e
 		return nil
 	}
 
-	if err := m.ProcessorType.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateProcessorTypeEnum("ProcessorType", "body", m.ProcessorType); err != nil {
 		return err
 	}
 

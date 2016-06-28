@@ -4,6 +4,9 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+	"strconv"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
@@ -21,7 +24,7 @@ type Manager100SerialConsole struct {
 
 	Read Only: true
 	*/
-	ConnectTypesSupported []Manager100SerialConnectTypesSupported `json:"ConnectTypesSupported,omitempty"`
+	ConnectTypesSupported []string `json:"ConnectTypesSupported,omitempty"`
 
 	/* Indicates the maximum number of service sessions, regardless of protocol, this manager is able to support.
 
@@ -55,10 +58,37 @@ func (m *Manager100SerialConsole) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+var manager100SerialConsoleConnectTypesSupportedItemsEnum []interface{}
+
+func (m *Manager100SerialConsole) validateConnectTypesSupportedItemsEnum(path, location string, value string) error {
+	if manager100SerialConsoleConnectTypesSupportedItemsEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["SSH","Telnet","IPMI","Oem"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			manager100SerialConsoleConnectTypesSupportedItemsEnum = append(manager100SerialConsoleConnectTypesSupportedItemsEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, manager100SerialConsoleConnectTypesSupportedItemsEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *Manager100SerialConsole) validateConnectTypesSupported(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ConnectTypesSupported) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.ConnectTypesSupported); i++ {
+
+		// value enum
+		if err := m.validateConnectTypesSupportedItemsEnum("ConnectTypesSupported"+"."+strconv.Itoa(i), "body", m.ConnectTypesSupported[i]); err != nil {
+			return err
+		}
+
 	}
 
 	return nil

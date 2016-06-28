@@ -17,20 +17,28 @@ swagger:model SimpleStorage.1.0.0_SimpleStorage
 type SimpleStorage100SimpleStorage struct {
 
 	/* at odata context
-	 */
-	AtOdataContext Odata400Context `json:"@odata.context,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataContext strfmt.URI `json:"@odata.context,omitempty"`
 
 	/* at odata id
-	 */
-	AtOdataID Odata400ID `json:"@odata.id,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataID strfmt.URI `json:"@odata.id,omitempty"`
 
 	/* at odata type
-	 */
-	AtOdataType Odata400Type `json:"@odata.type,omitempty"`
 
-	/* description
-	 */
-	Description ResourceDescription `json:"Description,omitempty"`
+	Read Only: true
+	*/
+	AtOdataType string `json:"@odata.type,omitempty"`
+
+	/* Provides a description of this resource and is used for commonality  in the schema definitions.
+
+	Read Only: true
+	*/
+	Description string `json:"Description,omitempty"`
 
 	/* The storage devices associated with this resource
 
@@ -38,13 +46,17 @@ type SimpleStorage100SimpleStorage struct {
 	*/
 	Devices []*SimpleStorage100Device `json:"Devices,omitempty"`
 
-	/* Id
-	 */
-	ID ResourceID `json:"Id,omitempty"`
+	/* Uniquely identifies the resource within the collection of like resources.
 
-	/* name
-	 */
-	Name ResourceName `json:"Name,omitempty"`
+	Read Only: true
+	*/
+	ID string `json:"Id,omitempty"`
+
+	/* The name of the resource or array element.
+
+	Read Only: true
+	*/
+	Name string `json:"Name,omitempty"`
 
 	/* This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.
 	 */

@@ -4,10 +4,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
 	"github.com/go-swagger/go-swagger/errors"
+	"github.com/go-swagger/go-swagger/httpkit/validate"
 )
 
 /*ComputerSystem100Boot This object contains the boot information for the current resource.
@@ -18,11 +21,11 @@ type ComputerSystem100Boot struct {
 
 	/* Describes the state of the Boot Source Override feature
 	 */
-	BootSourceOverrideEnabled ComputerSystem100BootSourceOverrideEnabled `json:"BootSourceOverrideEnabled,omitempty"`
+	BootSourceOverrideEnabled string `json:"BootSourceOverrideEnabled,omitempty"`
 
 	/* The current boot source to be used at next boot instead of the normal boot device, if BootSourceOverrideEnabled is true.
 	 */
-	BootSourceOverrideTarget ComputerSystem100BootSource `json:"BootSourceOverrideTarget,omitempty"`
+	BootSourceOverrideTarget string `json:"BootSourceOverrideTarget,omitempty"`
 
 	/* This property is the Uefi Device Path of the device to boot from when BootSourceOverrideSupported is UefiTarget.
 	 */
@@ -49,16 +52,55 @@ func (m *ComputerSystem100Boot) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+var computerSystem100BootTypeBootSourceOverrideEnabledPropEnum []interface{}
+
+// prop value enum
+func (m *ComputerSystem100Boot) validateBootSourceOverrideEnabledEnum(path, location string, value string) error {
+	if computerSystem100BootTypeBootSourceOverrideEnabledPropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Disabled","Once","Continuous"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			computerSystem100BootTypeBootSourceOverrideEnabledPropEnum = append(computerSystem100BootTypeBootSourceOverrideEnabledPropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, computerSystem100BootTypeBootSourceOverrideEnabledPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *ComputerSystem100Boot) validateBootSourceOverrideEnabled(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.BootSourceOverrideEnabled) { // not required
 		return nil
 	}
 
-	if err := m.BootSourceOverrideEnabled.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateBootSourceOverrideEnabledEnum("BootSourceOverrideEnabled", "body", m.BootSourceOverrideEnabled); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+var computerSystem100BootTypeBootSourceOverrideTargetPropEnum []interface{}
+
+// prop value enum
+func (m *ComputerSystem100Boot) validateBootSourceOverrideTargetEnum(path, location string, value string) error {
+	if computerSystem100BootTypeBootSourceOverrideTargetPropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["None","Pxe","Floppy","Cd","Usb","Hdd","BiosSetup","Utilities","Diags","UefiShell","UefiTarget"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			computerSystem100BootTypeBootSourceOverrideTargetPropEnum = append(computerSystem100BootTypeBootSourceOverrideTargetPropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, computerSystem100BootTypeBootSourceOverrideTargetPropEnum); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -68,7 +110,8 @@ func (m *ComputerSystem100Boot) validateBootSourceOverrideTarget(formats strfmt.
 		return nil
 	}
 
-	if err := m.BootSourceOverrideTarget.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateBootSourceOverrideTargetEnum("BootSourceOverrideTarget", "body", m.BootSourceOverrideTarget); err != nil {
 		return err
 	}
 

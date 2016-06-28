@@ -13,7 +13,7 @@ import (
 // NewUnimplementedParams creates a new UnimplementedParams object
 // with the default values initialized.
 func NewUnimplementedParams() *UnimplementedParams {
-
+	var ()
 	return &UnimplementedParams{}
 }
 
@@ -21,12 +21,39 @@ func NewUnimplementedParams() *UnimplementedParams {
 for the unimplemented operation typically these are written to a http.Request
 */
 type UnimplementedParams struct {
+
+	/*Identifier*/
+	Identifier string
+	/*Index*/
+	Index string
+}
+
+// WithIdentifier adds the identifier to the unimplemented params
+func (o *UnimplementedParams) WithIdentifier(identifier string) *UnimplementedParams {
+	o.Identifier = identifier
+	return o
+}
+
+// WithIndex adds the index to the unimplemented params
+func (o *UnimplementedParams) WithIndex(index string) *UnimplementedParams {
+	o.Index = index
+	return o
 }
 
 // WriteToRequest writes these params to a swagger request
 func (o *UnimplementedParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
 
 	var res []error
+
+	// path param identifier
+	if err := r.SetPathParam("identifier", o.Identifier); err != nil {
+		return err
+	}
+
+	// path param index
+	if err := r.SetPathParam("index", o.Index); err != nil {
+		return err
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

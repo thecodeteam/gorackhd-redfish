@@ -4,10 +4,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
 	"github.com/go-swagger/go-swagger/errors"
+	"github.com/go-swagger/go-swagger/httpkit/validate"
 )
 
 /*LogEntry100LogEntry This resource represents the log record format for logs.  It is designed to be used for SEL logs from IPMI as well as Event Logs and OEM specific logs.  The EntryType field indicates the type of log and there are other properties dependent on it's value.
@@ -17,16 +20,22 @@ swagger:model LogEntry.1.0.0_LogEntry
 type LogEntry100LogEntry struct {
 
 	/* at odata context
-	 */
-	AtOdataContext Odata400Context `json:"@odata.context,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataContext strfmt.URI `json:"@odata.context,omitempty"`
 
 	/* at odata id
-	 */
-	AtOdataID Odata400ID `json:"@odata.id,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataID strfmt.URI `json:"@odata.id,omitempty"`
 
 	/* at odata type
-	 */
-	AtOdataType Odata400Type `json:"@odata.type,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataType string `json:"@odata.type,omitempty"`
 
 	/* The time the log entry was created.
 
@@ -34,26 +43,30 @@ type LogEntry100LogEntry struct {
 	*/
 	Created strfmt.DateTime `json:"Created,omitempty"`
 
-	/* description
-	 */
-	Description ResourceDescription `json:"Description,omitempty"`
+	/* Provides a description of this resource and is used for commonality  in the schema definitions.
+
+	Read Only: true
+	*/
+	Description string `json:"Description,omitempty"`
 
 	/* If the EntryType is SEL, this will have the entry code for the log entry.
 
 	Read Only: true
 	*/
-	EntryCode LogEntry100LogEntryCode `json:"EntryCode,omitempty"`
+	EntryCode string `json:"EntryCode,omitempty"`
 
 	/* his is the type of log entry.
 
 	Required: true
 	Read Only: true
 	*/
-	EntryType LogEntry100LogEntryType `json:"EntryType"`
+	EntryType string `json:"EntryType"`
 
-	/* Id
-	 */
-	ID ResourceID `json:"Id,omitempty"`
+	/* Uniquely identifies the resource within the collection of like resources.
+
+	Read Only: true
+	*/
+	ID string `json:"Id,omitempty"`
 
 	/* links
 	 */
@@ -77,9 +90,11 @@ type LogEntry100LogEntry struct {
 	*/
 	MessageID string `json:"MessageId,omitempty"`
 
-	/* name
-	 */
-	Name ResourceName `json:"Name,omitempty"`
+	/* The name of the resource or array element.
+
+	Read Only: true
+	*/
+	Name string `json:"Name,omitempty"`
 
 	/* This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.
 	 */
@@ -101,13 +116,13 @@ type LogEntry100LogEntry struct {
 
 	Read Only: true
 	*/
-	SensorType LogEntry100SensorType `json:"SensorType,omitempty"`
+	SensorType string `json:"SensorType,omitempty"`
 
 	/* This is the severity of the log entry.
 
 	Read Only: true
 	*/
-	Severity LogEntry100EventSeverity `json:"Severity,omitempty"`
+	Severity string `json:"Severity,omitempty"`
 }
 
 // Validate validates this log entry 1 0 0 log entry
@@ -145,22 +160,66 @@ func (m *LogEntry100LogEntry) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+var logEntry100LogEntryTypeEntryCodePropEnum []interface{}
+
+// prop value enum
+func (m *LogEntry100LogEntry) validateEntryCodeEnum(path, location string, value string) error {
+	if logEntry100LogEntryTypeEntryCodePropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Assert","Deassert","Lower Non-critical - going low","Lower Non-critical - going high","Lower Critical - going low","Lower Critical - going high","Lower Non-recoverable - going low","Lower Non-recoverable - going high","Upper Non-critical - going low","Upper Non-critical - going high","Upper Critical - going low","Upper Critical - going high","Upper Non-recoverable - going low","Upper Non-recoverable - going high","Transition to Idle","Transition to Active","Transition to Busy","State Deasserted","State Asserted","Predictive Failure deasserted","Predictive Failure asserted","Limit Not Exceeded","Limit Exceeded","Performance Met","Performance Lags","Transition to OK","Transition to Non-Critical from OK","Transition to Critical from less severe","Transition to Non-recoverable from less severe","Transition to Non-Critical from more severe","Transition to Critical from Non-recoverable","Transition to Non-recoverable","Monitor","Informational","Device Removed / Device Absent","Device Inserted / Device Present","Device Disabled","Device Enabled","Transition to Running","Transition to In Test","Transition to Power Off","Transition to On Line","Transition to Off Line","Transition to Off Duty","Transition to Degraded","Transition to Power Save","Install Error","Fully Redundant","Redundancy Lost","Redundancy Degraded","Non-redundant:Sufficient Resources from Redundant","Non-redundant:Sufficient Resources from Insufficient Resources","Non-redundant:Insufficient Resources","Redundancy Degraded from Fully Redundant","Redundancy Degraded from Non-redundant","D0 Power State","D1 Power State","D2 Power State","D3 Power State"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			logEntry100LogEntryTypeEntryCodePropEnum = append(logEntry100LogEntryTypeEntryCodePropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, logEntry100LogEntryTypeEntryCodePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *LogEntry100LogEntry) validateEntryCode(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.EntryCode) { // not required
 		return nil
 	}
 
-	if err := m.EntryCode.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateEntryCodeEnum("EntryCode", "body", m.EntryCode); err != nil {
 		return err
 	}
 
 	return nil
 }
 
+var logEntry100LogEntryTypeEntryTypePropEnum []interface{}
+
+// prop value enum
+func (m *LogEntry100LogEntry) validateEntryTypeEnum(path, location string, value string) error {
+	if logEntry100LogEntryTypeEntryTypePropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Event","SEL","Oem"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			logEntry100LogEntryTypeEntryTypePropEnum = append(logEntry100LogEntryTypeEntryTypePropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, logEntry100LogEntryTypeEntryTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *LogEntry100LogEntry) validateEntryType(formats strfmt.Registry) error {
 
-	if err := m.EntryType.Validate(formats); err != nil {
+	if err := validate.RequiredString("EntryType", "body", string(m.EntryType)); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateEntryTypeEnum("EntryType", "body", m.EntryType); err != nil {
 		return err
 	}
 
@@ -176,16 +235,55 @@ func (m *LogEntry100LogEntry) validateMessageArgs(formats strfmt.Registry) error
 	return nil
 }
 
+var logEntry100LogEntryTypeSensorTypePropEnum []interface{}
+
+// prop value enum
+func (m *LogEntry100LogEntry) validateSensorTypeEnum(path, location string, value string) error {
+	if logEntry100LogEntryTypeSensorTypePropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Platform Security Violation Attempt","Temperature","Voltage","Current","Fan","Physical Chassis Security","Processor","Power Supply / Converter","PowerUnit","CoolingDevice","Other Units-based Sensor","Memory","Drive Slot/Bay","POST Memory Resize","System Firmware Progress","Event Logging Disabled","System Event","Critical Interrupt","Button/Switch","Module/Board","Microcontroller/Coprocessor","Add-in Card","Chassis","ChipSet","Other FRU","Cable/Interconnect","Terminator","SystemBoot/Restart","Boot Error","BaseOSBoot/InstallationStatus","OS Stop/Shutdown","Slot/Connector","System ACPI PowerState","Watchdog","Platform Alert","Entity Presence","Monitor ASIC/IC","LAN","Management Subsystem Health","Battery","Session Audit","Version Change","FRUState"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			logEntry100LogEntryTypeSensorTypePropEnum = append(logEntry100LogEntryTypeSensorTypePropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, logEntry100LogEntryTypeSensorTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *LogEntry100LogEntry) validateSensorType(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.SensorType) { // not required
 		return nil
 	}
 
-	if err := m.SensorType.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateSensorTypeEnum("SensorType", "body", m.SensorType); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+var logEntry100LogEntryTypeSeverityPropEnum []interface{}
+
+// prop value enum
+func (m *LogEntry100LogEntry) validateSeverityEnum(path, location string, value string) error {
+	if logEntry100LogEntryTypeSeverityPropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["OK","Warning","Critical"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			logEntry100LogEntryTypeSeverityPropEnum = append(logEntry100LogEntryTypeSeverityPropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, logEntry100LogEntryTypeSeverityPropEnum); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -195,7 +293,8 @@ func (m *LogEntry100LogEntry) validateSeverity(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := m.Severity.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateSeverityEnum("Severity", "body", m.Severity); err != nil {
 		return err
 	}
 

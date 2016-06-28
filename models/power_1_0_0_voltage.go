@@ -4,10 +4,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
 	"github.com/go-swagger/go-swagger/errors"
+	"github.com/go-swagger/go-swagger/httpkit/validate"
 )
 
 /*Power100Voltage This is the base type for addressable members of an array.
@@ -64,7 +67,7 @@ type Power100Voltage struct {
 
 	Read Only: true
 	*/
-	PhysicalContext PhysicalContext100PhysicalContext `json:"PhysicalContext,omitempty"`
+	PhysicalContext string `json:"PhysicalContext,omitempty"`
 
 	/* The current value of the voltage sensor.
 
@@ -79,8 +82,10 @@ type Power100Voltage struct {
 	RelatedItem []*Odata400IDRef `json:"RelatedItem,omitempty"`
 
 	/* related item at odata count
-	 */
-	RelatedItemAtOdataCount Odata400Count `json:"RelatedItem@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	RelatedItemAtOdataCount float64 `json:"RelatedItem@odata.count,omitempty"`
 
 	/* related item at odata navigation link
 	 */
@@ -135,13 +140,33 @@ func (m *Power100Voltage) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+var power100VoltageTypePhysicalContextPropEnum []interface{}
+
+// prop value enum
+func (m *Power100Voltage) validatePhysicalContextEnum(path, location string, value string) error {
+	if power100VoltageTypePhysicalContextPropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Room","Intake","Exhaust","Front","Back","Upper","Lower","CPU","GPU","Backplane","SystemBoard","PowerSupply","VoltageRegulator","StorageDevice","NetworkingDevice","ComputeBay","StorageBay","NetworkBay","ExpansionBay","PowerSupplyBay"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			power100VoltageTypePhysicalContextPropEnum = append(power100VoltageTypePhysicalContextPropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, power100VoltageTypePhysicalContextPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *Power100Voltage) validatePhysicalContext(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.PhysicalContext) { // not required
 		return nil
 	}
 
-	if err := m.PhysicalContext.Validate(formats); err != nil {
+	// value enum
+	if err := m.validatePhysicalContextEnum("PhysicalContext", "body", m.PhysicalContext); err != nil {
 		return err
 	}
 

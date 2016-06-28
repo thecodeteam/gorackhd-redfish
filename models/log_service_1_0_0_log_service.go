@@ -4,6 +4,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
@@ -18,16 +20,22 @@ swagger:model LogService.1.0.0_LogService
 type LogService100LogService struct {
 
 	/* at odata context
-	 */
-	AtOdataContext Odata400Context `json:"@odata.context,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataContext strfmt.URI `json:"@odata.context,omitempty"`
 
 	/* at odata id
-	 */
-	AtOdataID Odata400ID `json:"@odata.id,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataID strfmt.URI `json:"@odata.id,omitempty"`
 
 	/* at odata type
-	 */
-	AtOdataType Odata400Type `json:"@odata.type,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataType string `json:"@odata.type,omitempty"`
 
 	/* actions
 	 */
@@ -43,9 +51,11 @@ type LogService100LogService struct {
 	*/
 	DateTimeLocalOffset string `json:"DateTimeLocalOffset,omitempty"`
 
-	/* description
-	 */
-	Description ResourceDescription `json:"Description,omitempty"`
+	/* Provides a description of this resource and is used for commonality  in the schema definitions.
+
+	Read Only: true
+	*/
+	Description string `json:"Description,omitempty"`
 
 	/* References to the log entry collection.
 
@@ -53,9 +63,11 @@ type LogService100LogService struct {
 	*/
 	Entries *LogEntryCollectionLogEntryCollection `json:"Entries,omitempty"`
 
-	/* Id
-	 */
-	ID ResourceID `json:"Id,omitempty"`
+	/* Uniquely identifies the resource within the collection of like resources.
+
+	Read Only: true
+	*/
+	ID string `json:"Id,omitempty"`
 
 	/* The maximum number of log entries this service can have.
 
@@ -64,9 +76,11 @@ type LogService100LogService struct {
 	*/
 	MaxNumberOfRecords float64 `json:"MaxNumberOfRecords,omitempty"`
 
-	/* name
-	 */
-	Name ResourceName `json:"Name,omitempty"`
+	/* The name of the resource or array element.
+
+	Read Only: true
+	*/
+	Name string `json:"Name,omitempty"`
 
 	/* This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.
 	 */
@@ -76,7 +90,7 @@ type LogService100LogService struct {
 
 	Read Only: true
 	*/
-	OverWritePolicy LogService100OverWritePolicy `json:"OverWritePolicy,omitempty"`
+	OverWritePolicy string `json:"OverWritePolicy,omitempty"`
 
 	/* This indicates whether this service is enabled.
 	 */
@@ -138,13 +152,33 @@ func (m *LogService100LogService) validateMaxNumberOfRecords(formats strfmt.Regi
 	return nil
 }
 
+var logService100LogServiceTypeOverWritePolicyPropEnum []interface{}
+
+// prop value enum
+func (m *LogService100LogService) validateOverWritePolicyEnum(path, location string, value string) error {
+	if logService100LogServiceTypeOverWritePolicyPropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Unknown","WrapsWhenFull","NeverOverWrites"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			logService100LogServiceTypeOverWritePolicyPropEnum = append(logService100LogServiceTypeOverWritePolicyPropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, logService100LogServiceTypeOverWritePolicyPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *LogService100LogService) validateOverWritePolicy(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.OverWritePolicy) { // not required
 		return nil
 	}
 
-	if err := m.OverWritePolicy.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateOverWritePolicyEnum("OverWritePolicy", "body", m.OverWritePolicy); err != nil {
 		return err
 	}
 

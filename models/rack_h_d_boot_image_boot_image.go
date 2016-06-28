@@ -13,25 +13,25 @@ import (
 	"github.com/go-swagger/go-swagger/httpkit/validate"
 )
 
-/*RackHDBootImageBootImage rack h d boot image boot image
+/*RackHDBootImageBootImage This is the base type for the boot image installation action.
 
-swagger:model RackHD_BootImage_BootImage
+swagger:model RackHD.BootImage_BootImage
 */
 type RackHDBootImageBootImage struct {
 
-	/* This is a list of Domain Name Servers.
+	/* dns servers
 
 	Required: true
 	*/
 	DNSServers []string `json:"dnsServers"`
 
-	/* This is the domain for the target OS
+	/* domain
 
 	Required: true
 	*/
 	Domain *string `json:"domain"`
 
-	/* The hostname for target OS.
+	/* hostname
 
 	Required: true
 	*/
@@ -41,41 +41,37 @@ type RackHDBootImageBootImage struct {
 	 */
 	InstallDisk string `json:"installDisk,omitempty"`
 
-	/* List of device names and static IP settings for network devices after OS installation.
+	/* network devices
 	 */
 	NetworkDevices []*RackHDBootImageNetworkDevice `json:"networkDevices,omitempty"`
 
-	/* Name of the target OS to be installed
+	/* os name
 
 	Required: true
 	*/
 	OsName *string `json:"osName"`
 
-	/* The external OS repository address, currently only supports HTTP
+	/* repo
+	 */
+	Repo string `json:"repo,omitempty"`
 
-	Required: true
-	*/
-	Repo *string `json:"repo"`
-
-	/* The password for the OS root account.
+	/* root password
 
 	Required: true
 	*/
 	RootPassword *string `json:"rootPassword"`
 
-	/* This is the SshKey for the OS root account.
+	/* root Ssh key
 	 */
 	RootSSHKey string `json:"rootSshKey,omitempty"`
 
-	/* This is a list of user account information that will created after OS installation
+	/* users
 	 */
 	Users []*RackHDBootImageUsers `json:"users,omitempty"`
 
-	/* The version number of target OS that needs to install.
-
-	Required: true
-	*/
-	Version *string `json:"version"`
+	/* version
+	 */
+	Version string `json:"version,omitempty"`
 }
 
 // Validate validates this rack h d boot image boot image
@@ -107,22 +103,12 @@ func (m *RackHDBootImageBootImage) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateRepo(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if err := m.validateRootPassword(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateUsers(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateVersion(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -202,15 +188,6 @@ func (m *RackHDBootImageBootImage) validateOsName(formats strfmt.Registry) error
 	return nil
 }
 
-func (m *RackHDBootImageBootImage) validateRepo(formats strfmt.Registry) error {
-
-	if err := validate.Required("repo", "body", m.Repo); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *RackHDBootImageBootImage) validateRootPassword(formats strfmt.Registry) error {
 
 	if err := validate.Required("rootPassword", "body", m.RootPassword); err != nil {
@@ -224,15 +201,6 @@ func (m *RackHDBootImageBootImage) validateUsers(formats strfmt.Registry) error 
 
 	if swag.IsZero(m.Users) { // not required
 		return nil
-	}
-
-	return nil
-}
-
-func (m *RackHDBootImageBootImage) validateVersion(formats strfmt.Registry) error {
-
-	if err := validate.Required("version", "body", m.Version); err != nil {
-		return err
 	}
 
 	return nil

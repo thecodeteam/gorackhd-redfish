@@ -31,6 +31,13 @@ func (o *UnimplementedReader) ReadResponse(response client.Response, consumer ht
 		}
 		return result, nil
 
+	case 400:
+		result := NewUnimplementedBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	case 401:
 		result := NewUnimplementedUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -45,8 +52,15 @@ func (o *UnimplementedReader) ReadResponse(response client.Response, consumer ht
 		}
 		return nil, result
 
-	case 501:
-		result := NewUnimplementedNotImplemented()
+	case 404:
+		result := NewUnimplementedNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewUnimplementedInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -67,21 +81,43 @@ func NewUnimplementedOK() *UnimplementedOK {
 Success
 */
 type UnimplementedOK struct {
-	Payload *models.AccountService100AccountService
+	Payload *models.SerialInterface100SerialInterface
 }
 
 func (o *UnimplementedOK) Error() string {
-	return fmt.Sprintf("[GET /AccountService][%d] unimplementedOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /Managers/{identifier}/SerialInterfaces/{index}][%d] unimplementedOK  %+v", 200, o.Payload)
 }
 
 func (o *UnimplementedOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.AccountService100AccountService)
+	o.Payload = new(models.SerialInterface100SerialInterface)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
+
+	return nil
+}
+
+// NewUnimplementedBadRequest creates a UnimplementedBadRequest with default headers values
+func NewUnimplementedBadRequest() *UnimplementedBadRequest {
+	return &UnimplementedBadRequest{}
+}
+
+/*UnimplementedBadRequest handles this case with default header values.
+
+The request could not be processed because it contains missing or invalid information  (such as validation error on an input field, a missing required value, and so on).  An extended error shall be returned in the response body, as defined in section Extended  Error Handling.
+
+*/
+type UnimplementedBadRequest struct {
+}
+
+func (o *UnimplementedBadRequest) Error() string {
+	return fmt.Sprintf("[GET /Managers/{identifier}/SerialInterfaces/{index}][%d] unimplementedBadRequest ", 400)
+}
+
+func (o *UnimplementedBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -100,7 +136,7 @@ type UnimplementedUnauthorized struct {
 }
 
 func (o *UnimplementedUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /AccountService][%d] unimplementedUnauthorized ", 401)
+	return fmt.Sprintf("[GET /Managers/{identifier}/SerialInterfaces/{index}][%d] unimplementedUnauthorized ", 401)
 }
 
 func (o *UnimplementedUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
@@ -122,7 +158,7 @@ type UnimplementedForbidden struct {
 }
 
 func (o *UnimplementedForbidden) Error() string {
-	return fmt.Sprintf("[GET /AccountService][%d] unimplementedForbidden ", 403)
+	return fmt.Sprintf("[GET /Managers/{identifier}/SerialInterfaces/{index}][%d] unimplementedForbidden ", 403)
 }
 
 func (o *UnimplementedForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
@@ -130,24 +166,53 @@ func (o *UnimplementedForbidden) readResponse(response client.Response, consumer
 	return nil
 }
 
-// NewUnimplementedNotImplemented creates a UnimplementedNotImplemented with default headers values
-func NewUnimplementedNotImplemented() *UnimplementedNotImplemented {
-	return &UnimplementedNotImplemented{}
+// NewUnimplementedNotFound creates a UnimplementedNotFound with default headers values
+func NewUnimplementedNotFound() *UnimplementedNotFound {
+	return &UnimplementedNotFound{}
 }
 
-/*UnimplementedNotImplemented handles this case with default header values.
+/*UnimplementedNotFound handles this case with default header values.
 
-The server does not (currently) support the functionality required to fulfill the request.  This is the appropriate response when the server does not recognize the request method  and is not capable of supporting the method for any resource.
+The request specified a URI of a resource that does not exist.
 
 */
-type UnimplementedNotImplemented struct {
+type UnimplementedNotFound struct {
 }
 
-func (o *UnimplementedNotImplemented) Error() string {
-	return fmt.Sprintf("[GET /AccountService][%d] unimplementedNotImplemented ", 501)
+func (o *UnimplementedNotFound) Error() string {
+	return fmt.Sprintf("[GET /Managers/{identifier}/SerialInterfaces/{index}][%d] unimplementedNotFound ", 404)
 }
 
-func (o *UnimplementedNotImplemented) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *UnimplementedNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewUnimplementedInternalServerError creates a UnimplementedInternalServerError with default headers values
+func NewUnimplementedInternalServerError() *UnimplementedInternalServerError {
+	return &UnimplementedInternalServerError{}
+}
+
+/*UnimplementedInternalServerError handles this case with default header values.
+
+Error
+*/
+type UnimplementedInternalServerError struct {
+	Payload *models.ErrorResponse
+}
+
+func (o *UnimplementedInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /Managers/{identifier}/SerialInterfaces/{index}][%d] unimplementedInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *UnimplementedInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.ErrorResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

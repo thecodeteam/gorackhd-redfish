@@ -4,10 +4,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+	"strconv"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
 	"github.com/go-swagger/go-swagger/errors"
+	"github.com/go-swagger/go-swagger/httpkit/validate"
 )
 
 /*Role100Role This schema defines a user role to be used in conjunction with a manager account.
@@ -17,28 +21,38 @@ swagger:model Role.1.0.0_Role
 type Role100Role struct {
 
 	/* at odata context
-	 */
-	AtOdataContext Odata400Context `json:"@odata.context,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataContext strfmt.URI `json:"@odata.context,omitempty"`
 
 	/* at odata id
-	 */
-	AtOdataID Odata400ID `json:"@odata.id,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataID strfmt.URI `json:"@odata.id,omitempty"`
 
 	/* at odata type
-	 */
-	AtOdataType Odata400Type `json:"@odata.type,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataType string `json:"@odata.type,omitempty"`
 
 	/* The redfish privileges that this role includes.
 	 */
-	AssignedPrivileges []Privileges100PrivilegeType `json:"AssignedPrivileges,omitempty"`
+	AssignedPrivileges []string `json:"AssignedPrivileges,omitempty"`
 
-	/* description
-	 */
-	Description ResourceDescription `json:"Description,omitempty"`
+	/* Provides a description of this resource and is used for commonality  in the schema definitions.
 
-	/* Id
-	 */
-	ID ResourceID `json:"Id,omitempty"`
+	Read Only: true
+	*/
+	Description string `json:"Description,omitempty"`
+
+	/* Uniquely identifies the resource within the collection of like resources.
+
+	Read Only: true
+	*/
+	ID string `json:"Id,omitempty"`
 
 	/* This property is used to indicate if the Role is one of the Redfish Predefined Roles vs a Custom role.
 
@@ -46,9 +60,11 @@ type Role100Role struct {
 	*/
 	IsPredefined *bool `json:"IsPredefined,omitempty"`
 
-	/* name
-	 */
-	Name ResourceName `json:"Name,omitempty"`
+	/* The name of the resource or array element.
+
+	Read Only: true
+	*/
+	Name string `json:"Name,omitempty"`
 
 	/* This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.
 	 */
@@ -79,10 +95,37 @@ func (m *Role100Role) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+var role100RoleAssignedPrivilegesItemsEnum []interface{}
+
+func (m *Role100Role) validateAssignedPrivilegesItemsEnum(path, location string, value string) error {
+	if role100RoleAssignedPrivilegesItemsEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Login","ConfigureManager","ConfigureUsers","ConfigureSelf","ConfigureComponents"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			role100RoleAssignedPrivilegesItemsEnum = append(role100RoleAssignedPrivilegesItemsEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, role100RoleAssignedPrivilegesItemsEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *Role100Role) validateAssignedPrivileges(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.AssignedPrivileges) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.AssignedPrivileges); i++ {
+
+		// value enum
+		if err := m.validateAssignedPrivilegesItemsEnum("AssignedPrivileges"+"."+strconv.Itoa(i), "body", m.AssignedPrivileges[i]); err != nil {
+			return err
+		}
+
 	}
 
 	return nil

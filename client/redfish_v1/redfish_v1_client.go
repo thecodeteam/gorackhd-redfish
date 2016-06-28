@@ -23,228 +23,159 @@ type Client struct {
 }
 
 /*
-GetEventService retrieves list of policies used by event service listeners
+GetManagersIdentifierVirtualMediaIndex retrieves information about the virtual media
 */
-func (a *Client) GetEventService(params *GetEventServiceParams) (*GetEventServiceOK, error) {
+func (a *Client) GetManagersIdentifierVirtualMediaIndex(params *GetManagersIdentifierVirtualMediaIndexParams) (*GetManagersIdentifierVirtualMediaIndexOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetEventServiceParams()
+		params = NewGetManagersIdentifierVirtualMediaIndexParams()
 	}
 
 	result, err := a.transport.Submit(&client.Operation{
-		ID:                 "GetEventService",
+		ID:                 "GetManagersIdentifierVirtualMediaIndex",
 		Method:             "GET",
-		PathPattern:        "/EventService",
+		PathPattern:        "/Managers/{identifier}/VirtualMedia/{index}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetEventServiceReader{formats: a.formats},
+		Reader:             &GetManagersIdentifierVirtualMediaIndexReader{formats: a.formats},
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEventServiceOK), nil
+	return result.(*GetManagersIdentifierVirtualMediaIndexOK), nil
 }
 
 /*
-GetManagerAccounts retrieves list of manager accounts
+GetSystemsIdentifierEthernetInterfaces retrieves the simple storage collection
+
+Defines a collection of ethernet interfaces that are present on the system described by identifier
+
 */
-func (a *Client) GetManagerAccounts(params *GetManagerAccountsParams) (*GetManagerAccountsOK, error) {
+func (a *Client) GetSystemsIdentifierEthernetInterfaces(params *GetSystemsIdentifierEthernetInterfacesParams) (*GetSystemsIdentifierEthernetInterfacesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetManagerAccountsParams()
+		params = NewGetSystemsIdentifierEthernetInterfacesParams()
 	}
 
 	result, err := a.transport.Submit(&client.Operation{
-		ID:                 "GetManagerAccounts",
+		ID:                 "GetSystemsIdentifierEthernetInterfaces",
 		Method:             "GET",
-		PathPattern:        "/ManagerAccounts",
+		PathPattern:        "/Systems/{identifier}/EthernetInterfaces",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetManagerAccountsReader{formats: a.formats},
+		Reader:             &GetSystemsIdentifierEthernetInterfacesReader{formats: a.formats},
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetManagerAccountsOK), nil
+	return result.(*GetSystemsIdentifierEthernetInterfacesOK), nil
 }
 
 /*
-GetManagerAccountsIdentifier retrieves a manager account by name
+GetSystemsIdentifierEthernetInterfacesIndex retrieves the ethernet interface by device identifier
+
+Defines an ethernet interface present on the system described by identifier
+
 */
-func (a *Client) GetManagerAccountsIdentifier(params *GetManagerAccountsIdentifierParams) (*GetManagerAccountsIdentifierOK, error) {
+func (a *Client) GetSystemsIdentifierEthernetInterfacesIndex(params *GetSystemsIdentifierEthernetInterfacesIndexParams) (*GetSystemsIdentifierEthernetInterfacesIndexOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetManagerAccountsIdentifierParams()
+		params = NewGetSystemsIdentifierEthernetInterfacesIndexParams()
 	}
 
 	result, err := a.transport.Submit(&client.Operation{
-		ID:                 "GetManagerAccountsIdentifier",
+		ID:                 "GetSystemsIdentifierEthernetInterfacesIndex",
 		Method:             "GET",
-		PathPattern:        "/ManagerAccounts/{identifier}",
+		PathPattern:        "/Systems/{identifier}/EthernetInterfaces/{index}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetManagerAccountsIdentifierReader{formats: a.formats},
+		Reader:             &GetSystemsIdentifierEthernetInterfacesIndexReader{formats: a.formats},
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetManagerAccountsIdentifierOK), nil
+	return result.(*GetSystemsIdentifierEthernetInterfacesIndexOK), nil
 }
 
 /*
-GetManagers retrieves list of management servers
+CreateAccount creates a user with the provided information
 */
-func (a *Client) GetManagers(params *GetManagersParams) (*GetManagersOK, error) {
+func (a *Client) CreateAccount(params *CreateAccountParams) (*CreateAccountCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetManagersParams()
+		params = NewCreateAccountParams()
 	}
 
 	result, err := a.transport.Submit(&client.Operation{
-		ID:                 "GetManagers",
-		Method:             "GET",
-		PathPattern:        "/Managers",
+		ID:                 "createAccount",
+		Method:             "POST",
+		PathPattern:        "/AccountService/Accounts",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetManagersReader{formats: a.formats},
+		Reader:             &CreateAccountReader{formats: a.formats},
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetManagersOK), nil
+	return result.(*CreateAccountCreated), nil
 }
 
 /*
-GetManagersIdentifier retrieves list of management servers
+CreateSubscription retrieves collection of subscribed events
 */
-func (a *Client) GetManagersIdentifier(params *GetManagersIdentifierParams) (*GetManagersIdentifierOK, error) {
+func (a *Client) CreateSubscription(params *CreateSubscriptionParams) (*CreateSubscriptionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetManagersIdentifierParams()
+		params = NewCreateSubscriptionParams()
 	}
 
 	result, err := a.transport.Submit(&client.Operation{
-		ID:                 "GetManagersIdentifier",
-		Method:             "GET",
-		PathPattern:        "/Managers/{identifier}",
+		ID:                 "createSubscription",
+		Method:             "POST",
+		PathPattern:        "/EventService/Subscriptions",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetManagersIdentifierReader{formats: a.formats},
+		Reader:             &CreateSubscriptionReader{formats: a.formats},
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetManagersIdentifierOK), nil
+	return result.(*CreateSubscriptionOK), nil
 }
 
 /*
-GetRegistries unspecifieds
+DeleteEvent deletes specific event subscription
 */
-func (a *Client) GetRegistries(params *GetRegistriesParams) (*GetRegistriesOK, error) {
+func (a *Client) DeleteEvent(params *DeleteEventParams) (*DeleteEventOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetRegistriesParams()
+		params = NewDeleteEventParams()
 	}
 
 	result, err := a.transport.Submit(&client.Operation{
-		ID:                 "GetRegistries",
-		Method:             "GET",
-		PathPattern:        "/Registries",
+		ID:                 "deleteEvent",
+		Method:             "DELETE",
+		PathPattern:        "/EventService/Subscriptions/{index}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetRegistriesReader{formats: a.formats},
+		Reader:             &DeleteEventReader{formats: a.formats},
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRegistriesOK), nil
-}
-
-/*
-GetRoles retrieves list of roles for use in manager accounts
-*/
-func (a *Client) GetRoles(params *GetRolesParams) (*GetRolesOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetRolesParams()
-	}
-
-	result, err := a.transport.Submit(&client.Operation{
-		ID:                 "GetRoles",
-		Method:             "GET",
-		PathPattern:        "/Roles",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetRolesReader{formats: a.formats},
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*GetRolesOK), nil
-}
-
-/*
-GetRolesIdentifier retrieves a manager account role by name
-*/
-func (a *Client) GetRolesIdentifier(params *GetRolesIdentifierParams) (*GetRolesIdentifierOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetRolesIdentifierParams()
-	}
-
-	result, err := a.transport.Submit(&client.Operation{
-		ID:                 "GetRolesIdentifier",
-		Method:             "GET",
-		PathPattern:        "/Roles/{identifier}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetRolesIdentifierReader{formats: a.formats},
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*GetRolesIdentifierOK), nil
-}
-
-/*
-GetSchemas unspecifieds
-*/
-func (a *Client) GetSchemas(params *GetSchemasParams) (*GetSchemasOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetSchemasParams()
-	}
-
-	result, err := a.transport.Submit(&client.Operation{
-		ID:                 "GetSchemas",
-		Method:             "GET",
-		PathPattern:        "/Schemas",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetSchemasReader{formats: a.formats},
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*GetSchemasOK), nil
+	return result.(*DeleteEventOK), nil
 }
 
 /*
@@ -329,6 +260,106 @@ func (a *Client) DoReset(params *DoResetParams) (*DoResetAccepted, error) {
 }
 
 /*
+EventServiceRoot retrieves list of policies used by event service listeners
+*/
+func (a *Client) EventServiceRoot(params *EventServiceRootParams) (*EventServiceRootOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewEventServiceRootParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "eventServiceRoot",
+		Method:             "GET",
+		PathPattern:        "/EventService",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &EventServiceRootReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*EventServiceRootOK), nil
+}
+
+/*
+GetAccount retrieves information about the specified account
+*/
+func (a *Client) GetAccount(params *GetAccountParams) (*GetAccountOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAccountParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "getAccount",
+		Method:             "GET",
+		PathPattern:        "/AccountService/Accounts/{name}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetAccountReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetAccountOK), nil
+}
+
+/*
+GetAccountService retrieves account service information
+*/
+func (a *Client) GetAccountService(params *GetAccountServiceParams) (*GetAccountServiceOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAccountServiceParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "getAccountService",
+		Method:             "GET",
+		PathPattern:        "/AccountService",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetAccountServiceReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetAccountServiceOK), nil
+}
+
+/*
+GetAccounts retrieves information about the accounts
+*/
+func (a *Client) GetAccounts(params *GetAccountsParams) (*GetAccountsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAccountsParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "getAccounts",
+		Method:             "GET",
+		PathPattern:        "/AccountService/Accounts",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetAccountsReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetAccountsOK), nil
+}
+
+/*
 GetChassis retrieves specific information for a physical component
 
 Retrieves a detailed information catalog for the physical component  specified by identifier
@@ -357,6 +388,131 @@ func (a *Client) GetChassis(params *GetChassisParams) (*GetChassisOK, error) {
 }
 
 /*
+GetEvent retrieves specific event subscription
+*/
+func (a *Client) GetEvent(params *GetEventParams) (*GetEventOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetEventParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "getEvent",
+		Method:             "GET",
+		PathPattern:        "/EventService/Subscriptions/{index}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetEventReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetEventOK), nil
+}
+
+/*
+GetEventsCollection retrieves collection of subscribed events
+*/
+func (a *Client) GetEventsCollection(params *GetEventsCollectionParams) (*GetEventsCollectionOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetEventsCollectionParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "getEventsCollection",
+		Method:             "GET",
+		PathPattern:        "/EventService/Subscriptions",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetEventsCollectionReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetEventsCollectionOK), nil
+}
+
+/*
+GetLocalEthernetInterface retrieves information about the specified ethernet interface
+*/
+func (a *Client) GetLocalEthernetInterface(params *GetLocalEthernetInterfaceParams) (*GetLocalEthernetInterfaceOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetLocalEthernetInterfaceParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "getLocalEthernetInterface",
+		Method:             "GET",
+		PathPattern:        "/Managers/RackHD/EthernetInterfaces/{index}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetLocalEthernetInterfaceReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetLocalEthernetInterfaceOK), nil
+}
+
+/*
+GetManager retrieves information about a specified management servers
+*/
+func (a *Client) GetManager(params *GetManagerParams) (*GetManagerOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetManagerParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "getManager",
+		Method:             "GET",
+		PathPattern:        "/Managers/{identifier}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetManagerReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetManagerOK), nil
+}
+
+/*
+GetManagerEthernetInterface retrieves information about the specified ethernet interface
+*/
+func (a *Client) GetManagerEthernetInterface(params *GetManagerEthernetInterfaceParams) (*GetManagerEthernetInterfaceOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetManagerEthernetInterfaceParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "getManagerEthernetInterface",
+		Method:             "GET",
+		PathPattern:        "/Managers/{identifier}/EthernetInterfaces/{index}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetManagerEthernetInterfaceReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetManagerEthernetInterfaceOK), nil
+}
+
+/*
 GetPower retrieves power characteristics of a chassis
 
 defines a collection of power elements contained within a resource.
@@ -382,6 +538,131 @@ func (a *Client) GetPower(params *GetPowerParams) (*GetPowerOK, error) {
 		return nil, err
 	}
 	return result.(*GetPowerOK), nil
+}
+
+/*
+GetRegistryFile retrieves information on a specific registry
+*/
+func (a *Client) GetRegistryFile(params *GetRegistryFileParams) (*GetRegistryFileOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRegistryFileParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "getRegistryFile",
+		Method:             "GET",
+		PathPattern:        "/Registries/{identifier}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetRegistryFileReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetRegistryFileOK), nil
+}
+
+/*
+GetRegistryFileContents retrieves the content of a specific registry
+*/
+func (a *Client) GetRegistryFileContents(params *GetRegistryFileContentsParams) (*GetRegistryFileContentsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRegistryFileContentsParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "getRegistryFileContents",
+		Method:             "GET",
+		PathPattern:        "/Registries/en/{identifier}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetRegistryFileContentsReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetRegistryFileContentsOK), nil
+}
+
+/*
+GetRole retrieves privileges for a role
+*/
+func (a *Client) GetRole(params *GetRoleParams) (*GetRoleOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRoleParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "getRole",
+		Method:             "GET",
+		PathPattern:        "/AccountService/Roles/{identifier}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetRoleReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetRoleOK), nil
+}
+
+/*
+GetSchema retrieves information for a specific schema
+*/
+func (a *Client) GetSchema(params *GetSchemaParams) (*GetSchemaOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSchemaParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "getSchema",
+		Method:             "GET",
+		PathPattern:        "/Schemas/{identifier}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetSchemaReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetSchemaOK), nil
+}
+
+/*
+GetSchemaContent displays the content of a schema json
+*/
+func (a *Client) GetSchemaContent(params *GetSchemaContentParams) (*GetSchemaContentOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSchemaContentParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "getSchemaContent",
+		Method:             "GET",
+		PathPattern:        "/SchemaStore/en/{identifier}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetSchemaContentReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetSchemaContentOK), nil
 }
 
 /*
@@ -766,6 +1047,31 @@ func (a *Client) ListChassis(params *ListChassisParams) (*ListChassisOK, error) 
 }
 
 /*
+ListLocalEthernetInterfaces retrieves information about the ethernet interfaces
+*/
+func (a *Client) ListLocalEthernetInterfaces(params *ListLocalEthernetInterfacesParams) (*ListLocalEthernetInterfacesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListLocalEthernetInterfacesParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "listLocalEthernetInterfaces",
+		Method:             "GET",
+		PathPattern:        "/Managers/RackHD/EthernetInterfaces",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListLocalEthernetInterfacesReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListLocalEthernetInterfacesOK), nil
+}
+
+/*
 ListLogService retrieves list of the logs for a computer system
 
 Defines a collection of log services that are available for the system described by identifier
@@ -794,6 +1100,81 @@ func (a *Client) ListLogService(params *ListLogServiceParams) (*ListLogServiceOK
 }
 
 /*
+ListManagerEthernetInterfaces retrieves information about the ethernet interfaces
+*/
+func (a *Client) ListManagerEthernetInterfaces(params *ListManagerEthernetInterfacesParams) (*ListManagerEthernetInterfacesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListManagerEthernetInterfacesParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "listManagerEthernetInterfaces",
+		Method:             "GET",
+		PathPattern:        "/Managers/{identifier}/EthernetInterfaces",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListManagerEthernetInterfacesReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListManagerEthernetInterfacesOK), nil
+}
+
+/*
+ListManagers retrieves list of management servers
+*/
+func (a *Client) ListManagers(params *ListManagersParams) (*ListManagersOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListManagersParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "listManagers",
+		Method:             "GET",
+		PathPattern:        "/Managers",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListManagersReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListManagersOK), nil
+}
+
+/*
+ListRegistry retrieves list of registries
+*/
+func (a *Client) ListRegistry(params *ListRegistryParams) (*ListRegistryOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListRegistryParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "listRegistry",
+		Method:             "GET",
+		PathPattern:        "/Registries",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListRegistryReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListRegistryOK), nil
+}
+
+/*
 ListResetTypes retrieves the list of reset types for the specified compute node
 
 Retrieve  a list of valid reset types for the system described by identifier
@@ -819,6 +1200,56 @@ func (a *Client) ListResetTypes(params *ListResetTypesParams) (*ListResetTypesOK
 		return nil, err
 	}
 	return result.(*ListResetTypesOK), nil
+}
+
+/*
+ListRoles retrieves list of roles
+*/
+func (a *Client) ListRoles(params *ListRolesParams) (*ListRolesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListRolesParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "listRoles",
+		Method:             "GET",
+		PathPattern:        "/AccountService/Roles",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListRolesReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListRolesOK), nil
+}
+
+/*
+ListSchemas retrieves list of schemas
+*/
+func (a *Client) ListSchemas(params *ListSchemasParams) (*ListSchemasOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListSchemasParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "listSchemas",
+		Method:             "GET",
+		PathPattern:        "/Schemas",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListSchemasReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListSchemasOK), nil
 }
 
 /*
@@ -960,6 +1391,56 @@ func (a *Client) ListTasks(params *ListTasksParams) (*ListTasksOK, error) {
 }
 
 /*
+ModifyAccount updates the user with the provided information
+*/
+func (a *Client) ModifyAccount(params *ModifyAccountParams) (*ModifyAccountAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewModifyAccountParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "modifyAccount",
+		Method:             "PATCH",
+		PathPattern:        "/AccountService/Accounts/{name}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ModifyAccountReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ModifyAccountAccepted), nil
+}
+
+/*
+PatchManager updates the specified management server
+*/
+func (a *Client) PatchManager(params *PatchManagerParams) (*PatchManagerOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPatchManagerParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "patchManager",
+		Method:             "PATCH",
+		PathPattern:        "/Managers/{identifier}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PatchManagerReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PatchManagerOK), nil
+}
+
+/*
 PostSession creates a new session
 */
 func (a *Client) PostSession(params *PostSessionParams) (*PostSessionCreated, error) {
@@ -982,6 +1463,31 @@ func (a *Client) PostSession(params *PostSessionParams) (*PostSessionCreated, er
 		return nil, err
 	}
 	return result.(*PostSessionCreated), nil
+}
+
+/*
+RemoveAccount deletes the specified account
+*/
+func (a *Client) RemoveAccount(params *RemoveAccountParams) (*RemoveAccountNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRemoveAccountParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "removeAccount",
+		Method:             "DELETE",
+		PathPattern:        "/AccountService/Accounts/{name}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RemoveAccountReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RemoveAccountNoContent), nil
 }
 
 /*
@@ -1012,7 +1518,32 @@ func (a *Client) TaskServiceRoot(params *TaskServiceRootParams) (*TaskServiceRoo
 }
 
 /*
-Unimplemented retrieves account service information
+TestEvent submits a test event action
+*/
+func (a *Client) TestEvent(params *TestEventParams) (*TestEventOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewTestEventParams()
+	}
+
+	result, err := a.transport.Submit(&client.Operation{
+		ID:                 "testEvent",
+		Method:             "POST",
+		PathPattern:        "/EventService/Actions/EventService.SubmitTestEvent",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &TestEventReader{formats: a.formats},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*TestEventOK), nil
+}
+
+/*
+Unimplemented retrieves information about the serial interface
 */
 func (a *Client) Unimplemented(params *UnimplementedParams) (*UnimplementedOK, error) {
 	// TODO: Validate the params before sending
@@ -1023,7 +1554,7 @@ func (a *Client) Unimplemented(params *UnimplementedParams) (*UnimplementedOK, e
 	result, err := a.transport.Submit(&client.Operation{
 		ID:                 "unimplemented",
 		Method:             "GET",
-		PathPattern:        "/AccountService",
+		PathPattern:        "/Managers/{identifier}/SerialInterfaces/{index}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},

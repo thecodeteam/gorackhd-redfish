@@ -4,10 +4,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
 	"github.com/go-swagger/go-swagger/errors"
+	"github.com/go-swagger/go-swagger/httpkit/validate"
 )
 
 /*Thermal100Fan This is the base type for addressable members of an array.
@@ -64,7 +67,7 @@ type Thermal100Fan struct {
 
 	Read Only: true
 	*/
-	PhysicalContext PhysicalContext100PhysicalContext `json:"PhysicalContext,omitempty"`
+	PhysicalContext string `json:"PhysicalContext,omitempty"`
 
 	/* Current fan speed in RPM
 
@@ -76,11 +79,13 @@ type Thermal100Fan struct {
 
 	Read Only: true
 	*/
-	Redundancy []RedundancyRedundancy `json:"Redundancy,omitempty"`
+	Redundancy []*Odata400IDRef `json:"Redundancy,omitempty"`
 
 	/* redundancy at odata count
-	 */
-	RedundancyAtOdataCount Odata400Count `json:"Redundancy@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	RedundancyAtOdataCount float64 `json:"Redundancy@odata.count,omitempty"`
 
 	/* redundancy at odata navigation link
 	 */
@@ -91,8 +96,10 @@ type Thermal100Fan struct {
 	RelatedItem []*Odata400IDRef `json:"RelatedItem,omitempty"`
 
 	/* related item at odata count
-	 */
-	RelatedItemAtOdataCount Odata400Count `json:"RelatedItem@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	RelatedItemAtOdataCount float64 `json:"RelatedItem@odata.count,omitempty"`
 
 	/* related item at odata navigation link
 	 */
@@ -146,13 +153,33 @@ func (m *Thermal100Fan) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+var thermal100FanTypePhysicalContextPropEnum []interface{}
+
+// prop value enum
+func (m *Thermal100Fan) validatePhysicalContextEnum(path, location string, value string) error {
+	if thermal100FanTypePhysicalContextPropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Room","Intake","Exhaust","Front","Back","Upper","Lower","CPU","GPU","Backplane","SystemBoard","PowerSupply","VoltageRegulator","StorageDevice","NetworkingDevice","ComputeBay","StorageBay","NetworkBay","ExpansionBay","PowerSupplyBay"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			thermal100FanTypePhysicalContextPropEnum = append(thermal100FanTypePhysicalContextPropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, thermal100FanTypePhysicalContextPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *Thermal100Fan) validatePhysicalContext(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.PhysicalContext) { // not required
 		return nil
 	}
 
-	if err := m.PhysicalContext.Validate(formats); err != nil {
+	// value enum
+	if err := m.validatePhysicalContextEnum("PhysicalContext", "body", m.PhysicalContext); err != nil {
 		return err
 	}
 

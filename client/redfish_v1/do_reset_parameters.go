@@ -27,7 +27,7 @@ type DoResetParams struct {
 	/*Identifier*/
 	Identifier string
 	/*Payload*/
-	Payload *models.RackHDResetAction
+	Payload *models.RackHDResetActionResetAction
 }
 
 // WithIdentifier adds the identifier to the do reset params
@@ -37,7 +37,7 @@ func (o *DoResetParams) WithIdentifier(identifier string) *DoResetParams {
 }
 
 // WithPayload adds the payload to the do reset params
-func (o *DoResetParams) WithPayload(payload *models.RackHDResetAction) *DoResetParams {
+func (o *DoResetParams) WithPayload(payload *models.RackHDResetActionResetAction) *DoResetParams {
 	o.Payload = payload
 	return o
 }
@@ -53,7 +53,7 @@ func (o *DoResetParams) WriteToRequest(r client.Request, reg strfmt.Registry) er
 	}
 
 	if o.Payload == nil {
-		o.Payload = new(models.RackHDResetAction)
+		o.Payload = new(models.RackHDResetActionResetAction)
 	}
 
 	if err := r.SetBodyParam(o.Payload); err != nil {

@@ -4,6 +4,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
@@ -18,16 +20,22 @@ swagger:model Manager.1.0.0_Manager
 type Manager100Manager struct {
 
 	/* at odata context
-	 */
-	AtOdataContext Odata400Context `json:"@odata.context,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataContext strfmt.URI `json:"@odata.context,omitempty"`
 
 	/* at odata id
-	 */
-	AtOdataID Odata400ID `json:"@odata.id,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataID strfmt.URI `json:"@odata.id,omitempty"`
 
 	/* at odata type
-	 */
-	AtOdataType Odata400Type `json:"@odata.type,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataType string `json:"@odata.type,omitempty"`
 
 	/* actions
 	 */
@@ -47,9 +55,11 @@ type Manager100Manager struct {
 	*/
 	DateTimeLocalOffset string `json:"DateTimeLocalOffset,omitempty"`
 
-	/* description
-	 */
-	Description ResourceDescription `json:"Description,omitempty"`
+	/* Provides a description of this resource and is used for commonality  in the schema definitions.
+
+	Read Only: true
+	*/
+	Description string `json:"Description,omitempty"`
 
 	/* This is a reference to a collection of NICs that this manager uses for network communication.  It is here that clients will find NIC configuration options and settings.
 
@@ -67,9 +77,11 @@ type Manager100Manager struct {
 	 */
 	GraphicalConsole *Manager100GraphicalConsole `json:"GraphicalConsole,omitempty"`
 
-	/* Id
-	 */
-	ID ResourceID `json:"Id,omitempty"`
+	/* Uniquely identifies the resource within the collection of like resources.
+
+	Read Only: true
+	*/
+	ID string `json:"Id,omitempty"`
 
 	/* links
 	 */
@@ -85,7 +97,7 @@ type Manager100Manager struct {
 
 	Read Only: true
 	*/
-	ManagerType Manager100ManagerType `json:"ManagerType,omitempty"`
+	ManagerType string `json:"ManagerType,omitempty"`
 
 	/* The model information of this Manager as defined by the manufacturer
 
@@ -93,9 +105,11 @@ type Manager100Manager struct {
 	*/
 	Model string `json:"Model,omitempty"`
 
-	/* name
-	 */
-	Name ResourceName `json:"Name,omitempty"`
+	/* The name of the resource or array element.
+
+	Read Only: true
+	*/
+	Name string `json:"Name,omitempty"`
 
 	/* This is a reference to the network services and their settings that the manager controls.  It is here that clients will find network configuration options as well as network services.
 
@@ -111,11 +125,13 @@ type Manager100Manager struct {
 
 	Read Only: true
 	*/
-	Redundancy []RedundancyRedundancy `json:"Redundancy,omitempty"`
+	Redundancy []*Odata400IDRef `json:"Redundancy,omitempty"`
 
 	/* redundancy at odata count
-	 */
-	RedundancyAtOdataCount Odata400Count `json:"Redundancy@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	RedundancyAtOdataCount float64 `json:"Redundancy@odata.count,omitempty"`
 
 	/* redundancy at odata navigation link
 	 */
@@ -134,8 +150,9 @@ type Manager100Manager struct {
 	/* The UUID of the Redfish Service Entry Point provided by this manager
 
 	Read Only: true
+	Pattern: ([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})
 	*/
-	ServiceEntryPointUUID ResourceUUID `json:"ServiceEntryPointUUID,omitempty"`
+	ServiceEntryPointUUID string `json:"ServiceEntryPointUUID,omitempty"`
 
 	/* status
 	 */
@@ -144,8 +161,9 @@ type Manager100Manager struct {
 	/* The Universal Unique Identifier (UUID) for this Manager
 
 	Read Only: true
+	Pattern: ([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})
 	*/
-	UUID ResourceUUID `json:"UUID,omitempty"`
+	UUID string `json:"UUID,omitempty"`
 
 	/* This is a reference to the Virtual Media services for this particular manager.
 
@@ -223,13 +241,33 @@ func (m *Manager100Manager) validateLinks(formats strfmt.Registry) error {
 	return nil
 }
 
+var manager100ManagerTypeManagerTypePropEnum []interface{}
+
+// prop value enum
+func (m *Manager100Manager) validateManagerTypeEnum(path, location string, value string) error {
+	if manager100ManagerTypeManagerTypePropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["ManagementController","EnclosureManager","BMC","RackManager","AuxiliaryController"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			manager100ManagerTypeManagerTypePropEnum = append(manager100ManagerTypeManagerTypePropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, manager100ManagerTypeManagerTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *Manager100Manager) validateManagerType(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ManagerType) { // not required
 		return nil
 	}
 
-	if err := m.ManagerType.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateManagerTypeEnum("ManagerType", "body", m.ManagerType); err != nil {
 		return err
 	}
 
@@ -251,7 +289,7 @@ func (m *Manager100Manager) validateServiceEntryPointUUID(formats strfmt.Registr
 		return nil
 	}
 
-	if err := m.ServiceEntryPointUUID.Validate(formats); err != nil {
+	if err := validate.Pattern("ServiceEntryPointUUID", "body", string(m.ServiceEntryPointUUID), `([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`); err != nil {
 		return err
 	}
 
@@ -264,7 +302,7 @@ func (m *Manager100Manager) validateUUID(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := m.UUID.Validate(formats); err != nil {
+	if err := validate.Pattern("UUID", "body", string(m.UUID), `([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`); err != nil {
 		return err
 	}
 
@@ -309,11 +347,13 @@ type Manager100ManagerLinks struct {
 
 	Read Only: true
 	*/
-	ManagerForChassis []ChassisChassis `json:"ManagerForChassis,omitempty"`
+	ManagerForChassis []*Odata400IDRef `json:"ManagerForChassis,omitempty"`
 
 	/* manager for chassis at odata count
-	 */
-	ManagerForChassisAtOdataCount Odata400Count `json:"ManagerForChassis@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	ManagerForChassisAtOdataCount float64 `json:"ManagerForChassis@odata.count,omitempty"`
 
 	/* manager for chassis at odata navigation link
 	 */
@@ -323,11 +363,13 @@ type Manager100ManagerLinks struct {
 
 	Read Only: true
 	*/
-	ManagerForServers []ComputerSystemComputerSystem `json:"ManagerForServers,omitempty"`
+	ManagerForServers []*Odata400IDRef `json:"ManagerForServers,omitempty"`
 
 	/* manager for servers at odata count
-	 */
-	ManagerForServersAtOdataCount Odata400Count `json:"ManagerForServers@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	ManagerForServersAtOdataCount float64 `json:"ManagerForServers@odata.count,omitempty"`
 
 	/* manager for servers at odata navigation link
 	 */
