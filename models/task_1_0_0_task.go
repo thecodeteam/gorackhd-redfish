@@ -4,10 +4,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
 	"github.com/go-swagger/go-swagger/errors"
+	"github.com/go-swagger/go-swagger/httpkit/validate"
 )
 
 /*Task100Task This is the schema definition for a Task resource.
@@ -17,20 +20,28 @@ swagger:model Task.1.0.0_Task
 type Task100Task struct {
 
 	/* at odata context
-	 */
-	AtOdataContext Odata400Context `json:"@odata.context,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataContext strfmt.URI `json:"@odata.context,omitempty"`
 
 	/* at odata id
-	 */
-	AtOdataID Odata400ID `json:"@odata.id,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataID strfmt.URI `json:"@odata.id,omitempty"`
 
 	/* at odata type
-	 */
-	AtOdataType Odata400Type `json:"@odata.type,omitempty"`
 
-	/* description
-	 */
-	Description ResourceDescription `json:"Description,omitempty"`
+	Read Only: true
+	*/
+	AtOdataType string `json:"@odata.type,omitempty"`
+
+	/* Provides a description of this resource and is used for commonality  in the schema definitions.
+
+	Read Only: true
+	*/
+	Description string `json:"Description,omitempty"`
 
 	/* The date-time stamp that the task was last completed.
 
@@ -38,9 +49,11 @@ type Task100Task struct {
 	*/
 	EndTime strfmt.DateTime `json:"EndTime,omitempty"`
 
-	/* Id
-	 */
-	ID ResourceID `json:"Id,omitempty"`
+	/* Uniquely identifies the resource within the collection of like resources.
+
+	Read Only: true
+	*/
+	ID string `json:"Id,omitempty"`
 
 	/* This is an array of messages associated with the task.
 
@@ -48,9 +61,11 @@ type Task100Task struct {
 	*/
 	Messages []*Message100Message `json:"Messages,omitempty"`
 
-	/* name
-	 */
-	Name ResourceName `json:"Name,omitempty"`
+	/* The name of the resource or array element.
+
+	Read Only: true
+	*/
+	Name string `json:"Name,omitempty"`
 
 	/* This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.
 	 */
@@ -66,13 +81,13 @@ type Task100Task struct {
 
 	Read Only: true
 	*/
-	TaskState Task100TaskState `json:"TaskState,omitempty"`
+	TaskState string `json:"TaskState,omitempty"`
 
 	/* This is the completion status of the task.
 
 	Read Only: true
 	*/
-	TaskStatus ResourceHealth `json:"TaskStatus,omitempty"`
+	TaskStatus string `json:"TaskStatus,omitempty"`
 }
 
 // Validate validates this task 1 0 0 task
@@ -109,16 +124,55 @@ func (m *Task100Task) validateMessages(formats strfmt.Registry) error {
 	return nil
 }
 
+var task100TaskTypeTaskStatePropEnum []interface{}
+
+// prop value enum
+func (m *Task100Task) validateTaskStateEnum(path, location string, value string) error {
+	if task100TaskTypeTaskStatePropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["New","Starting","Running","Suspended","Interrupted","Pending","Stopping","Completed","Killed","Exception","Service"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			task100TaskTypeTaskStatePropEnum = append(task100TaskTypeTaskStatePropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, task100TaskTypeTaskStatePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *Task100Task) validateTaskState(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.TaskState) { // not required
 		return nil
 	}
 
-	if err := m.TaskState.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateTaskStateEnum("TaskState", "body", m.TaskState); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+var task100TaskTypeTaskStatusPropEnum []interface{}
+
+// prop value enum
+func (m *Task100Task) validateTaskStatusEnum(path, location string, value string) error {
+	if task100TaskTypeTaskStatusPropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["OK","Warning","Critical"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			task100TaskTypeTaskStatusPropEnum = append(task100TaskTypeTaskStatusPropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, task100TaskTypeTaskStatusPropEnum); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -128,7 +182,8 @@ func (m *Task100Task) validateTaskStatus(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := m.TaskStatus.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateTaskStatusEnum("TaskStatus", "body", m.TaskStatus); err != nil {
 		return err
 	}
 

@@ -79,8 +79,10 @@ type Power100PowerControl struct {
 	RelatedItem []*Odata400IDRef `json:"RelatedItem,omitempty"`
 
 	/* related item at odata count
-	 */
-	RelatedItemAtOdataCount Odata400Count `json:"RelatedItem@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	RelatedItemAtOdataCount float64 `json:"RelatedItem@odata.count,omitempty"`
 
 	/* related item at odata navigation link
 	 */

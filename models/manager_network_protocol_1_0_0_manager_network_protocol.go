@@ -12,20 +12,28 @@ swagger:model ManagerNetworkProtocol.1.0.0_ManagerNetworkProtocol
 type ManagerNetworkProtocol100ManagerNetworkProtocol struct {
 
 	/* at odata context
-	 */
-	AtOdataContext Odata400Context `json:"@odata.context,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataContext strfmt.URI `json:"@odata.context,omitempty"`
 
 	/* at odata id
-	 */
-	AtOdataID Odata400ID `json:"@odata.id,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataID strfmt.URI `json:"@odata.id,omitempty"`
 
 	/* at odata type
-	 */
-	AtOdataType Odata400Type `json:"@odata.type,omitempty"`
 
-	/* description
-	 */
-	Description ResourceDescription `json:"Description,omitempty"`
+	Read Only: true
+	*/
+	AtOdataType string `json:"@odata.type,omitempty"`
+
+	/* Provides a description of this resource and is used for commonality  in the schema definitions.
+
+	Read Only: true
+	*/
+	Description string `json:"Description,omitempty"`
 
 	/* This is the fully qualified domain name for the manager obtained by DNS including the host name and top-level domain name.
 
@@ -57,9 +65,11 @@ type ManagerNetworkProtocol100ManagerNetworkProtocol struct {
 	*/
 	IPMI *ManagerNetworkProtocol100Protocol `json:"IPMI,omitempty"`
 
-	/* Id
-	 */
-	ID ResourceID `json:"Id,omitempty"`
+	/* Uniquely identifies the resource within the collection of like resources.
+
+	Read Only: true
+	*/
+	ID string `json:"Id,omitempty"`
 
 	/* Settings for this Manager's KVM-IP protocol support
 
@@ -67,9 +77,11 @@ type ManagerNetworkProtocol100ManagerNetworkProtocol struct {
 	*/
 	KVMIP *ManagerNetworkProtocol100Protocol `json:"KVMIP,omitempty"`
 
-	/* name
-	 */
-	Name ResourceName `json:"Name,omitempty"`
+	/* The name of the resource or array element.
+
+	Read Only: true
+	*/
+	Name string `json:"Name,omitempty"`
 
 	/* This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.
 	 */

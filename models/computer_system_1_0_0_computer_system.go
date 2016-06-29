@@ -4,10 +4,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
 	"github.com/go-swagger/go-swagger/errors"
+	"github.com/go-swagger/go-swagger/httpkit/validate"
 )
 
 /*ComputerSystem100ComputerSystem This schema defines a computer system and its respective properties.  A computer system represents a machine (physical or virtual) and the local resources such as memory, cpu and other devices that can be accessed from that machine.
@@ -17,16 +20,22 @@ swagger:model ComputerSystem.1.0.0_ComputerSystem
 type ComputerSystem100ComputerSystem struct {
 
 	/* at odata context
-	 */
-	AtOdataContext Odata400Context `json:"@odata.context,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataContext strfmt.URI `json:"@odata.context,omitempty"`
 
 	/* at odata id
-	 */
-	AtOdataID Odata400ID `json:"@odata.id,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataID strfmt.URI `json:"@odata.id,omitempty"`
 
 	/* at odata type
-	 */
-	AtOdataType Odata400Type `json:"@odata.type,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataType string `json:"@odata.type,omitempty"`
 
 	/* actions
 	 */
@@ -44,9 +53,11 @@ type ComputerSystem100ComputerSystem struct {
 	 */
 	Boot *ComputerSystem100Boot `json:"Boot,omitempty"`
 
-	/* description
-	 */
-	Description ResourceDescription `json:"Description,omitempty"`
+	/* Provides a description of this resource and is used for commonality  in the schema definitions.
+
+	Read Only: true
+	*/
+	Description string `json:"Description,omitempty"`
 
 	/* A reference to the collection of Ethernet interfaces associated with this system
 
@@ -58,13 +69,15 @@ type ComputerSystem100ComputerSystem struct {
 	 */
 	HostName string `json:"HostName,omitempty"`
 
-	/* Id
-	 */
-	ID ResourceID `json:"Id,omitempty"`
+	/* Uniquely identifies the resource within the collection of like resources.
+
+	Read Only: true
+	*/
+	ID string `json:"Id,omitempty"`
 
 	/* The state of the indicator LED, used to identify the system
 	 */
-	IndicatorLED ComputerSystem100IndicatorLED `json:"IndicatorLED,omitempty"`
+	IndicatorLED string `json:"IndicatorLED,omitempty"`
 
 	/* links
 	 */
@@ -92,9 +105,11 @@ type ComputerSystem100ComputerSystem struct {
 	*/
 	Model string `json:"Model,omitempty"`
 
-	/* name
-	 */
-	Name ResourceName `json:"Name,omitempty"`
+	/* The name of the resource or array element.
+
+	Read Only: true
+	*/
+	Name string `json:"Name,omitempty"`
 
 	/* This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.
 	 */
@@ -110,7 +125,7 @@ type ComputerSystem100ComputerSystem struct {
 
 	Read Only: true
 	*/
-	PowerState ComputerSystem100PowerState `json:"PowerState,omitempty"`
+	PowerState string `json:"PowerState,omitempty"`
 
 	/* This object describes the central processors of the system in general detail.
 	 */
@@ -148,13 +163,14 @@ type ComputerSystem100ComputerSystem struct {
 
 	Read Only: true
 	*/
-	SystemType ComputerSystem100SystemType `json:"SystemType,omitempty"`
+	SystemType string `json:"SystemType,omitempty"`
 
 	/* The universal unique identifier (UUID) for this system
 
 	Read Only: true
+	Pattern: ([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})
 	*/
-	UUID ResourceUUID `json:"UUID,omitempty"`
+	UUID string `json:"UUID,omitempty"`
 }
 
 // Validate validates this computer system 1 0 0 computer system
@@ -192,13 +208,33 @@ func (m *ComputerSystem100ComputerSystem) Validate(formats strfmt.Registry) erro
 	return nil
 }
 
+var computerSystem100ComputerSystemTypeIndicatorLEDPropEnum []interface{}
+
+// prop value enum
+func (m *ComputerSystem100ComputerSystem) validateIndicatorLEDEnum(path, location string, value string) error {
+	if computerSystem100ComputerSystemTypeIndicatorLEDPropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Unknown","Lit","Blinking","Off"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			computerSystem100ComputerSystemTypeIndicatorLEDPropEnum = append(computerSystem100ComputerSystemTypeIndicatorLEDPropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, computerSystem100ComputerSystemTypeIndicatorLEDPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *ComputerSystem100ComputerSystem) validateIndicatorLED(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.IndicatorLED) { // not required
 		return nil
 	}
 
-	if err := m.IndicatorLED.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateIndicatorLEDEnum("IndicatorLED", "body", m.IndicatorLED); err != nil {
 		return err
 	}
 
@@ -221,16 +257,55 @@ func (m *ComputerSystem100ComputerSystem) validateLinks(formats strfmt.Registry)
 	return nil
 }
 
+var computerSystem100ComputerSystemTypePowerStatePropEnum []interface{}
+
+// prop value enum
+func (m *ComputerSystem100ComputerSystem) validatePowerStateEnum(path, location string, value string) error {
+	if computerSystem100ComputerSystemTypePowerStatePropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["On","Off","Unknown","Reset"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			computerSystem100ComputerSystemTypePowerStatePropEnum = append(computerSystem100ComputerSystemTypePowerStatePropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, computerSystem100ComputerSystemTypePowerStatePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *ComputerSystem100ComputerSystem) validatePowerState(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.PowerState) { // not required
 		return nil
 	}
 
-	if err := m.PowerState.Validate(formats); err != nil {
+	// value enum
+	if err := m.validatePowerStateEnum("PowerState", "body", m.PowerState); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+var computerSystem100ComputerSystemTypeSystemTypePropEnum []interface{}
+
+// prop value enum
+func (m *ComputerSystem100ComputerSystem) validateSystemTypeEnum(path, location string, value string) error {
+	if computerSystem100ComputerSystemTypeSystemTypePropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Physical","Virtual","OS","PhysicallyPartitioned","VirtuallyPartitioned"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			computerSystem100ComputerSystemTypeSystemTypePropEnum = append(computerSystem100ComputerSystemTypeSystemTypePropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, computerSystem100ComputerSystemTypeSystemTypePropEnum); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -240,7 +315,8 @@ func (m *ComputerSystem100ComputerSystem) validateSystemType(formats strfmt.Regi
 		return nil
 	}
 
-	if err := m.SystemType.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateSystemTypeEnum("SystemType", "body", m.SystemType); err != nil {
 		return err
 	}
 
@@ -253,7 +329,7 @@ func (m *ComputerSystem100ComputerSystem) validateUUID(formats strfmt.Registry) 
 		return nil
 	}
 
-	if err := m.UUID.Validate(formats); err != nil {
+	if err := validate.Pattern("UUID", "body", string(m.UUID), `([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`); err != nil {
 		return err
 	}
 
@@ -290,11 +366,13 @@ type ComputerSystem100ComputerSystemLinks struct {
 
 	Read Only: true
 	*/
-	Chassis []ChassisChassis `json:"Chassis,omitempty"`
+	Chassis []*Odata400IDRef `json:"Chassis,omitempty"`
 
 	/* chassis at odata count
-	 */
-	ChassisAtOdataCount Odata400Count `json:"Chassis@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	ChassisAtOdataCount float64 `json:"Chassis@odata.count,omitempty"`
 
 	/* chassis at odata navigation link
 	 */
@@ -307,8 +385,10 @@ type ComputerSystem100ComputerSystemLinks struct {
 	CooledBy []*Odata400IDRef `json:"CooledBy,omitempty"`
 
 	/* cooled by at odata count
-	 */
-	CooledByAtOdataCount Odata400Count `json:"CooledBy@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	CooledByAtOdataCount float64 `json:"CooledBy@odata.count,omitempty"`
 
 	/* cooled by at odata navigation link
 	 */
@@ -318,11 +398,13 @@ type ComputerSystem100ComputerSystemLinks struct {
 
 	Read Only: true
 	*/
-	ManagedBy []ManagerManager `json:"ManagedBy,omitempty"`
+	ManagedBy []*Odata400IDRef `json:"ManagedBy,omitempty"`
 
 	/* managed by at odata count
-	 */
-	ManagedByAtOdataCount Odata400Count `json:"ManagedBy@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	ManagedByAtOdataCount float64 `json:"ManagedBy@odata.count,omitempty"`
 
 	/* managed by at odata navigation link
 	 */
@@ -339,8 +421,10 @@ type ComputerSystem100ComputerSystemLinks struct {
 	PoweredBy []*Odata400IDRef `json:"PoweredBy,omitempty"`
 
 	/* powered by at odata count
-	 */
-	PoweredByAtOdataCount Odata400Count `json:"PoweredBy@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	PoweredByAtOdataCount float64 `json:"PoweredBy@odata.count,omitempty"`
 
 	/* powered by at odata navigation link
 	 */

@@ -4,6 +4,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
@@ -23,7 +25,7 @@ type Power100PowerLimit struct {
 
 	/* The action that is taken if the power cannot be maintained below the LimitInWatts.
 	 */
-	LimitException Power100PowerLimitException `json:"LimitException,omitempty"`
+	LimitException string `json:"LimitException,omitempty"`
 
 	/* The Power limit in watts. Set to null to disable power capping.
 
@@ -52,13 +54,33 @@ func (m *Power100PowerLimit) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+var power100PowerLimitTypeLimitExceptionPropEnum []interface{}
+
+// prop value enum
+func (m *Power100PowerLimit) validateLimitExceptionEnum(path, location string, value string) error {
+	if power100PowerLimitTypeLimitExceptionPropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["NoAction","HardPowerOff","LogEventOnly","Oem"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			power100PowerLimitTypeLimitExceptionPropEnum = append(power100PowerLimitTypeLimitExceptionPropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, power100PowerLimitTypeLimitExceptionPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *Power100PowerLimit) validateLimitException(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.LimitException) { // not required
 		return nil
 	}
 
-	if err := m.LimitException.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateLimitExceptionEnum("LimitException", "body", m.LimitException); err != nil {
 		return err
 	}
 

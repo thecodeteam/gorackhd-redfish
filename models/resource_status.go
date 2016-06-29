@@ -4,10 +4,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
 	"github.com/go-swagger/go-swagger/errors"
+	"github.com/go-swagger/go-swagger/httpkit/validate"
 )
 
 /*ResourceStatus resource status
@@ -20,13 +23,13 @@ type ResourceStatus struct {
 
 	Read Only: true
 	*/
-	Health ResourceHealth `json:"Health,omitempty"`
+	Health string `json:"Health,omitempty"`
 
 	/* This represents the overall health state from the view of this resource.
 
 	Read Only: true
 	*/
-	HealthRollup ResourceHealth `json:"HealthRollup,omitempty"`
+	HealthRollup string `json:"HealthRollup,omitempty"`
 
 	/* oem
 	 */
@@ -36,7 +39,7 @@ type ResourceStatus struct {
 
 	Read Only: true
 	*/
-	State ResourceState `json:"State,omitempty"`
+	State string `json:"State,omitempty"`
 }
 
 // Validate validates this resource status
@@ -64,16 +67,55 @@ func (m *ResourceStatus) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+var resourceStatusTypeHealthPropEnum []interface{}
+
+// prop value enum
+func (m *ResourceStatus) validateHealthEnum(path, location string, value string) error {
+	if resourceStatusTypeHealthPropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["OK","Warning","Critical"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			resourceStatusTypeHealthPropEnum = append(resourceStatusTypeHealthPropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, resourceStatusTypeHealthPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *ResourceStatus) validateHealth(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Health) { // not required
 		return nil
 	}
 
-	if err := m.Health.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateHealthEnum("Health", "body", m.Health); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+var resourceStatusTypeHealthRollupPropEnum []interface{}
+
+// prop value enum
+func (m *ResourceStatus) validateHealthRollupEnum(path, location string, value string) error {
+	if resourceStatusTypeHealthRollupPropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["OK","Warning","Critical"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			resourceStatusTypeHealthRollupPropEnum = append(resourceStatusTypeHealthRollupPropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, resourceStatusTypeHealthRollupPropEnum); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -83,10 +125,30 @@ func (m *ResourceStatus) validateHealthRollup(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := m.HealthRollup.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateHealthRollupEnum("HealthRollup", "body", m.HealthRollup); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+var resourceStatusTypeStatePropEnum []interface{}
+
+// prop value enum
+func (m *ResourceStatus) validateStateEnum(path, location string, value string) error {
+	if resourceStatusTypeStatePropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Enabled","Disabled","StandbyOffline","StandbySpare","InTest","Starting","Absent"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			resourceStatusTypeStatePropEnum = append(resourceStatusTypeStatePropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, resourceStatusTypeStatePropEnum); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -96,7 +158,8 @@ func (m *ResourceStatus) validateState(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := m.State.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateStateEnum("State", "body", m.State); err != nil {
 		return err
 	}
 

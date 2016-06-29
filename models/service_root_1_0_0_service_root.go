@@ -18,32 +18,40 @@ swagger:model ServiceRoot.1.0.0_ServiceRoot
 type ServiceRoot100ServiceRoot struct {
 
 	/* at odata context
-	 */
-	AtOdataContext Odata400Context `json:"@odata.context,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataContext strfmt.URI `json:"@odata.context,omitempty"`
 
 	/* at odata id
-	 */
-	AtOdataID Odata400ID `json:"@odata.id,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataID strfmt.URI `json:"@odata.id,omitempty"`
 
 	/* at odata type
-	 */
-	AtOdataType Odata400Type `json:"@odata.type,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataType string `json:"@odata.type,omitempty"`
 
 	/* This is a link to the Account Service.
 
 	Read Only: true
 	*/
-	AccountService AccountServiceAccountService `json:"AccountService,omitempty"`
+	AccountService *Odata400IDRef `json:"AccountService,omitempty"`
 
 	/* This is a link to a collection of Chassis.
 
 	Read Only: true
 	*/
-	Chassis *Odata400IDRef `json:"Chassis,omitempty"`
+	Chassis *ChassisCollectionChassisCollection `json:"Chassis,omitempty"`
 
-	/* description
-	 */
-	Description ResourceDescription `json:"Description,omitempty"`
+	/* Provides a description of this resource and is used for commonality  in the schema definitions.
+
+	Read Only: true
+	*/
+	Description string `json:"Description,omitempty"`
 
 	/* This is a link to the EventService.
 
@@ -51,15 +59,17 @@ type ServiceRoot100ServiceRoot struct {
 	*/
 	EventService *Odata400IDRef `json:"EventService,omitempty"`
 
-	/* Id
-	 */
-	ID ResourceID `json:"Id,omitempty"`
+	/* Uniquely identifies the resource within the collection of like resources.
+
+	Read Only: true
+	*/
+	ID string `json:"Id,omitempty"`
 
 	/* This is a link to a collection of Json-Schema files.
 
 	Read Only: true
 	*/
-	JSONSchemas *Odata400IDRef `json:"JsonSchemas,omitempty"`
+	JSONSchemas *JSONSchemaFileCollectionJSONSchemaFileCollection `json:"JsonSchemas,omitempty"`
 
 	/* links
 
@@ -71,11 +81,13 @@ type ServiceRoot100ServiceRoot struct {
 
 	Read Only: true
 	*/
-	Managers *Odata400IDRef `json:"Managers,omitempty"`
+	Managers *ManagerCollectionManagerCollection `json:"Managers,omitempty"`
 
-	/* name
-	 */
-	Name ResourceName `json:"Name,omitempty"`
+	/* The name of the resource or array element.
+
+	Read Only: true
+	*/
+	Name string `json:"Name,omitempty"`
 
 	/* This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.
 	 */
@@ -92,7 +104,7 @@ type ServiceRoot100ServiceRoot struct {
 
 	Read Only: true
 	*/
-	Registries *Odata400IDRef `json:"Registries,omitempty"`
+	Registries *MessageRegistryFileCollectionMessageRegistryFileCollection `json:"Registries,omitempty"`
 
 	/* This is a link to the Sessions Service.
 
@@ -104,7 +116,7 @@ type ServiceRoot100ServiceRoot struct {
 
 	Read Only: true
 	*/
-	Systems *Odata400IDRef `json:"Systems,omitempty"`
+	Systems *ComputerSystemCollectionComputerSystemCollection `json:"Systems,omitempty"`
 
 	/* This is a link to the Task Service.
 
@@ -115,8 +127,9 @@ type ServiceRoot100ServiceRoot struct {
 	/* Unique identifier for a service instance. When SSDP is used, this value should be an exact match of the UUID value returned in a 200OK from an SSDP M-SEARCH request during discovery.
 
 	Read Only: true
+	Pattern: ([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})
 	*/
-	UUID ResourceUUID `json:"UUID,omitempty"`
+	UUID string `json:"UUID,omitempty"`
 }
 
 // Validate validates this service root 1 0 0 service root
@@ -175,7 +188,7 @@ func (m *ServiceRoot100ServiceRoot) validateUUID(formats strfmt.Registry) error 
 		return nil
 	}
 
-	if err := m.UUID.Validate(formats); err != nil {
+	if err := validate.Pattern("UUID", "body", string(m.UUID), `([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`); err != nil {
 		return err
 	}
 

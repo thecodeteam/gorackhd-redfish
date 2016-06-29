@@ -4,6 +4,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
@@ -40,7 +42,7 @@ type Power100PowerSupply struct {
 
 	Read Only: true
 	*/
-	LineInputVoltageType Power100LineInputVoltageType `json:"LineInputVoltageType,omitempty"`
+	LineInputVoltageType string `json:"LineInputVoltageType,omitempty"`
 
 	/* This is the identifier for the member within the collection.
 	 */
@@ -79,17 +81,19 @@ type Power100PowerSupply struct {
 
 	Read Only: true
 	*/
-	PowerSupplyType Power100PowerSupplyType `json:"PowerSupplyType,omitempty"`
+	PowerSupplyType string `json:"PowerSupplyType,omitempty"`
 
 	/* This structure is used to show redundancy for fans.  The Component ids will reference the members of the redundancy groups.
 
 	Read Only: true
 	*/
-	Redundancy []RedundancyRedundancy `json:"Redundancy,omitempty"`
+	Redundancy []*Odata400IDRef `json:"Redundancy,omitempty"`
 
 	/* redundancy at odata count
-	 */
-	RedundancyAtOdataCount Odata400Count `json:"Redundancy@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	RedundancyAtOdataCount float64 `json:"Redundancy@odata.count,omitempty"`
 
 	/* redundancy at odata navigation link
 	 */
@@ -100,8 +104,10 @@ type Power100PowerSupply struct {
 	RelatedItem []*Odata400IDRef `json:"RelatedItem,omitempty"`
 
 	/* related item at odata count
-	 */
-	RelatedItemAtOdataCount Odata400Count `json:"RelatedItem@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	RelatedItemAtOdataCount float64 `json:"RelatedItem@odata.count,omitempty"`
 
 	/* related item at odata navigation link
 	 */
@@ -177,13 +183,33 @@ func (m *Power100PowerSupply) validateLastPowerOutputWatts(formats strfmt.Regist
 	return nil
 }
 
+var power100PowerSupplyTypeLineInputVoltageTypePropEnum []interface{}
+
+// prop value enum
+func (m *Power100PowerSupply) validateLineInputVoltageTypeEnum(path, location string, value string) error {
+	if power100PowerSupplyTypeLineInputVoltageTypePropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Unknown","ACLowLine","ACMidLine","ACHighLine","DCNeg48V","DC480V"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			power100PowerSupplyTypeLineInputVoltageTypePropEnum = append(power100PowerSupplyTypeLineInputVoltageTypePropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, power100PowerSupplyTypeLineInputVoltageTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *Power100PowerSupply) validateLineInputVoltageType(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.LineInputVoltageType) { // not required
 		return nil
 	}
 
-	if err := m.LineInputVoltageType.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateLineInputVoltageTypeEnum("LineInputVoltageType", "body", m.LineInputVoltageType); err != nil {
 		return err
 	}
 
@@ -203,13 +229,33 @@ func (m *Power100PowerSupply) validatePowerCapacityWatts(formats strfmt.Registry
 	return nil
 }
 
+var power100PowerSupplyTypePowerSupplyTypePropEnum []interface{}
+
+// prop value enum
+func (m *Power100PowerSupply) validatePowerSupplyTypeEnum(path, location string, value string) error {
+	if power100PowerSupplyTypePowerSupplyTypePropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Unknown","AC","DC"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			power100PowerSupplyTypePowerSupplyTypePropEnum = append(power100PowerSupplyTypePowerSupplyTypePropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, power100PowerSupplyTypePowerSupplyTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *Power100PowerSupply) validatePowerSupplyType(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.PowerSupplyType) { // not required
 		return nil
 	}
 
-	if err := m.PowerSupplyType.Validate(formats); err != nil {
+	// value enum
+	if err := m.validatePowerSupplyTypeEnum("PowerSupplyType", "body", m.PowerSupplyType); err != nil {
 		return err
 	}
 

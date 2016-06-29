@@ -17,38 +17,50 @@ swagger:model TaskCollection_TaskCollection
 type TaskCollectionTaskCollection struct {
 
 	/* at odata context
-	 */
-	AtOdataContext Odata400Context `json:"@odata.context,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataContext strfmt.URI `json:"@odata.context,omitempty"`
 
 	/* at odata id
-	 */
-	AtOdataID Odata400ID `json:"@odata.id,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataID strfmt.URI `json:"@odata.id,omitempty"`
 
 	/* at odata type
-	 */
-	AtOdataType Odata400Type `json:"@odata.type,omitempty"`
 
-	/* description
-	 */
-	Description ResourceDescription `json:"Description,omitempty"`
+	Read Only: true
+	*/
+	AtOdataType string `json:"@odata.type,omitempty"`
+
+	/* Provides a description of this resource and is used for commonality  in the schema definitions.
+
+	Read Only: true
+	*/
+	Description string `json:"Description,omitempty"`
 
 	/* Contains the members of this collection.
 
 	Read Only: true
 	*/
-	Members []TaskTask `json:"Members,omitempty"`
+	Members []*Odata400IDRef `json:"Members,omitempty"`
 
 	/* members at odata count
-	 */
-	MembersAtOdataCount Odata400Count `json:"Members@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	MembersAtOdataCount float64 `json:"Members@odata.count,omitempty"`
 
 	/* members at odata navigation link
 	 */
 	MembersAtOdataNavigationLink *Odata400IDRef `json:"Members@odata.navigationLink,omitempty"`
 
-	/* name
-	 */
-	Name ResourceName `json:"Name,omitempty"`
+	/* The name of the resource or array element.
+
+	Read Only: true
+	*/
+	Name string `json:"Name,omitempty"`
 
 	/* This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.
 	 */

@@ -81,7 +81,7 @@ func NewListResetTypesOK() *ListResetTypesOK {
 Success
 */
 type ListResetTypesOK struct {
-	Payload *models.RackHDResetAction
+	Payload *models.RackHDResetActionResetAction
 }
 
 func (o *ListResetTypesOK) Error() string {
@@ -90,7 +90,7 @@ func (o *ListResetTypesOK) Error() string {
 
 func (o *ListResetTypesOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.RackHDResetAction)
+	o.Payload = new(models.RackHDResetActionResetAction)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

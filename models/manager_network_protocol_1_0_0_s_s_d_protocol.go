@@ -4,6 +4,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
@@ -19,7 +21,7 @@ type ManagerNetworkProtocol100SSDProtocol struct {
 
 	/* Indicates the scope for the IPv6 Notify messages for SSDP.
 	 */
-	NotifyIPV6Scope ManagerNetworkProtocol100NotifyIPV6Scope `json:"NotifyIPv6Scope,omitempty"`
+	NotifyIPV6Scope string `json:"NotifyIPv6Scope,omitempty"`
 
 	/* Indicates how often the Multicast is done from this service for SSDP.
 
@@ -74,13 +76,33 @@ func (m *ManagerNetworkProtocol100SSDProtocol) Validate(formats strfmt.Registry)
 	return nil
 }
 
+var managerNetworkProtocol100SSDProtocolTypeNotifyIPV6ScopePropEnum []interface{}
+
+// prop value enum
+func (m *ManagerNetworkProtocol100SSDProtocol) validateNotifyIPV6ScopeEnum(path, location string, value string) error {
+	if managerNetworkProtocol100SSDProtocolTypeNotifyIPV6ScopePropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Link","Site","Organization"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			managerNetworkProtocol100SSDProtocolTypeNotifyIPV6ScopePropEnum = append(managerNetworkProtocol100SSDProtocolTypeNotifyIPV6ScopePropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, managerNetworkProtocol100SSDProtocolTypeNotifyIPV6ScopePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *ManagerNetworkProtocol100SSDProtocol) validateNotifyIPV6Scope(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.NotifyIPV6Scope) { // not required
 		return nil
 	}
 
-	if err := m.NotifyIPV6Scope.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateNotifyIPV6ScopeEnum("NotifyIPv6Scope", "body", m.NotifyIPV6Scope); err != nil {
 		return err
 	}
 

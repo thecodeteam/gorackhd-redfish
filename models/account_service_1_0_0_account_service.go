@@ -18,16 +18,22 @@ swagger:model AccountService.1.0.0_AccountService
 type AccountService100AccountService struct {
 
 	/* at odata context
-	 */
-	AtOdataContext Odata400Context `json:"@odata.context,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataContext strfmt.URI `json:"@odata.context,omitempty"`
 
 	/* at odata id
-	 */
-	AtOdataID Odata400ID `json:"@odata.id,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataID strfmt.URI `json:"@odata.id,omitempty"`
 
 	/* at odata type
-	 */
-	AtOdataType Odata400Type `json:"@odata.type,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataType string `json:"@odata.type,omitempty"`
 
 	/* The interval of time since the last failed login attempt at which point the lockout threshold counter for the account is reset to zero. Must be less than or equal to AccountLockoutDuration
 
@@ -59,13 +65,17 @@ type AccountService100AccountService struct {
 	*/
 	AuthFailureLoggingThreshold *float64 `json:"AuthFailureLoggingThreshold,omitempty"`
 
-	/* description
-	 */
-	Description ResourceDescription `json:"Description,omitempty"`
+	/* Provides a description of this resource and is used for commonality  in the schema definitions.
 
-	/* Id
-	 */
-	ID ResourceID `json:"Id,omitempty"`
+	Read Only: true
+	*/
+	Description string `json:"Description,omitempty"`
+
+	/* Uniquely identifies the resource within the collection of like resources.
+
+	Read Only: true
+	*/
+	ID string `json:"Id,omitempty"`
 
 	/* This is the maximum password length for this service.
 
@@ -81,9 +91,11 @@ type AccountService100AccountService struct {
 	*/
 	MinPasswordLength float64 `json:"MinPasswordLength,omitempty"`
 
-	/* name
-	 */
-	Name ResourceName `json:"Name,omitempty"`
+	/* The name of the resource or array element.
+
+	Read Only: true
+	*/
+	Name string `json:"Name,omitempty"`
 
 	/* This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.
 	 */

@@ -12,8 +12,10 @@ swagger:model odata.4.0.0_idRef
 type Odata400IDRef struct {
 
 	/* at odata id
-	 */
-	AtOdataID Odata400ID `json:"@odata.id,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataID strfmt.URI `json:"@odata.id,omitempty"`
 }
 
 // Validate validates this odata 4 0 0 id ref

@@ -17,28 +17,40 @@ swagger:model Power.1.0.0_Power
 type Power100Power struct {
 
 	/* at odata context
-	 */
-	AtOdataContext Odata400Context `json:"@odata.context,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataContext strfmt.URI `json:"@odata.context,omitempty"`
 
 	/* at odata id
-	 */
-	AtOdataID Odata400ID `json:"@odata.id,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataID strfmt.URI `json:"@odata.id,omitempty"`
 
 	/* at odata type
-	 */
-	AtOdataType Odata400Type `json:"@odata.type,omitempty"`
 
-	/* description
-	 */
-	Description ResourceDescription `json:"Description,omitempty"`
+	Read Only: true
+	*/
+	AtOdataType string `json:"@odata.type,omitempty"`
 
-	/* Id
-	 */
-	ID ResourceID `json:"Id,omitempty"`
+	/* Provides a description of this resource and is used for commonality  in the schema definitions.
 
-	/* name
-	 */
-	Name ResourceName `json:"Name,omitempty"`
+	Read Only: true
+	*/
+	Description string `json:"Description,omitempty"`
+
+	/* Uniquely identifies the resource within the collection of like resources.
+
+	Read Only: true
+	*/
+	ID string `json:"Id,omitempty"`
+
+	/* The name of the resource or array element.
+
+	Read Only: true
+	*/
+	Name string `json:"Name,omitempty"`
 
 	/* This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.
 	 */
@@ -51,8 +63,10 @@ type Power100Power struct {
 	PowerControl []*Power100PowerControl `json:"PowerControl,omitempty"`
 
 	/* power control at odata count
-	 */
-	PowerControlAtOdataCount Odata400Count `json:"PowerControl@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	PowerControlAtOdataCount float64 `json:"PowerControl@odata.count,omitempty"`
 
 	/* power control at odata navigation link
 	 */
@@ -65,8 +79,10 @@ type Power100Power struct {
 	PowerSupplies []*Power100PowerSupply `json:"PowerSupplies,omitempty"`
 
 	/* power supplies at odata count
-	 */
-	PowerSuppliesAtOdataCount Odata400Count `json:"PowerSupplies@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	PowerSuppliesAtOdataCount float64 `json:"PowerSupplies@odata.count,omitempty"`
 
 	/* power supplies at odata navigation link
 	 */
@@ -76,11 +92,13 @@ type Power100Power struct {
 
 	Read Only: true
 	*/
-	Redundancy []RedundancyRedundancy `json:"Redundancy,omitempty"`
+	Redundancy []*Odata400IDRef `json:"Redundancy,omitempty"`
 
 	/* redundancy at odata count
-	 */
-	RedundancyAtOdataCount Odata400Count `json:"Redundancy@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	RedundancyAtOdataCount float64 `json:"Redundancy@odata.count,omitempty"`
 
 	/* redundancy at odata navigation link
 	 */
@@ -93,8 +111,10 @@ type Power100Power struct {
 	Voltages []*Power100Voltage `json:"Voltages,omitempty"`
 
 	/* voltages at odata count
-	 */
-	VoltagesAtOdataCount Odata400Count `json:"Voltages@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	VoltagesAtOdataCount float64 `json:"Voltages@odata.count,omitempty"`
 
 	/* voltages at odata navigation link
 	 */

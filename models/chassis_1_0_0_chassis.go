@@ -4,10 +4,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 	"github.com/go-swagger/go-swagger/swag"
 
 	"github.com/go-swagger/go-swagger/errors"
+	"github.com/go-swagger/go-swagger/httpkit/validate"
 )
 
 /*Chassis100Chassis This is the schema definition for the Chassis resource.  It represents the properties for physical components for any system.  This one object is intended to represent racks, rackmount servers, blades, standalone, modular systems, enclosures, and all other containers.  The non-cpu/device centric parts of the schema are all accessed either directly or indirectly through this resource.
@@ -17,16 +20,22 @@ swagger:model Chassis.1.0.0_Chassis
 type Chassis100Chassis struct {
 
 	/* at odata context
-	 */
-	AtOdataContext Odata400Context `json:"@odata.context,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataContext strfmt.URI `json:"@odata.context,omitempty"`
 
 	/* at odata id
-	 */
-	AtOdataID Odata400ID `json:"@odata.id,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataID strfmt.URI `json:"@odata.id,omitempty"`
 
 	/* at odata type
-	 */
-	AtOdataType Odata400Type `json:"@odata.type,omitempty"`
+
+	Read Only: true
+	*/
+	AtOdataType string `json:"@odata.type,omitempty"`
 
 	/* actions
 	 */
@@ -41,19 +50,23 @@ type Chassis100Chassis struct {
 	Required: true
 	Read Only: true
 	*/
-	ChassisType Chassis100ChassisType `json:"ChassisType"`
+	ChassisType string `json:"ChassisType"`
 
-	/* description
-	 */
-	Description ResourceDescription `json:"Description,omitempty"`
+	/* Provides a description of this resource and is used for commonality  in the schema definitions.
 
-	/* Id
-	 */
-	ID ResourceID `json:"Id,omitempty"`
+	Read Only: true
+	*/
+	Description string `json:"Description,omitempty"`
+
+	/* Uniquely identifies the resource within the collection of like resources.
+
+	Read Only: true
+	*/
+	ID string `json:"Id,omitempty"`
 
 	/* The state of the indicator LED, used to identify the chassis.
 	 */
-	IndicatorLED Chassis100IndicatorLED `json:"IndicatorLED,omitempty"`
+	IndicatorLED string `json:"IndicatorLED,omitempty"`
 
 	/* links
 	 */
@@ -77,9 +90,11 @@ type Chassis100Chassis struct {
 	*/
 	Model string `json:"Model,omitempty"`
 
-	/* name
-	 */
-	Name ResourceName `json:"Name,omitempty"`
+	/* The name of the resource or array element.
+
+	Read Only: true
+	*/
+	Name string `json:"Name,omitempty"`
 
 	/* This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.
 	 */
@@ -95,7 +110,7 @@ type Chassis100Chassis struct {
 
 	Read Only: true
 	*/
-	Power PowerPower `json:"Power,omitempty"`
+	Power *Odata400IDRef `json:"Power,omitempty"`
 
 	/* This is the SKU for this chassis.
 
@@ -117,7 +132,7 @@ type Chassis100Chassis struct {
 
 	Read Only: true
 	*/
-	Thermal ThermalThermal `json:"Thermal,omitempty"`
+	Thermal *Odata400IDRef `json:"Thermal,omitempty"`
 }
 
 // Validate validates this chassis 1 0 0 chassis
@@ -145,12 +160,55 @@ func (m *Chassis100Chassis) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+var chassis100ChassisTypeChassisTypePropEnum []interface{}
+
+// prop value enum
+func (m *Chassis100Chassis) validateChassisTypeEnum(path, location string, value string) error {
+	if chassis100ChassisTypeChassisTypePropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Rack","Blade","Enclosure","StandAlone","RackMount","Card","Cartridge","Row","Pod","Expansion","Sidecar","Zone","Sled","Shelf","Drawer","Module","Component","Other"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			chassis100ChassisTypeChassisTypePropEnum = append(chassis100ChassisTypeChassisTypePropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, chassis100ChassisTypeChassisTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *Chassis100Chassis) validateChassisType(formats strfmt.Registry) error {
 
-	if err := m.ChassisType.Validate(formats); err != nil {
+	if err := validate.RequiredString("ChassisType", "body", string(m.ChassisType)); err != nil {
 		return err
 	}
 
+	// value enum
+	if err := m.validateChassisTypeEnum("ChassisType", "body", m.ChassisType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var chassis100ChassisTypeIndicatorLEDPropEnum []interface{}
+
+// prop value enum
+func (m *Chassis100Chassis) validateIndicatorLEDEnum(path, location string, value string) error {
+	if chassis100ChassisTypeIndicatorLEDPropEnum == nil {
+		var res []string
+		if err := json.Unmarshal([]byte(`["Unknown","Lit","Blinking","Off"]`), &res); err != nil {
+			return err
+		}
+		for _, v := range res {
+			chassis100ChassisTypeIndicatorLEDPropEnum = append(chassis100ChassisTypeIndicatorLEDPropEnum, v)
+		}
+	}
+	if err := validate.Enum(path, location, value, chassis100ChassisTypeIndicatorLEDPropEnum); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -160,7 +218,8 @@ func (m *Chassis100Chassis) validateIndicatorLED(formats strfmt.Registry) error 
 		return nil
 	}
 
-	if err := m.IndicatorLED.Validate(formats); err != nil {
+	// value enum
+	if err := m.validateIndicatorLEDEnum("IndicatorLED", "body", m.IndicatorLED); err != nil {
 		return err
 	}
 
@@ -213,11 +272,13 @@ type Chassis100ChassisLinks struct {
 
 	Read Only: true
 	*/
-	ComputerSystems []ComputerSystemComputerSystem `json:"ComputerSystems,omitempty"`
+	ComputerSystems []*Odata400IDRef `json:"ComputerSystems,omitempty"`
 
 	/* computer systems at odata count
-	 */
-	ComputerSystemsAtOdataCount Odata400Count `json:"ComputerSystems@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	ComputerSystemsAtOdataCount float64 `json:"ComputerSystems@odata.count,omitempty"`
 
 	/* computer systems at odata navigation link
 	 */
@@ -227,17 +288,19 @@ type Chassis100ChassisLinks struct {
 
 	Read Only: true
 	*/
-	ContainedBy ChassisChassis `json:"ContainedBy,omitempty"`
+	ContainedBy *Odata400IDRef `json:"ContainedBy,omitempty"`
 
 	/* An array of references to any other chassis that this chassis has in it.
 
 	Read Only: true
 	*/
-	Contains []ChassisChassis `json:"Contains,omitempty"`
+	Contains []*Odata400IDRef `json:"Contains,omitempty"`
 
 	/* contains at odata count
-	 */
-	ContainsAtOdataCount Odata400Count `json:"Contains@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	ContainsAtOdataCount float64 `json:"Contains@odata.count,omitempty"`
 
 	/* contains at odata navigation link
 	 */
@@ -250,8 +313,10 @@ type Chassis100ChassisLinks struct {
 	CooledBy []*Odata400IDRef `json:"CooledBy,omitempty"`
 
 	/* cooled by at odata count
-	 */
-	CooledByAtOdataCount Odata400Count `json:"CooledBy@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	CooledByAtOdataCount float64 `json:"CooledBy@odata.count,omitempty"`
 
 	/* cooled by at odata navigation link
 	 */
@@ -261,11 +326,13 @@ type Chassis100ChassisLinks struct {
 
 	Read Only: true
 	*/
-	ManagedBy []ManagerManager `json:"ManagedBy,omitempty"`
+	ManagedBy []*Odata400IDRef `json:"ManagedBy,omitempty"`
 
 	/* managed by at odata count
-	 */
-	ManagedByAtOdataCount Odata400Count `json:"ManagedBy@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	ManagedByAtOdataCount float64 `json:"ManagedBy@odata.count,omitempty"`
 
 	/* managed by at odata navigation link
 	 */
@@ -282,8 +349,10 @@ type Chassis100ChassisLinks struct {
 	PoweredBy []*Odata400IDRef `json:"PoweredBy,omitempty"`
 
 	/* powered by at odata count
-	 */
-	PoweredByAtOdataCount Odata400Count `json:"PoweredBy@odata.count,omitempty"`
+
+	Read Only: true
+	*/
+	PoweredByAtOdataCount float64 `json:"PoweredBy@odata.count,omitempty"`
 
 	/* powered by at odata navigation link
 	 */
