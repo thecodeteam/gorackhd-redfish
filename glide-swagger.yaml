@@ -1,8 +1,0 @@
-package: github.com/codedellemc/gorackhd-redfish
-ignore:
-- client
-- models
-import:
-  - package: github.com/go-swagger/go-swagger
-    version: 0.6.0
-    vcs:     git
