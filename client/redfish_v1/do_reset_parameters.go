@@ -4,19 +4,35 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // NewDoResetParams creates a new DoResetParams object
 // with the default values initialized.
 func NewDoResetParams() *DoResetParams {
 	var ()
-	return &DoResetParams{}
+	return &DoResetParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewDoResetParamsWithTimeout creates a new DoResetParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewDoResetParamsWithTimeout(timeout time.Duration) *DoResetParams {
+	var ()
+	return &DoResetParams{
+
+		timeout: timeout,
+	}
 }
 
 /*DoResetParams contains all the parameters to send to the API endpoint
@@ -28,6 +44,8 @@ type DoResetParams struct {
 	Identifier string
 	/*Payload*/
 	Payload *models.RackHDResetActionResetAction
+
+	timeout time.Duration
 }
 
 // WithIdentifier adds the identifier to the do reset params
@@ -43,8 +61,9 @@ func (o *DoResetParams) WithPayload(payload *models.RackHDResetActionResetAction
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *DoResetParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *DoResetParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	// path param identifier

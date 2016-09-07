@@ -4,10 +4,10 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
+	"github.com/go-openapi/errors"
 )
 
 /*Power100Power This is the schema definition for the Power Metrics.  It represents the properties for Power Consumption and Power Limiting.
@@ -130,7 +130,17 @@ func (m *Power100Power) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validatePowerControlAtOdataNavigationLink(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validatePowerSupplies(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validatePowerSuppliesAtOdataNavigationLink(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -140,7 +150,17 @@ func (m *Power100Power) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateRedundancyAtOdataNavigationLink(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateVoltages(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateVoltagesAtOdataNavigationLink(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -157,6 +177,37 @@ func (m *Power100Power) validatePowerControl(formats strfmt.Registry) error {
 		return nil
 	}
 
+	for i := 0; i < len(m.PowerControl); i++ {
+
+		if swag.IsZero(m.PowerControl[i]) { // not required
+			continue
+		}
+
+		if m.PowerControl[i] != nil {
+
+			if err := m.PowerControl[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Power100Power) validatePowerControlAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PowerControlAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.PowerControlAtOdataNavigationLink != nil {
+
+		if err := m.PowerControlAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -164,6 +215,37 @@ func (m *Power100Power) validatePowerSupplies(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.PowerSupplies) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.PowerSupplies); i++ {
+
+		if swag.IsZero(m.PowerSupplies[i]) { // not required
+			continue
+		}
+
+		if m.PowerSupplies[i] != nil {
+
+			if err := m.PowerSupplies[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Power100Power) validatePowerSuppliesAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PowerSuppliesAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.PowerSuppliesAtOdataNavigationLink != nil {
+
+		if err := m.PowerSuppliesAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -175,6 +257,37 @@ func (m *Power100Power) validateRedundancy(formats strfmt.Registry) error {
 		return nil
 	}
 
+	for i := 0; i < len(m.Redundancy); i++ {
+
+		if swag.IsZero(m.Redundancy[i]) { // not required
+			continue
+		}
+
+		if m.Redundancy[i] != nil {
+
+			if err := m.Redundancy[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Power100Power) validateRedundancyAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.RedundancyAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.RedundancyAtOdataNavigationLink != nil {
+
+		if err := m.RedundancyAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -182,6 +295,37 @@ func (m *Power100Power) validateVoltages(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Voltages) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.Voltages); i++ {
+
+		if swag.IsZero(m.Voltages[i]) { // not required
+			continue
+		}
+
+		if m.Voltages[i] != nil {
+
+			if err := m.Voltages[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Power100Power) validateVoltagesAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.VoltagesAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.VoltagesAtOdataNavigationLink != nil {
+
+		if err := m.VoltagesAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil

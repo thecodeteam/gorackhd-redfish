@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // GetRegistryFileReader is a Reader for the GetRegistryFile structure.
@@ -21,7 +20,7 @@ type GetRegistryFileReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *GetRegistryFileReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *GetRegistryFileReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -53,7 +52,7 @@ func (o *GetRegistryFileReader) ReadResponse(response client.Response, consumer 
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -74,7 +73,7 @@ func (o *GetRegistryFileOK) Error() string {
 	return fmt.Sprintf("[GET /Registries/{identifier}][%d] getRegistryFileOK  %+v", 200, o.Payload)
 }
 
-func (o *GetRegistryFileOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetRegistryFileOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.MessageRegistryFile100MessageRegistryFile)
 
@@ -103,7 +102,7 @@ func (o *GetRegistryFileUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /Registries/{identifier}][%d] getRegistryFileUnauthorized ", 401)
 }
 
-func (o *GetRegistryFileUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetRegistryFileUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -125,7 +124,7 @@ func (o *GetRegistryFileForbidden) Error() string {
 	return fmt.Sprintf("[GET /Registries/{identifier}][%d] getRegistryFileForbidden ", 403)
 }
 
-func (o *GetRegistryFileForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetRegistryFileForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -147,7 +146,7 @@ func (o *GetRegistryFileInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /Registries/{identifier}][%d] getRegistryFileInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetRegistryFileInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetRegistryFileInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

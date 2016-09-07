@@ -6,11 +6,11 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*RackHDBootImageBootImage This is the base type for the boot image installation action.
@@ -152,6 +152,21 @@ func (m *RackHDBootImageBootImage) validateNetworkDevices(formats strfmt.Registr
 		return nil
 	}
 
+	for i := 0; i < len(m.NetworkDevices); i++ {
+
+		if swag.IsZero(m.NetworkDevices[i]) { // not required
+			continue
+		}
+
+		if m.NetworkDevices[i] != nil {
+
+			if err := m.NetworkDevices[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -201,6 +216,21 @@ func (m *RackHDBootImageBootImage) validateUsers(formats strfmt.Registry) error 
 
 	if swag.IsZero(m.Users) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.Users); i++ {
+
+		if swag.IsZero(m.Users[i]) { // not required
+			continue
+		}
+
+		if m.Users[i] != nil {
+
+			if err := m.Users[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	return nil

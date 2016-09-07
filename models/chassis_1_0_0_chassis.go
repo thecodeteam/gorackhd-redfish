@@ -6,11 +6,11 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*Chassis100Chassis This is the schema definition for the Chassis resource.  It represents the properties for physical components for any system.  This one object is intended to represent racks, rackmount servers, blades, standalone, modular systems, enclosures, and all other containers.  The non-cpu/device centric parts of the schema are all accessed either directly or indirectly through this resource.
@@ -139,6 +139,11 @@ type Chassis100Chassis struct {
 func (m *Chassis100Chassis) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateActions(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateChassisType(formats); err != nil {
 		// prop
 		res = append(res, err)
@@ -154,9 +159,45 @@ func (m *Chassis100Chassis) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateLogServices(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validatePower(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateStatus(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateThermal(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Chassis100Chassis) validateActions(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Actions) { // not required
+		return nil
+	}
+
+	if m.Actions != nil {
+
+		if err := m.Actions.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -242,6 +283,70 @@ func (m *Chassis100Chassis) validateLinks(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Chassis100Chassis) validateLogServices(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LogServices) { // not required
+		return nil
+	}
+
+	if m.LogServices != nil {
+
+		if err := m.LogServices.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Chassis100Chassis) validatePower(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Power) { // not required
+		return nil
+	}
+
+	if m.Power != nil {
+
+		if err := m.Power.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Chassis100Chassis) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if m.Status != nil {
+
+		if err := m.Status.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Chassis100Chassis) validateThermal(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Thermal) { // not required
+		return nil
+	}
+
+	if m.Thermal != nil {
+
+		if err := m.Thermal.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 /*Chassis100ChassisActions The Actions object contains the available custom actions on this resource.
 
 swagger:model Chassis100ChassisActions
@@ -259,6 +364,32 @@ type Chassis100ChassisActions struct {
 
 // Validate validates this chassis100 chassis actions
 func (m *Chassis100ChassisActions) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateNrChassisReset(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Chassis100ChassisActions) validateNrChassisReset(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NrChassisReset) { // not required
+		return nil
+	}
+
+	if m.NrChassisReset != nil {
+
+		if err := m.NrChassisReset.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -368,7 +499,22 @@ func (m *Chassis100ChassisLinks) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateComputerSystemsAtOdataNavigationLink(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateContainedBy(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateContains(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateContainsAtOdataNavigationLink(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -378,12 +524,27 @@ func (m *Chassis100ChassisLinks) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateCooledByAtOdataNavigationLink(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateManagedBy(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
 
+	if err := m.validateManagedByAtOdataNavigationLink(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validatePoweredBy(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validatePoweredByAtOdataNavigationLink(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -400,6 +561,53 @@ func (m *Chassis100ChassisLinks) validateComputerSystems(formats strfmt.Registry
 		return nil
 	}
 
+	for i := 0; i < len(m.ComputerSystems); i++ {
+
+		if swag.IsZero(m.ComputerSystems[i]) { // not required
+			continue
+		}
+
+		if m.ComputerSystems[i] != nil {
+
+			if err := m.ComputerSystems[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Chassis100ChassisLinks) validateComputerSystemsAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ComputerSystemsAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.ComputerSystemsAtOdataNavigationLink != nil {
+
+		if err := m.ComputerSystemsAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Chassis100ChassisLinks) validateContainedBy(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ContainedBy) { // not required
+		return nil
+	}
+
+	if m.ContainedBy != nil {
+
+		if err := m.ContainedBy.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -407,6 +615,37 @@ func (m *Chassis100ChassisLinks) validateContains(formats strfmt.Registry) error
 
 	if swag.IsZero(m.Contains) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.Contains); i++ {
+
+		if swag.IsZero(m.Contains[i]) { // not required
+			continue
+		}
+
+		if m.Contains[i] != nil {
+
+			if err := m.Contains[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Chassis100ChassisLinks) validateContainsAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ContainsAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.ContainsAtOdataNavigationLink != nil {
+
+		if err := m.ContainsAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -418,6 +657,37 @@ func (m *Chassis100ChassisLinks) validateCooledBy(formats strfmt.Registry) error
 		return nil
 	}
 
+	for i := 0; i < len(m.CooledBy); i++ {
+
+		if swag.IsZero(m.CooledBy[i]) { // not required
+			continue
+		}
+
+		if m.CooledBy[i] != nil {
+
+			if err := m.CooledBy[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Chassis100ChassisLinks) validateCooledByAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CooledByAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.CooledByAtOdataNavigationLink != nil {
+
+		if err := m.CooledByAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -427,6 +697,37 @@ func (m *Chassis100ChassisLinks) validateManagedBy(formats strfmt.Registry) erro
 		return nil
 	}
 
+	for i := 0; i < len(m.ManagedBy); i++ {
+
+		if swag.IsZero(m.ManagedBy[i]) { // not required
+			continue
+		}
+
+		if m.ManagedBy[i] != nil {
+
+			if err := m.ManagedBy[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Chassis100ChassisLinks) validateManagedByAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ManagedByAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.ManagedByAtOdataNavigationLink != nil {
+
+		if err := m.ManagedByAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -434,6 +735,37 @@ func (m *Chassis100ChassisLinks) validatePoweredBy(formats strfmt.Registry) erro
 
 	if swag.IsZero(m.PoweredBy) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.PoweredBy); i++ {
+
+		if swag.IsZero(m.PoweredBy[i]) { // not required
+			continue
+		}
+
+		if m.PoweredBy[i] != nil {
+
+			if err := m.PoweredBy[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Chassis100ChassisLinks) validatePoweredByAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PoweredByAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.PoweredByAtOdataNavigationLink != nil {
+
+		if err := m.PoweredByAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil

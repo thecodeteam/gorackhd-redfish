@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // PostSessionReader is a Reader for the PostSession structure.
@@ -21,7 +20,7 @@ type PostSessionReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *PostSessionReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *PostSessionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 201:
@@ -67,7 +66,7 @@ func (o *PostSessionReader) ReadResponse(response client.Response, consumer http
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *PostSessionCreated) Error() string {
 	return fmt.Sprintf("[POST /SessionService/Sessions][%d] postSessionCreated  %+v", 201, o.Payload)
 }
 
-func (o *PostSessionCreated) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *PostSessionCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Session100Session)
 
@@ -117,7 +116,7 @@ func (o *PostSessionBadRequest) Error() string {
 	return fmt.Sprintf("[POST /SessionService/Sessions][%d] postSessionBadRequest ", 400)
 }
 
-func (o *PostSessionBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *PostSessionBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -139,7 +138,7 @@ func (o *PostSessionUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /SessionService/Sessions][%d] postSessionUnauthorized ", 401)
 }
 
-func (o *PostSessionUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *PostSessionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -161,7 +160,7 @@ func (o *PostSessionForbidden) Error() string {
 	return fmt.Sprintf("[POST /SessionService/Sessions][%d] postSessionForbidden ", 403)
 }
 
-func (o *PostSessionForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *PostSessionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -183,7 +182,7 @@ func (o *PostSessionNotFound) Error() string {
 	return fmt.Sprintf("[POST /SessionService/Sessions][%d] postSessionNotFound ", 404)
 }
 
-func (o *PostSessionNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *PostSessionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -205,7 +204,7 @@ func (o *PostSessionInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /SessionService/Sessions][%d] postSessionInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PostSessionInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *PostSessionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

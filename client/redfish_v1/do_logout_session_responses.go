@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // DoLogoutSessionReader is a Reader for the DoLogoutSession structure.
@@ -21,7 +20,7 @@ type DoLogoutSessionReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *DoLogoutSessionReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *DoLogoutSessionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -67,7 +66,7 @@ func (o *DoLogoutSessionReader) ReadResponse(response client.Response, consumer 
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *DoLogoutSessionOK) Error() string {
 	return fmt.Sprintf("[DELETE /SessionService/Sessions/{identifier}][%d] doLogoutSessionOK  %+v", 200, o.Payload)
 }
 
-func (o *DoLogoutSessionOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoLogoutSessionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Session100Session)
 
@@ -117,7 +116,7 @@ func (o *DoLogoutSessionBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /SessionService/Sessions/{identifier}][%d] doLogoutSessionBadRequest ", 400)
 }
 
-func (o *DoLogoutSessionBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoLogoutSessionBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -139,7 +138,7 @@ func (o *DoLogoutSessionUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /SessionService/Sessions/{identifier}][%d] doLogoutSessionUnauthorized ", 401)
 }
 
-func (o *DoLogoutSessionUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoLogoutSessionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -161,7 +160,7 @@ func (o *DoLogoutSessionForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /SessionService/Sessions/{identifier}][%d] doLogoutSessionForbidden ", 403)
 }
 
-func (o *DoLogoutSessionForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoLogoutSessionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -183,7 +182,7 @@ func (o *DoLogoutSessionNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /SessionService/Sessions/{identifier}][%d] doLogoutSessionNotFound ", 404)
 }
 
-func (o *DoLogoutSessionNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoLogoutSessionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -205,7 +204,7 @@ func (o *DoLogoutSessionInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /SessionService/Sessions/{identifier}][%d] doLogoutSessionInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DoLogoutSessionInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoLogoutSessionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // GetSchemaContentReader is a Reader for the GetSchemaContent structure.
@@ -21,7 +20,7 @@ type GetSchemaContentReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *GetSchemaContentReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *GetSchemaContentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -53,7 +52,7 @@ func (o *GetSchemaContentReader) ReadResponse(response client.Response, consumer
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -74,7 +73,7 @@ func (o *GetSchemaContentOK) Error() string {
 	return fmt.Sprintf("[GET /SchemaStore/en/{identifier}][%d] getSchemaContentOK  %+v", 200, o.Payload)
 }
 
-func (o *GetSchemaContentOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetSchemaContentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.JSONSchemaFile100JSONSchemaFile)
 
@@ -103,7 +102,7 @@ func (o *GetSchemaContentUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /SchemaStore/en/{identifier}][%d] getSchemaContentUnauthorized ", 401)
 }
 
-func (o *GetSchemaContentUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetSchemaContentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -125,7 +124,7 @@ func (o *GetSchemaContentForbidden) Error() string {
 	return fmt.Sprintf("[GET /SchemaStore/en/{identifier}][%d] getSchemaContentForbidden ", 403)
 }
 
-func (o *GetSchemaContentForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetSchemaContentForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -147,7 +146,7 @@ func (o *GetSchemaContentInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /SchemaStore/en/{identifier}][%d] getSchemaContentInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetSchemaContentInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetSchemaContentInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

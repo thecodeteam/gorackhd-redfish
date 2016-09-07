@@ -6,11 +6,11 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*Processor100Processor This is the schema definition for the Processor resource.  It represents the properties of a processor attached to a System.
@@ -136,7 +136,17 @@ func (m *Processor100Processor) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateProcessorID(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateProcessorType(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateStatus(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -213,6 +223,22 @@ func (m *Processor100Processor) validateProcessorArchitecture(formats strfmt.Reg
 	return nil
 }
 
+func (m *Processor100Processor) validateProcessorID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ProcessorID) { // not required
+		return nil
+	}
+
+	if m.ProcessorID != nil {
+
+		if err := m.ProcessorID.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 var processor100ProcessorTypeProcessorTypePropEnum []interface{}
 
 // prop value enum
@@ -241,6 +267,22 @@ func (m *Processor100Processor) validateProcessorType(formats strfmt.Registry) e
 	// value enum
 	if err := m.validateProcessorTypeEnum("ProcessorType", "body", m.ProcessorType); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *Processor100Processor) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if m.Status != nil {
+
+		if err := m.Status.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil

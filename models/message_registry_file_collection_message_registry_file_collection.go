@@ -4,10 +4,10 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
+	"github.com/go-openapi/errors"
 )
 
 /*MessageRegistryFileCollectionMessageRegistryFileCollection message registry file collection message registry file collection
@@ -86,6 +86,21 @@ func (m *MessageRegistryFileCollectionMessageRegistryFileCollection) validateMem
 
 	if swag.IsZero(m.Members) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.Members); i++ {
+
+		if swag.IsZero(m.Members[i]) { // not required
+			continue
+		}
+
+		if m.Members[i] != nil {
+
+			if err := m.Members[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	return nil

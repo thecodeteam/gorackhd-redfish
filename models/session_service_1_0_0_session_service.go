@@ -4,11 +4,11 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*SessionService100SessionService This is the schema definition for the Session Service.  It represents the properties for the service itself and has links to the actual list of sessions.
@@ -88,6 +88,16 @@ func (m *SessionService100SessionService) Validate(formats strfmt.Registry) erro
 		res = append(res, err)
 	}
 
+	if err := m.validateSessions(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateStatus(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -106,6 +116,38 @@ func (m *SessionService100SessionService) validateSessionTimeout(formats strfmt.
 
 	if err := validate.Maximum("SessionTimeout", "body", float64(m.SessionTimeout), 86400, false); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *SessionService100SessionService) validateSessions(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Sessions) { // not required
+		return nil
+	}
+
+	if m.Sessions != nil {
+
+		if err := m.Sessions.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *SessionService100SessionService) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if m.Status != nil {
+
+		if err := m.Status.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil

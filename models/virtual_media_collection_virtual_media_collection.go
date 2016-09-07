@@ -4,10 +4,10 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
+	"github.com/go-openapi/errors"
 )
 
 /*VirtualMediaCollectionVirtualMediaCollection virtual media collection virtual media collection
@@ -76,6 +76,11 @@ func (m *VirtualMediaCollectionVirtualMediaCollection) Validate(formats strfmt.R
 		res = append(res, err)
 	}
 
+	if err := m.validateMembersAtOdataNavigationLink(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -86,6 +91,37 @@ func (m *VirtualMediaCollectionVirtualMediaCollection) validateMembers(formats s
 
 	if swag.IsZero(m.Members) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.Members); i++ {
+
+		if swag.IsZero(m.Members[i]) { // not required
+			continue
+		}
+
+		if m.Members[i] != nil {
+
+			if err := m.Members[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *VirtualMediaCollectionVirtualMediaCollection) validateMembersAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.MembersAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.MembersAtOdataNavigationLink != nil {
+
+		if err := m.MembersAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil

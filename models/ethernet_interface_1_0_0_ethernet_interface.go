@@ -4,11 +4,11 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*EthernetInterface100EthernetInterface This schema defines a simple ethernet NIC resource.
@@ -198,6 +198,21 @@ func (m *EthernetInterface100EthernetInterface) Validate(formats strfmt.Registry
 		res = append(res, err)
 	}
 
+	if err := m.validateStatus(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateVLAN(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateVLANs(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -210,6 +225,21 @@ func (m *EthernetInterface100EthernetInterface) validateIPV4Addresses(formats st
 		return nil
 	}
 
+	for i := 0; i < len(m.IPV4Addresses); i++ {
+
+		if swag.IsZero(m.IPV4Addresses[i]) { // not required
+			continue
+		}
+
+		if m.IPV4Addresses[i] != nil {
+
+			if err := m.IPV4Addresses[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -217,6 +247,21 @@ func (m *EthernetInterface100EthernetInterface) validateIPV6AddressPolicyTable(f
 
 	if swag.IsZero(m.IPV6AddressPolicyTable) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.IPV6AddressPolicyTable); i++ {
+
+		if swag.IsZero(m.IPV6AddressPolicyTable[i]) { // not required
+			continue
+		}
+
+		if m.IPV6AddressPolicyTable[i] != nil {
+
+			if err := m.IPV6AddressPolicyTable[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -228,6 +273,21 @@ func (m *EthernetInterface100EthernetInterface) validateIPV6Addresses(formats st
 		return nil
 	}
 
+	for i := 0; i < len(m.IPV6Addresses); i++ {
+
+		if swag.IsZero(m.IPV6Addresses[i]) { // not required
+			continue
+		}
+
+		if m.IPV6Addresses[i] != nil {
+
+			if err := m.IPV6Addresses[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -235,6 +295,21 @@ func (m *EthernetInterface100EthernetInterface) validateIPV6StaticAddresses(form
 
 	if swag.IsZero(m.IPV6StaticAddresses) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.IPV6StaticAddresses); i++ {
+
+		if swag.IsZero(m.IPV6StaticAddresses[i]) { // not required
+			continue
+		}
+
+		if m.IPV6StaticAddresses[i] != nil {
+
+			if err := m.IPV6StaticAddresses[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -270,6 +345,54 @@ func (m *EthernetInterface100EthernetInterface) validatePermanentMACAddress(form
 
 	if err := validate.Pattern("PermanentMACAddress", "body", string(m.PermanentMACAddress), `^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$`); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *EthernetInterface100EthernetInterface) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if m.Status != nil {
+
+		if err := m.Status.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *EthernetInterface100EthernetInterface) validateVLAN(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.VLAN) { // not required
+		return nil
+	}
+
+	if m.VLAN != nil {
+
+		if err := m.VLAN.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *EthernetInterface100EthernetInterface) validateVLANs(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.VLANs) { // not required
+		return nil
+	}
+
+	if m.VLANs != nil {
+
+		if err := m.VLANs.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil

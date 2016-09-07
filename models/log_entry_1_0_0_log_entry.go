@@ -6,11 +6,11 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*LogEntry100LogEntry This resource represents the log record format for logs.  It is designed to be used for SEL logs from IPMI as well as Event Logs and OEM specific logs.  The EntryType field indicates the type of log and there are other properties dependent on it's value.
@@ -139,6 +139,11 @@ func (m *LogEntry100LogEntry) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateLinks(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateMessageArgs(formats); err != nil {
 		// prop
 		res = append(res, err)
@@ -221,6 +226,22 @@ func (m *LogEntry100LogEntry) validateEntryType(formats strfmt.Registry) error {
 	// value enum
 	if err := m.validateEntryTypeEnum("EntryType", "body", m.EntryType); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *LogEntry100LogEntry) validateLinks(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Links) { // not required
+		return nil
+	}
+
+	if m.Links != nil {
+
+		if err := m.Links.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -320,5 +341,31 @@ type LogEntry100LogEntryLinks struct {
 
 // Validate validates this log entry100 log entry links
 func (m *LogEntry100LogEntryLinks) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateOriginOfCondition(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *LogEntry100LogEntryLinks) validateOriginOfCondition(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.OriginOfCondition) { // not required
+		return nil
+	}
+
+	if m.OriginOfCondition != nil {
+
+		if err := m.OriginOfCondition.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }

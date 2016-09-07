@@ -7,11 +7,11 @@ import (
 	"encoding/json"
 	"strconv"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*EventService100EventService This is the schema definition for the Event Service. It represents the properties for the service itself and has links to the actual list of subscriptions.
@@ -101,7 +101,22 @@ type EventService100EventService struct {
 func (m *EventService100EventService) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateActions(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateEventTypesForSubscription(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateStatus(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateSubscriptions(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -109,6 +124,22 @@ func (m *EventService100EventService) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *EventService100EventService) validateActions(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Actions) { // not required
+		return nil
+	}
+
+	if m.Actions != nil {
+
+		if err := m.Actions.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -148,6 +179,38 @@ func (m *EventService100EventService) validateEventTypesForSubscription(formats 
 	return nil
 }
 
+func (m *EventService100EventService) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if m.Status != nil {
+
+		if err := m.Status.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *EventService100EventService) validateSubscriptions(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Subscriptions) { // not required
+		return nil
+	}
+
+	if m.Subscriptions != nil {
+
+		if err := m.Subscriptions.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 /*EventService100EventServiceActions The Actions object contains the available custom actions on this resource.
 
 swagger:model EventService100EventServiceActions
@@ -165,5 +228,31 @@ type EventService100EventServiceActions struct {
 
 // Validate validates this event service100 event service actions
 func (m *EventService100EventServiceActions) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateNrEventServiceSubmitTestEvent(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *EventService100EventServiceActions) validateNrEventServiceSubmitTestEvent(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NrEventServiceSubmitTestEvent) { // not required
+		return nil
+	}
+
+	if m.NrEventServiceSubmitTestEvent != nil {
+
+		if err := m.NrEventServiceSubmitTestEvent.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }

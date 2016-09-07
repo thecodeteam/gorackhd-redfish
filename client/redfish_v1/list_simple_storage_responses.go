@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // ListSimpleStorageReader is a Reader for the ListSimpleStorage structure.
@@ -21,7 +20,7 @@ type ListSimpleStorageReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *ListSimpleStorageReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *ListSimpleStorageReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -67,7 +66,7 @@ func (o *ListSimpleStorageReader) ReadResponse(response client.Response, consume
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *ListSimpleStorageOK) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/SimpleStorage][%d] listSimpleStorageOK  %+v", 200, o.Payload)
 }
 
-func (o *ListSimpleStorageOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSimpleStorageOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.SimpleStorageCollectionSimpleStorageCollection)
 
@@ -117,7 +116,7 @@ func (o *ListSimpleStorageBadRequest) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/SimpleStorage][%d] listSimpleStorageBadRequest ", 400)
 }
 
-func (o *ListSimpleStorageBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSimpleStorageBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -139,7 +138,7 @@ func (o *ListSimpleStorageUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/SimpleStorage][%d] listSimpleStorageUnauthorized ", 401)
 }
 
-func (o *ListSimpleStorageUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSimpleStorageUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -161,7 +160,7 @@ func (o *ListSimpleStorageForbidden) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/SimpleStorage][%d] listSimpleStorageForbidden ", 403)
 }
 
-func (o *ListSimpleStorageForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSimpleStorageForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -183,7 +182,7 @@ func (o *ListSimpleStorageNotFound) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/SimpleStorage][%d] listSimpleStorageNotFound ", 404)
 }
 
-func (o *ListSimpleStorageNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSimpleStorageNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -205,7 +204,7 @@ func (o *ListSimpleStorageInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/SimpleStorage][%d] listSimpleStorageInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *ListSimpleStorageInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSimpleStorageInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

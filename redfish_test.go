@@ -6,15 +6,15 @@ import (
 	"os"
 	"testing"
 
-	httptransport "github.com/go-swagger/go-swagger/httpkit/client"
-	"github.com/go-swagger/go-swagger/strfmt"
+	httptransport "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
 
-	apiclientRedfish "github.com/emccode/gorackhd-redfish/client"
-	"github.com/emccode/gorackhd-redfish/client/redfish_v1"
-	"github.com/emccode/gorackhd-redfish/models"
+	apiclientRedfish "github.com/codedellemc/gorackhd-redfish/client"
+	"github.com/codedellemc/gorackhd-redfish/client/redfish_v1"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
-func TestRedfishGetRolesOperation(t *testing.T) {
+func TestRedfishGetAccountsOperation(t *testing.T) {
 
 	// create the transport
 	transport := httptransport.New("localhost:9090", "/redfish/v1", []string{"http"})
@@ -28,7 +28,7 @@ func TestRedfishGetRolesOperation(t *testing.T) {
 	client := apiclientRedfish.New(transport, strfmt.Default)
 
 	//use any function to do REST operations
-	resp, err := client.RedfishV1.GetRoles(nil)
+	resp, err := client.RedfishV1.GetAccounts(nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -72,8 +72,9 @@ func TestRedfishShutdown(t *testing.T) {
 	// create the API client, with the transport
 	client := apiclientRedfish.New(transport, strfmt.Default)
 
-	action := &models.RackHDResetAction{
-		ResetType: "GracefulShutdown",
+	resetType := "GracefulShutdown"
+	action := &models.RackHDResetActionResetAction{
+		ResetType: &resetType,
 	}
 	resp, err := client.RedfishV1.DoReset(&redfish_v1.DoResetParams{Identifier: "57154fe9d67951e70958c213", Payload: action})
 	if err != nil {

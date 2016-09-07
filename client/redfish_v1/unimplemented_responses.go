@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // UnimplementedReader is a Reader for the Unimplemented structure.
@@ -21,7 +20,7 @@ type UnimplementedReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *UnimplementedReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *UnimplementedReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -67,7 +66,7 @@ func (o *UnimplementedReader) ReadResponse(response client.Response, consumer ht
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -81,16 +80,16 @@ func NewUnimplementedOK() *UnimplementedOK {
 Success
 */
 type UnimplementedOK struct {
-	Payload *models.SerialInterface100SerialInterface
+	Payload *models.EthernetInterface100EthernetInterface
 }
 
 func (o *UnimplementedOK) Error() string {
-	return fmt.Sprintf("[GET /Managers/{identifier}/SerialInterfaces/{index}][%d] unimplementedOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /Systems/{identifier}/EthernetInterfaces/{index}][%d] unimplementedOK  %+v", 200, o.Payload)
 }
 
-func (o *UnimplementedOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *UnimplementedOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.SerialInterface100SerialInterface)
+	o.Payload = new(models.EthernetInterface100EthernetInterface)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -114,10 +113,10 @@ type UnimplementedBadRequest struct {
 }
 
 func (o *UnimplementedBadRequest) Error() string {
-	return fmt.Sprintf("[GET /Managers/{identifier}/SerialInterfaces/{index}][%d] unimplementedBadRequest ", 400)
+	return fmt.Sprintf("[GET /Systems/{identifier}/EthernetInterfaces/{index}][%d] unimplementedBadRequest ", 400)
 }
 
-func (o *UnimplementedBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *UnimplementedBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -136,10 +135,10 @@ type UnimplementedUnauthorized struct {
 }
 
 func (o *UnimplementedUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /Managers/{identifier}/SerialInterfaces/{index}][%d] unimplementedUnauthorized ", 401)
+	return fmt.Sprintf("[GET /Systems/{identifier}/EthernetInterfaces/{index}][%d] unimplementedUnauthorized ", 401)
 }
 
-func (o *UnimplementedUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *UnimplementedUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -158,10 +157,10 @@ type UnimplementedForbidden struct {
 }
 
 func (o *UnimplementedForbidden) Error() string {
-	return fmt.Sprintf("[GET /Managers/{identifier}/SerialInterfaces/{index}][%d] unimplementedForbidden ", 403)
+	return fmt.Sprintf("[GET /Systems/{identifier}/EthernetInterfaces/{index}][%d] unimplementedForbidden ", 403)
 }
 
-func (o *UnimplementedForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *UnimplementedForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -180,10 +179,10 @@ type UnimplementedNotFound struct {
 }
 
 func (o *UnimplementedNotFound) Error() string {
-	return fmt.Sprintf("[GET /Managers/{identifier}/SerialInterfaces/{index}][%d] unimplementedNotFound ", 404)
+	return fmt.Sprintf("[GET /Systems/{identifier}/EthernetInterfaces/{index}][%d] unimplementedNotFound ", 404)
 }
 
-func (o *UnimplementedNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *UnimplementedNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -202,10 +201,10 @@ type UnimplementedInternalServerError struct {
 }
 
 func (o *UnimplementedInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /Managers/{identifier}/SerialInterfaces/{index}][%d] unimplementedInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[GET /Systems/{identifier}/EthernetInterfaces/{index}][%d] unimplementedInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *UnimplementedInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *UnimplementedInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

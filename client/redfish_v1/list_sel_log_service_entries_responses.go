@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // ListSelLogServiceEntriesReader is a Reader for the ListSelLogServiceEntries structure.
@@ -21,7 +20,7 @@ type ListSelLogServiceEntriesReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *ListSelLogServiceEntriesReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *ListSelLogServiceEntriesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -67,7 +66,7 @@ func (o *ListSelLogServiceEntriesReader) ReadResponse(response client.Response, 
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *ListSelLogServiceEntriesOK) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/LogServices/sel/Entries][%d] listSelLogServiceEntriesOK  %+v", 200, o.Payload)
 }
 
-func (o *ListSelLogServiceEntriesOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSelLogServiceEntriesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.LogEntryCollectionLogEntryCollection)
 
@@ -117,7 +116,7 @@ func (o *ListSelLogServiceEntriesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/LogServices/sel/Entries][%d] listSelLogServiceEntriesBadRequest ", 400)
 }
 
-func (o *ListSelLogServiceEntriesBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSelLogServiceEntriesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -139,7 +138,7 @@ func (o *ListSelLogServiceEntriesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/LogServices/sel/Entries][%d] listSelLogServiceEntriesUnauthorized ", 401)
 }
 
-func (o *ListSelLogServiceEntriesUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSelLogServiceEntriesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -161,7 +160,7 @@ func (o *ListSelLogServiceEntriesForbidden) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/LogServices/sel/Entries][%d] listSelLogServiceEntriesForbidden ", 403)
 }
 
-func (o *ListSelLogServiceEntriesForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSelLogServiceEntriesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -183,7 +182,7 @@ func (o *ListSelLogServiceEntriesNotFound) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/LogServices/sel/Entries][%d] listSelLogServiceEntriesNotFound ", 404)
 }
 
-func (o *ListSelLogServiceEntriesNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSelLogServiceEntriesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -205,7 +204,7 @@ func (o *ListSelLogServiceEntriesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/LogServices/sel/Entries][%d] listSelLogServiceEntriesInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *ListSelLogServiceEntriesInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSelLogServiceEntriesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

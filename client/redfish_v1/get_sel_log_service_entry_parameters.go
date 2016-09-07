@@ -4,17 +4,33 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // NewGetSelLogServiceEntryParams creates a new GetSelLogServiceEntryParams object
 // with the default values initialized.
 func NewGetSelLogServiceEntryParams() *GetSelLogServiceEntryParams {
 	var ()
-	return &GetSelLogServiceEntryParams{}
+	return &GetSelLogServiceEntryParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewGetSelLogServiceEntryParamsWithTimeout creates a new GetSelLogServiceEntryParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewGetSelLogServiceEntryParamsWithTimeout(timeout time.Duration) *GetSelLogServiceEntryParams {
+	var ()
+	return &GetSelLogServiceEntryParams{
+
+		timeout: timeout,
+	}
 }
 
 /*GetSelLogServiceEntryParams contains all the parameters to send to the API endpoint
@@ -26,11 +42,13 @@ type GetSelLogServiceEntryParams struct {
 	EntryID string
 	/*Identifier*/
 	Identifier string
+
+	timeout time.Duration
 }
 
-// WithEntryID adds the entryId to the get sel log service entry params
-func (o *GetSelLogServiceEntryParams) WithEntryID(entryId string) *GetSelLogServiceEntryParams {
-	o.EntryID = entryId
+// WithEntryID adds the entryID to the get sel log service entry params
+func (o *GetSelLogServiceEntryParams) WithEntryID(entryID string) *GetSelLogServiceEntryParams {
+	o.EntryID = entryID
 	return o
 }
 
@@ -41,8 +59,9 @@ func (o *GetSelLogServiceEntryParams) WithIdentifier(identifier string) *GetSelL
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *GetSelLogServiceEntryParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *GetSelLogServiceEntryParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	// path param entryId

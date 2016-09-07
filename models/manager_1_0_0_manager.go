@@ -6,11 +6,11 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*Manager100Manager This is the schema definition for a Manager.  Examples of managers are BMCs, Enclosure Managers, Management Controllers and other subsystems assigned managability functions.
@@ -176,7 +176,27 @@ type Manager100Manager struct {
 func (m *Manager100Manager) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateActions(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateCommandShell(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateDateTimeLocalOffset(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateEthernetInterfaces(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateGraphicalConsole(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -186,7 +206,17 @@ func (m *Manager100Manager) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateLogServices(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateManagerType(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateNetworkProtocol(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -196,7 +226,27 @@ func (m *Manager100Manager) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateRedundancyAtOdataNavigationLink(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateSerialConsole(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateSerialInterfaces(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateServiceEntryPointUUID(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateStatus(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -206,9 +256,46 @@ func (m *Manager100Manager) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateVirtualMedia(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Manager100Manager) validateActions(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Actions) { // not required
+		return nil
+	}
+
+	if m.Actions != nil {
+
+		if err := m.Actions.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Manager100Manager) validateCommandShell(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CommandShell) { // not required
+		return nil
+	}
+
+	if m.CommandShell != nil {
+
+		if err := m.CommandShell.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -225,6 +312,38 @@ func (m *Manager100Manager) validateDateTimeLocalOffset(formats strfmt.Registry)
 	return nil
 }
 
+func (m *Manager100Manager) validateEthernetInterfaces(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.EthernetInterfaces) { // not required
+		return nil
+	}
+
+	if m.EthernetInterfaces != nil {
+
+		if err := m.EthernetInterfaces.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Manager100Manager) validateGraphicalConsole(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.GraphicalConsole) { // not required
+		return nil
+	}
+
+	if m.GraphicalConsole != nil {
+
+		if err := m.GraphicalConsole.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *Manager100Manager) validateLinks(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Links) { // not required
@@ -234,6 +353,22 @@ func (m *Manager100Manager) validateLinks(formats strfmt.Registry) error {
 	if m.Links != nil {
 
 		if err := m.Links.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Manager100Manager) validateLogServices(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LogServices) { // not required
+		return nil
+	}
+
+	if m.LogServices != nil {
+
+		if err := m.LogServices.Validate(formats); err != nil {
 			return err
 		}
 	}
@@ -274,10 +409,89 @@ func (m *Manager100Manager) validateManagerType(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Manager100Manager) validateNetworkProtocol(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NetworkProtocol) { // not required
+		return nil
+	}
+
+	if m.NetworkProtocol != nil {
+
+		if err := m.NetworkProtocol.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *Manager100Manager) validateRedundancy(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Redundancy) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.Redundancy); i++ {
+
+		if swag.IsZero(m.Redundancy[i]) { // not required
+			continue
+		}
+
+		if m.Redundancy[i] != nil {
+
+			if err := m.Redundancy[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Manager100Manager) validateRedundancyAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.RedundancyAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.RedundancyAtOdataNavigationLink != nil {
+
+		if err := m.RedundancyAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Manager100Manager) validateSerialConsole(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SerialConsole) { // not required
+		return nil
+	}
+
+	if m.SerialConsole != nil {
+
+		if err := m.SerialConsole.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Manager100Manager) validateSerialInterfaces(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SerialInterfaces) { // not required
+		return nil
+	}
+
+	if m.SerialInterfaces != nil {
+
+		if err := m.SerialInterfaces.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -296,6 +510,22 @@ func (m *Manager100Manager) validateServiceEntryPointUUID(formats strfmt.Registr
 	return nil
 }
 
+func (m *Manager100Manager) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if m.Status != nil {
+
+		if err := m.Status.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *Manager100Manager) validateUUID(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.UUID) { // not required
@@ -304,6 +534,22 @@ func (m *Manager100Manager) validateUUID(formats strfmt.Registry) error {
 
 	if err := validate.Pattern("UUID", "body", string(m.UUID), `([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *Manager100Manager) validateVirtualMedia(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.VirtualMedia) { // not required
+		return nil
+	}
+
+	if m.VirtualMedia != nil {
+
+		if err := m.VirtualMedia.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -334,6 +580,74 @@ type Manager100ManagerActions struct {
 
 // Validate validates this manager100 manager actions
 func (m *Manager100ManagerActions) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateNrManagerForceFailover(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateNrManagerModifyRedundancySet(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateNrManagerReset(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Manager100ManagerActions) validateNrManagerForceFailover(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NrManagerForceFailover) { // not required
+		return nil
+	}
+
+	if m.NrManagerForceFailover != nil {
+
+		if err := m.NrManagerForceFailover.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Manager100ManagerActions) validateNrManagerModifyRedundancySet(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NrManagerModifyRedundancySet) { // not required
+		return nil
+	}
+
+	if m.NrManagerModifyRedundancySet != nil {
+
+		if err := m.NrManagerModifyRedundancySet.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Manager100ManagerActions) validateNrManagerReset(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NrManagerReset) { // not required
+		return nil
+	}
+
+	if m.NrManagerReset != nil {
+
+		if err := m.NrManagerReset.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -389,7 +703,17 @@ func (m *Manager100ManagerLinks) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateManagerForChassisAtOdataNavigationLink(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateManagerForServers(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateManagerForServersAtOdataNavigationLink(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -406,6 +730,37 @@ func (m *Manager100ManagerLinks) validateManagerForChassis(formats strfmt.Regist
 		return nil
 	}
 
+	for i := 0; i < len(m.ManagerForChassis); i++ {
+
+		if swag.IsZero(m.ManagerForChassis[i]) { // not required
+			continue
+		}
+
+		if m.ManagerForChassis[i] != nil {
+
+			if err := m.ManagerForChassis[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Manager100ManagerLinks) validateManagerForChassisAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ManagerForChassisAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.ManagerForChassisAtOdataNavigationLink != nil {
+
+		if err := m.ManagerForChassisAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -413,6 +768,37 @@ func (m *Manager100ManagerLinks) validateManagerForServers(formats strfmt.Regist
 
 	if swag.IsZero(m.ManagerForServers) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.ManagerForServers); i++ {
+
+		if swag.IsZero(m.ManagerForServers[i]) { // not required
+			continue
+		}
+
+		if m.ManagerForServers[i] != nil {
+
+			if err := m.ManagerForServers[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Manager100ManagerLinks) validateManagerForServersAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ManagerForServersAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.ManagerForServersAtOdataNavigationLink != nil {
+
+		if err := m.ManagerForServersAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil

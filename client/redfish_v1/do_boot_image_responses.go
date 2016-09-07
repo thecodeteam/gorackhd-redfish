@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // DoBootImageReader is a Reader for the DoBootImage structure.
@@ -21,7 +20,7 @@ type DoBootImageReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *DoBootImageReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *DoBootImageReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 202:
@@ -67,7 +66,7 @@ func (o *DoBootImageReader) ReadResponse(response client.Response, consumer http
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *DoBootImageAccepted) Error() string {
 	return fmt.Sprintf("[POST /Systems/{identifier}/Actions/RackHD.BootImage][%d] doBootImageAccepted ", 202)
 }
 
-func (o *DoBootImageAccepted) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoBootImageAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -110,7 +109,7 @@ func (o *DoBootImageBadRequest) Error() string {
 	return fmt.Sprintf("[POST /Systems/{identifier}/Actions/RackHD.BootImage][%d] doBootImageBadRequest ", 400)
 }
 
-func (o *DoBootImageBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoBootImageBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -132,7 +131,7 @@ func (o *DoBootImageUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /Systems/{identifier}/Actions/RackHD.BootImage][%d] doBootImageUnauthorized ", 401)
 }
 
-func (o *DoBootImageUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoBootImageUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -154,7 +153,7 @@ func (o *DoBootImageForbidden) Error() string {
 	return fmt.Sprintf("[POST /Systems/{identifier}/Actions/RackHD.BootImage][%d] doBootImageForbidden ", 403)
 }
 
-func (o *DoBootImageForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoBootImageForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -176,7 +175,7 @@ func (o *DoBootImageNotFound) Error() string {
 	return fmt.Sprintf("[POST /Systems/{identifier}/Actions/RackHD.BootImage][%d] doBootImageNotFound ", 404)
 }
 
-func (o *DoBootImageNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoBootImageNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -198,7 +197,7 @@ func (o *DoBootImageInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /Systems/{identifier}/Actions/RackHD.BootImage][%d] doBootImageInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DoBootImageInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoBootImageInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

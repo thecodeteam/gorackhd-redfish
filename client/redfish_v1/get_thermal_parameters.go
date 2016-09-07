@@ -4,17 +4,33 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // NewGetThermalParams creates a new GetThermalParams object
 // with the default values initialized.
 func NewGetThermalParams() *GetThermalParams {
 	var ()
-	return &GetThermalParams{}
+	return &GetThermalParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewGetThermalParamsWithTimeout creates a new GetThermalParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewGetThermalParamsWithTimeout(timeout time.Duration) *GetThermalParams {
+	var ()
+	return &GetThermalParams{
+
+		timeout: timeout,
+	}
 }
 
 /*GetThermalParams contains all the parameters to send to the API endpoint
@@ -24,6 +40,8 @@ type GetThermalParams struct {
 
 	/*Identifier*/
 	Identifier string
+
+	timeout time.Duration
 }
 
 // WithIdentifier adds the identifier to the get thermal params
@@ -33,8 +51,9 @@ func (o *GetThermalParams) WithIdentifier(identifier string) *GetThermalParams {
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *GetThermalParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *GetThermalParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	// path param identifier

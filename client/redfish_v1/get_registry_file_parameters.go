@@ -4,17 +4,33 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // NewGetRegistryFileParams creates a new GetRegistryFileParams object
 // with the default values initialized.
 func NewGetRegistryFileParams() *GetRegistryFileParams {
 	var ()
-	return &GetRegistryFileParams{}
+	return &GetRegistryFileParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewGetRegistryFileParamsWithTimeout creates a new GetRegistryFileParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewGetRegistryFileParamsWithTimeout(timeout time.Duration) *GetRegistryFileParams {
+	var ()
+	return &GetRegistryFileParams{
+
+		timeout: timeout,
+	}
 }
 
 /*GetRegistryFileParams contains all the parameters to send to the API endpoint
@@ -24,6 +40,8 @@ type GetRegistryFileParams struct {
 
 	/*Identifier*/
 	Identifier string
+
+	timeout time.Duration
 }
 
 // WithIdentifier adds the identifier to the get registry file params
@@ -33,8 +51,9 @@ func (o *GetRegistryFileParams) WithIdentifier(identifier string) *GetRegistryFi
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *GetRegistryFileParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *GetRegistryFileParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	// path param identifier

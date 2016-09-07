@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // EventServiceRootReader is a Reader for the EventServiceRoot structure.
@@ -21,7 +20,7 @@ type EventServiceRootReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *EventServiceRootReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *EventServiceRootReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -53,7 +52,7 @@ func (o *EventServiceRootReader) ReadResponse(response client.Response, consumer
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -74,7 +73,7 @@ func (o *EventServiceRootOK) Error() string {
 	return fmt.Sprintf("[GET /EventService][%d] eventServiceRootOK  %+v", 200, o.Payload)
 }
 
-func (o *EventServiceRootOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *EventServiceRootOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EventService100EventService)
 
@@ -103,7 +102,7 @@ func (o *EventServiceRootUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /EventService][%d] eventServiceRootUnauthorized ", 401)
 }
 
-func (o *EventServiceRootUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *EventServiceRootUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -125,7 +124,7 @@ func (o *EventServiceRootForbidden) Error() string {
 	return fmt.Sprintf("[GET /EventService][%d] eventServiceRootForbidden ", 403)
 }
 
-func (o *EventServiceRootForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *EventServiceRootForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -147,7 +146,7 @@ func (o *EventServiceRootNotImplemented) Error() string {
 	return fmt.Sprintf("[GET /EventService][%d] eventServiceRootNotImplemented ", 501)
 }
 
-func (o *EventServiceRootNotImplemented) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *EventServiceRootNotImplemented) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

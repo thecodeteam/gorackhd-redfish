@@ -6,11 +6,11 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*LogService100LogService This resource represents the log service for the resource or service to which it is associated.
@@ -105,7 +105,17 @@ type LogService100LogService struct {
 func (m *LogService100LogService) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateActions(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateDateTimeLocalOffset(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateEntries(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -120,9 +130,30 @@ func (m *LogService100LogService) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateStatus(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *LogService100LogService) validateActions(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Actions) { // not required
+		return nil
+	}
+
+	if m.Actions != nil {
+
+		if err := m.Actions.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -134,6 +165,22 @@ func (m *LogService100LogService) validateDateTimeLocalOffset(formats strfmt.Reg
 
 	if err := validate.Pattern("DateTimeLocalOffset", "body", string(m.DateTimeLocalOffset), `([-+][0-1][0-9]:[0-5][0-9])`); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *LogService100LogService) validateEntries(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Entries) { // not required
+		return nil
+	}
+
+	if m.Entries != nil {
+
+		if err := m.Entries.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -185,6 +232,22 @@ func (m *LogService100LogService) validateOverWritePolicy(formats strfmt.Registr
 	return nil
 }
 
+func (m *LogService100LogService) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if m.Status != nil {
+
+		if err := m.Status.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 /*LogService100LogServiceActions The Actions object contains the available custom actions on this resource.
 
 swagger:model LogService100LogServiceActions
@@ -202,5 +265,31 @@ type LogService100LogServiceActions struct {
 
 // Validate validates this log service100 log service actions
 func (m *LogService100LogServiceActions) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateNrLogServiceClearLog(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *LogService100LogServiceActions) validateNrLogServiceClearLog(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NrLogServiceClearLog) { // not required
+		return nil
+	}
+
+	if m.NrLogServiceClearLog != nil {
+
+		if err := m.NrLogServiceClearLog.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }

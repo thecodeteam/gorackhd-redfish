@@ -6,11 +6,11 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*Task100Task This is the schema definition for a Task resource.
@@ -119,6 +119,21 @@ func (m *Task100Task) validateMessages(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Messages) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.Messages); i++ {
+
+		if swag.IsZero(m.Messages[i]) { // not required
+			continue
+		}
+
+		if m.Messages[i] != nil {
+
+			if err := m.Messages[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	return nil

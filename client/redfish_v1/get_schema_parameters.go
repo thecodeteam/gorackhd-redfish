@@ -4,17 +4,33 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // NewGetSchemaParams creates a new GetSchemaParams object
 // with the default values initialized.
 func NewGetSchemaParams() *GetSchemaParams {
 	var ()
-	return &GetSchemaParams{}
+	return &GetSchemaParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewGetSchemaParamsWithTimeout creates a new GetSchemaParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewGetSchemaParamsWithTimeout(timeout time.Duration) *GetSchemaParams {
+	var ()
+	return &GetSchemaParams{
+
+		timeout: timeout,
+	}
 }
 
 /*GetSchemaParams contains all the parameters to send to the API endpoint
@@ -24,6 +40,8 @@ type GetSchemaParams struct {
 
 	/*Identifier*/
 	Identifier string
+
+	timeout time.Duration
 }
 
 // WithIdentifier adds the identifier to the get schema params
@@ -33,8 +51,9 @@ func (o *GetSchemaParams) WithIdentifier(identifier string) *GetSchemaParams {
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *GetSchemaParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *GetSchemaParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	// path param identifier

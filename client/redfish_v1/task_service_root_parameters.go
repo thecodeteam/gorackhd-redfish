@@ -4,28 +4,46 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // NewTaskServiceRootParams creates a new TaskServiceRootParams object
 // with the default values initialized.
 func NewTaskServiceRootParams() *TaskServiceRootParams {
 
-	return &TaskServiceRootParams{}
+	return &TaskServiceRootParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewTaskServiceRootParamsWithTimeout creates a new TaskServiceRootParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewTaskServiceRootParamsWithTimeout(timeout time.Duration) *TaskServiceRootParams {
+
+	return &TaskServiceRootParams{
+
+		timeout: timeout,
+	}
 }
 
 /*TaskServiceRootParams contains all the parameters to send to the API endpoint
 for the task service root operation typically these are written to a http.Request
 */
 type TaskServiceRootParams struct {
+	timeout time.Duration
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *TaskServiceRootParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *TaskServiceRootParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	if len(res) > 0 {

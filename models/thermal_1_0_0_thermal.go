@@ -4,10 +4,10 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
+	"github.com/go-openapi/errors"
 )
 
 /*Thermal100Thermal This is the schema definition for the Thermal properties.  It represents the properties for Temperature and Cooling.
@@ -118,12 +118,32 @@ func (m *Thermal100Thermal) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateFansAtOdataNavigationLink(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateRedundancy(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
 
+	if err := m.validateRedundancyAtOdataNavigationLink(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateStatus(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateTemperatures(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateTemperaturesAtOdataNavigationLink(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -140,6 +160,37 @@ func (m *Thermal100Thermal) validateFans(formats strfmt.Registry) error {
 		return nil
 	}
 
+	for i := 0; i < len(m.Fans); i++ {
+
+		if swag.IsZero(m.Fans[i]) { // not required
+			continue
+		}
+
+		if m.Fans[i] != nil {
+
+			if err := m.Fans[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Thermal100Thermal) validateFansAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.FansAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.FansAtOdataNavigationLink != nil {
+
+		if err := m.FansAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -149,6 +200,53 @@ func (m *Thermal100Thermal) validateRedundancy(formats strfmt.Registry) error {
 		return nil
 	}
 
+	for i := 0; i < len(m.Redundancy); i++ {
+
+		if swag.IsZero(m.Redundancy[i]) { // not required
+			continue
+		}
+
+		if m.Redundancy[i] != nil {
+
+			if err := m.Redundancy[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Thermal100Thermal) validateRedundancyAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.RedundancyAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.RedundancyAtOdataNavigationLink != nil {
+
+		if err := m.RedundancyAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Thermal100Thermal) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if m.Status != nil {
+
+		if err := m.Status.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -156,6 +254,37 @@ func (m *Thermal100Thermal) validateTemperatures(formats strfmt.Registry) error 
 
 	if swag.IsZero(m.Temperatures) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.Temperatures); i++ {
+
+		if swag.IsZero(m.Temperatures[i]) { // not required
+			continue
+		}
+
+		if m.Temperatures[i] != nil {
+
+			if err := m.Temperatures[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Thermal100Thermal) validateTemperaturesAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.TemperaturesAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.TemperaturesAtOdataNavigationLink != nil {
+
+		if err := m.TemperaturesAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil

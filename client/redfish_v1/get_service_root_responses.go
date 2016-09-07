@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // GetServiceRootReader is a Reader for the GetServiceRoot structure.
@@ -21,7 +20,7 @@ type GetServiceRootReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *GetServiceRootReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *GetServiceRootReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -60,7 +59,7 @@ func (o *GetServiceRootReader) ReadResponse(response client.Response, consumer h
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -81,7 +80,7 @@ func (o *GetServiceRootOK) Error() string {
 	return fmt.Sprintf("[GET /][%d] getServiceRootOK  %+v", 200, o.Payload)
 }
 
-func (o *GetServiceRootOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetServiceRootOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ServiceRoot100ServiceRoot)
 
@@ -110,7 +109,7 @@ func (o *GetServiceRootBadRequest) Error() string {
 	return fmt.Sprintf("[GET /][%d] getServiceRootBadRequest ", 400)
 }
 
-func (o *GetServiceRootBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetServiceRootBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -132,7 +131,7 @@ func (o *GetServiceRootUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /][%d] getServiceRootUnauthorized ", 401)
 }
 
-func (o *GetServiceRootUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetServiceRootUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -154,7 +153,7 @@ func (o *GetServiceRootForbidden) Error() string {
 	return fmt.Sprintf("[GET /][%d] getServiceRootForbidden ", 403)
 }
 
-func (o *GetServiceRootForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetServiceRootForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -176,7 +175,7 @@ func (o *GetServiceRootInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /][%d] getServiceRootInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetServiceRootInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetServiceRootInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

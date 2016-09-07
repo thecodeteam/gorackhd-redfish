@@ -6,10 +6,9 @@ package redfish_v1
 import (
 	"fmt"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // DeleteEventReader is a Reader for the DeleteEvent structure.
@@ -18,7 +17,7 @@ type DeleteEventReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *DeleteEventReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *DeleteEventReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -50,7 +49,7 @@ func (o *DeleteEventReader) ReadResponse(response client.Response, consumer http
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -70,7 +69,7 @@ func (o *DeleteEventOK) Error() string {
 	return fmt.Sprintf("[DELETE /EventService/Subscriptions/{index}][%d] deleteEventOK ", 200)
 }
 
-func (o *DeleteEventOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DeleteEventOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -92,7 +91,7 @@ func (o *DeleteEventUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /EventService/Subscriptions/{index}][%d] deleteEventUnauthorized ", 401)
 }
 
-func (o *DeleteEventUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DeleteEventUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -114,7 +113,7 @@ func (o *DeleteEventForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /EventService/Subscriptions/{index}][%d] deleteEventForbidden ", 403)
 }
 
-func (o *DeleteEventForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DeleteEventForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -136,7 +135,7 @@ func (o *DeleteEventNotImplemented) Error() string {
 	return fmt.Sprintf("[DELETE /EventService/Subscriptions/{index}][%d] deleteEventNotImplemented ", 501)
 }
 
-func (o *DeleteEventNotImplemented) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DeleteEventNotImplemented) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

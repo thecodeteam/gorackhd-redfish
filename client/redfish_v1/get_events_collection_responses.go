@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // GetEventsCollectionReader is a Reader for the GetEventsCollection structure.
@@ -21,7 +20,7 @@ type GetEventsCollectionReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *GetEventsCollectionReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *GetEventsCollectionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -53,7 +52,7 @@ func (o *GetEventsCollectionReader) ReadResponse(response client.Response, consu
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -74,7 +73,7 @@ func (o *GetEventsCollectionOK) Error() string {
 	return fmt.Sprintf("[GET /EventService/Subscriptions][%d] getEventsCollectionOK  %+v", 200, o.Payload)
 }
 
-func (o *GetEventsCollectionOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetEventsCollectionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EventDestinationCollectionEventDestinationCollection)
 
@@ -103,7 +102,7 @@ func (o *GetEventsCollectionUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /EventService/Subscriptions][%d] getEventsCollectionUnauthorized ", 401)
 }
 
-func (o *GetEventsCollectionUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetEventsCollectionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -125,7 +124,7 @@ func (o *GetEventsCollectionForbidden) Error() string {
 	return fmt.Sprintf("[GET /EventService/Subscriptions][%d] getEventsCollectionForbidden ", 403)
 }
 
-func (o *GetEventsCollectionForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetEventsCollectionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -147,7 +146,7 @@ func (o *GetEventsCollectionNotImplemented) Error() string {
 	return fmt.Sprintf("[GET /EventService/Subscriptions][%d] getEventsCollectionNotImplemented ", 501)
 }
 
-func (o *GetEventsCollectionNotImplemented) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetEventsCollectionNotImplemented) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

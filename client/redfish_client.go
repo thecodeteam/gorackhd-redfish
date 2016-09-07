@@ -4,12 +4,12 @@ package client
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	httptransport "github.com/go-swagger/go-swagger/httpkit/client"
+	"github.com/go-openapi/runtime"
+	httptransport "github.com/go-openapi/runtime/client"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/client/redfish_v1"
+	"github.com/codedellemc/gorackhd-redfish/client/redfish_v1"
 )
 
 // Default redfish HTTP client.
@@ -25,7 +25,7 @@ func NewHTTPClient(formats strfmt.Registry) *Redfish {
 }
 
 // New creates a new redfish client
-func New(transport client.Transport, formats strfmt.Registry) *Redfish {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) *Redfish {
 	cli := new(Redfish)
 	cli.Transport = transport
 
@@ -38,11 +38,11 @@ func New(transport client.Transport, formats strfmt.Registry) *Redfish {
 type Redfish struct {
 	RedfishV1 *redfish_v1.Client
 
-	Transport client.Transport
+	Transport runtime.ClientTransport
 }
 
 // SetTransport changes the transport on the client and all its subresources
-func (c *Redfish) SetTransport(transport client.Transport) {
+func (c *Redfish) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 
 	c.RedfishV1.SetTransport(transport)

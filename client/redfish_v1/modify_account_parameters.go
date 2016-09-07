@@ -4,19 +4,35 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // NewModifyAccountParams creates a new ModifyAccountParams object
 // with the default values initialized.
 func NewModifyAccountParams() *ModifyAccountParams {
 	var ()
-	return &ModifyAccountParams{}
+	return &ModifyAccountParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewModifyAccountParamsWithTimeout creates a new ModifyAccountParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewModifyAccountParamsWithTimeout(timeout time.Duration) *ModifyAccountParams {
+	var ()
+	return &ModifyAccountParams{
+
+		timeout: timeout,
+	}
 }
 
 /*ModifyAccountParams contains all the parameters to send to the API endpoint
@@ -28,6 +44,8 @@ type ModifyAccountParams struct {
 	Name string
 	/*Payload*/
 	Payload *models.ManagerAccount100ManagerAccount
+
+	timeout time.Duration
 }
 
 // WithName adds the name to the modify account params
@@ -43,8 +61,9 @@ func (o *ModifyAccountParams) WithPayload(payload *models.ManagerAccount100Manag
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *ModifyAccountParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *ModifyAccountParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	// path param name

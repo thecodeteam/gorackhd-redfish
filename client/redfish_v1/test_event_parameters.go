@@ -4,19 +4,35 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // NewTestEventParams creates a new TestEventParams object
 // with the default values initialized.
 func NewTestEventParams() *TestEventParams {
 	var ()
-	return &TestEventParams{}
+	return &TestEventParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewTestEventParamsWithTimeout creates a new TestEventParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewTestEventParamsWithTimeout(timeout time.Duration) *TestEventParams {
+	var ()
+	return &TestEventParams{
+
+		timeout: timeout,
+	}
 }
 
 /*TestEventParams contains all the parameters to send to the API endpoint
@@ -26,6 +42,8 @@ type TestEventParams struct {
 
 	/*Body*/
 	Body models.TestEvent
+
+	timeout time.Duration
 }
 
 // WithBody adds the body to the test event params
@@ -35,8 +53,9 @@ func (o *TestEventParams) WithBody(body models.TestEvent) *TestEventParams {
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *TestEventParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *TestEventParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	if err := r.SetBodyParam(o.Body); err != nil {

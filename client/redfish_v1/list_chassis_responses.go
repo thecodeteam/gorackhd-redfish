@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // ListChassisReader is a Reader for the ListChassis structure.
@@ -21,7 +20,7 @@ type ListChassisReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *ListChassisReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *ListChassisReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -60,7 +59,7 @@ func (o *ListChassisReader) ReadResponse(response client.Response, consumer http
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -81,7 +80,7 @@ func (o *ListChassisOK) Error() string {
 	return fmt.Sprintf("[GET /Chassis][%d] listChassisOK  %+v", 200, o.Payload)
 }
 
-func (o *ListChassisOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListChassisOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ChassisCollectionChassisCollection)
 
@@ -110,7 +109,7 @@ func (o *ListChassisBadRequest) Error() string {
 	return fmt.Sprintf("[GET /Chassis][%d] listChassisBadRequest ", 400)
 }
 
-func (o *ListChassisBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListChassisBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -132,7 +131,7 @@ func (o *ListChassisUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /Chassis][%d] listChassisUnauthorized ", 401)
 }
 
-func (o *ListChassisUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListChassisUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -154,7 +153,7 @@ func (o *ListChassisForbidden) Error() string {
 	return fmt.Sprintf("[GET /Chassis][%d] listChassisForbidden ", 403)
 }
 
-func (o *ListChassisForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListChassisForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -176,7 +175,7 @@ func (o *ListChassisInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /Chassis][%d] listChassisInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *ListChassisInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListChassisInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

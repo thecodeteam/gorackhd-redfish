@@ -4,11 +4,11 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*AccountService100AccountService This is the schema definition for the Account Service.  It represents the properties for the service itself and has links to the actual list of accounts.
@@ -135,6 +135,11 @@ func (m *AccountService100AccountService) Validate(formats strfmt.Registry) erro
 		res = append(res, err)
 	}
 
+	if err := m.validateAccounts(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateAuthFailureLoggingThreshold(formats); err != nil {
 		// prop
 		res = append(res, err)
@@ -146,6 +151,16 @@ func (m *AccountService100AccountService) Validate(formats strfmt.Registry) erro
 	}
 
 	if err := m.validateMinPasswordLength(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateRoles(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateStatus(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -195,6 +210,22 @@ func (m *AccountService100AccountService) validateAccountLockoutThreshold(format
 	return nil
 }
 
+func (m *AccountService100AccountService) validateAccounts(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Accounts) { // not required
+		return nil
+	}
+
+	if m.Accounts != nil {
+
+		if err := m.Accounts.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *AccountService100AccountService) validateAuthFailureLoggingThreshold(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.AuthFailureLoggingThreshold) { // not required
@@ -229,6 +260,38 @@ func (m *AccountService100AccountService) validateMinPasswordLength(formats strf
 
 	if err := validate.Minimum("MinPasswordLength", "body", float64(m.MinPasswordLength), 0, false); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *AccountService100AccountService) validateRoles(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Roles) { // not required
+		return nil
+	}
+
+	if m.Roles != nil {
+
+		if err := m.Roles.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *AccountService100AccountService) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if m.Status != nil {
+
+		if err := m.Status.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil

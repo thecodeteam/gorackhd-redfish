@@ -4,19 +4,35 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // NewDoBootImageParams creates a new DoBootImageParams object
 // with the default values initialized.
 func NewDoBootImageParams() *DoBootImageParams {
 	var ()
-	return &DoBootImageParams{}
+	return &DoBootImageParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewDoBootImageParamsWithTimeout creates a new DoBootImageParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewDoBootImageParamsWithTimeout(timeout time.Duration) *DoBootImageParams {
+	var ()
+	return &DoBootImageParams{
+
+		timeout: timeout,
+	}
 }
 
 /*DoBootImageParams contains all the parameters to send to the API endpoint
@@ -28,6 +44,8 @@ type DoBootImageParams struct {
 	Identifier string
 	/*Payload*/
 	Payload *models.RackHDBootImageBootImage
+
+	timeout time.Duration
 }
 
 // WithIdentifier adds the identifier to the do boot image params
@@ -43,8 +61,9 @@ func (o *DoBootImageParams) WithPayload(payload *models.RackHDBootImageBootImage
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *DoBootImageParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *DoBootImageParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	// path param identifier

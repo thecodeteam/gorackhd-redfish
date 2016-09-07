@@ -4,19 +4,35 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // NewPostSessionParams creates a new PostSessionParams object
 // with the default values initialized.
 func NewPostSessionParams() *PostSessionParams {
 	var ()
-	return &PostSessionParams{}
+	return &PostSessionParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewPostSessionParamsWithTimeout creates a new PostSessionParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewPostSessionParamsWithTimeout(timeout time.Duration) *PostSessionParams {
+	var ()
+	return &PostSessionParams{
+
+		timeout: timeout,
+	}
 }
 
 /*PostSessionParams contains all the parameters to send to the API endpoint
@@ -26,6 +42,8 @@ type PostSessionParams struct {
 
 	/*Payload*/
 	Payload *models.Session100Session
+
+	timeout time.Duration
 }
 
 // WithPayload adds the payload to the post session params
@@ -35,8 +53,9 @@ func (o *PostSessionParams) WithPayload(payload *models.Session100Session) *Post
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *PostSessionParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *PostSessionParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	if o.Payload == nil {

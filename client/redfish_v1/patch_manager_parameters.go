@@ -4,19 +4,35 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // NewPatchManagerParams creates a new PatchManagerParams object
 // with the default values initialized.
 func NewPatchManagerParams() *PatchManagerParams {
 	var ()
-	return &PatchManagerParams{}
+	return &PatchManagerParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewPatchManagerParamsWithTimeout creates a new PatchManagerParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewPatchManagerParamsWithTimeout(timeout time.Duration) *PatchManagerParams {
+	var ()
+	return &PatchManagerParams{
+
+		timeout: timeout,
+	}
 }
 
 /*PatchManagerParams contains all the parameters to send to the API endpoint
@@ -28,6 +44,8 @@ type PatchManagerParams struct {
 	Identifier string
 	/*Payload*/
 	Payload *models.Manager100Manager
+
+	timeout time.Duration
 }
 
 // WithIdentifier adds the identifier to the patch manager params
@@ -43,8 +61,9 @@ func (o *PatchManagerParams) WithPayload(payload *models.Manager100Manager) *Pat
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *PatchManagerParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *PatchManagerParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	// path param identifier

@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // ListSystemsReader is a Reader for the ListSystems structure.
@@ -21,7 +20,7 @@ type ListSystemsReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *ListSystemsReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *ListSystemsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -60,7 +59,7 @@ func (o *ListSystemsReader) ReadResponse(response client.Response, consumer http
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -81,7 +80,7 @@ func (o *ListSystemsOK) Error() string {
 	return fmt.Sprintf("[GET /Systems][%d] listSystemsOK  %+v", 200, o.Payload)
 }
 
-func (o *ListSystemsOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSystemsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ComputerSystemCollectionComputerSystemCollection)
 
@@ -110,7 +109,7 @@ func (o *ListSystemsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /Systems][%d] listSystemsBadRequest ", 400)
 }
 
-func (o *ListSystemsBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSystemsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -132,7 +131,7 @@ func (o *ListSystemsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /Systems][%d] listSystemsUnauthorized ", 401)
 }
 
-func (o *ListSystemsUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSystemsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -154,7 +153,7 @@ func (o *ListSystemsForbidden) Error() string {
 	return fmt.Sprintf("[GET /Systems][%d] listSystemsForbidden ", 403)
 }
 
-func (o *ListSystemsForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSystemsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -176,7 +175,7 @@ func (o *ListSystemsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /Systems][%d] listSystemsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *ListSystemsInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSystemsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

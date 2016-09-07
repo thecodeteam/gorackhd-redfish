@@ -4,10 +4,10 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
+	"github.com/go-openapi/errors"
 )
 
 /*SimpleStorage100SimpleStorage This is the schema definition for the Simple Storage resource.  It represents the properties of a storage controller and its directly-attached devices.
@@ -82,6 +82,11 @@ func (m *SimpleStorage100SimpleStorage) Validate(formats strfmt.Registry) error 
 		res = append(res, err)
 	}
 
+	if err := m.validateStatus(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -92,6 +97,37 @@ func (m *SimpleStorage100SimpleStorage) validateDevices(formats strfmt.Registry)
 
 	if swag.IsZero(m.Devices) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.Devices); i++ {
+
+		if swag.IsZero(m.Devices[i]) { // not required
+			continue
+		}
+
+		if m.Devices[i] != nil {
+
+			if err := m.Devices[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *SimpleStorage100SimpleStorage) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if m.Status != nil {
+
+		if err := m.Status.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil

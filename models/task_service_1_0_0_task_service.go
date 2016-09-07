@@ -6,11 +6,11 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*TaskService100TaskService This is the schema definition for the Task Service.  It represents the properties for the service itself and has links to the actual list of tasks.
@@ -101,6 +101,16 @@ func (m *TaskService100TaskService) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateStatus(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateTasks(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -135,6 +145,38 @@ func (m *TaskService100TaskService) validateCompletedTaskOverWritePolicy(formats
 	// value enum
 	if err := m.validateCompletedTaskOverWritePolicyEnum("CompletedTaskOverWritePolicy", "body", m.CompletedTaskOverWritePolicy); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *TaskService100TaskService) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if m.Status != nil {
+
+		if err := m.Status.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *TaskService100TaskService) validateTasks(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Tasks) { // not required
+		return nil
+	}
+
+	if m.Tasks != nil {
+
+		if err := m.Tasks.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil

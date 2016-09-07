@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // ModifyAccountReader is a Reader for the ModifyAccount structure.
@@ -21,7 +20,7 @@ type ModifyAccountReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *ModifyAccountReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *ModifyAccountReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 202:
@@ -67,7 +66,7 @@ func (o *ModifyAccountReader) ReadResponse(response client.Response, consumer ht
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *ModifyAccountAccepted) Error() string {
 	return fmt.Sprintf("[PATCH /AccountService/Accounts/{name}][%d] modifyAccountAccepted ", 202)
 }
 
-func (o *ModifyAccountAccepted) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ModifyAccountAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -110,7 +109,7 @@ func (o *ModifyAccountBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /AccountService/Accounts/{name}][%d] modifyAccountBadRequest ", 400)
 }
 
-func (o *ModifyAccountBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ModifyAccountBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -132,7 +131,7 @@ func (o *ModifyAccountUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /AccountService/Accounts/{name}][%d] modifyAccountUnauthorized ", 401)
 }
 
-func (o *ModifyAccountUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ModifyAccountUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -154,7 +153,7 @@ func (o *ModifyAccountForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /AccountService/Accounts/{name}][%d] modifyAccountForbidden ", 403)
 }
 
-func (o *ModifyAccountForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ModifyAccountForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -176,7 +175,7 @@ func (o *ModifyAccountNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /AccountService/Accounts/{name}][%d] modifyAccountNotFound ", 404)
 }
 
-func (o *ModifyAccountNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ModifyAccountNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -198,7 +197,7 @@ func (o *ModifyAccountInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /AccountService/Accounts/{name}][%d] modifyAccountInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *ModifyAccountInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ModifyAccountInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

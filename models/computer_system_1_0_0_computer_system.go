@@ -6,11 +6,11 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*ComputerSystem100ComputerSystem This schema defines a computer system and its respective properties.  A computer system represents a machine (physical or virtual) and the local resources such as memory, cpu and other devices that can be accessed from that machine.
@@ -177,6 +177,21 @@ type ComputerSystem100ComputerSystem struct {
 func (m *ComputerSystem100ComputerSystem) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateActions(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateBoot(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateEthernetInterfaces(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateIndicatorLED(formats); err != nil {
 		// prop
 		res = append(res, err)
@@ -187,7 +202,37 @@ func (m *ComputerSystem100ComputerSystem) Validate(formats strfmt.Registry) erro
 		res = append(res, err)
 	}
 
+	if err := m.validateLogServices(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateMemorySummary(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validatePowerState(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateProcessorSummary(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateProcessors(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateSimpleStorage(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateStatus(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -205,6 +250,54 @@ func (m *ComputerSystem100ComputerSystem) Validate(formats strfmt.Registry) erro
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *ComputerSystem100ComputerSystem) validateActions(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Actions) { // not required
+		return nil
+	}
+
+	if m.Actions != nil {
+
+		if err := m.Actions.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ComputerSystem100ComputerSystem) validateBoot(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Boot) { // not required
+		return nil
+	}
+
+	if m.Boot != nil {
+
+		if err := m.Boot.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ComputerSystem100ComputerSystem) validateEthernetInterfaces(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.EthernetInterfaces) { // not required
+		return nil
+	}
+
+	if m.EthernetInterfaces != nil {
+
+		if err := m.EthernetInterfaces.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -257,6 +350,38 @@ func (m *ComputerSystem100ComputerSystem) validateLinks(formats strfmt.Registry)
 	return nil
 }
 
+func (m *ComputerSystem100ComputerSystem) validateLogServices(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LogServices) { // not required
+		return nil
+	}
+
+	if m.LogServices != nil {
+
+		if err := m.LogServices.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ComputerSystem100ComputerSystem) validateMemorySummary(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.MemorySummary) { // not required
+		return nil
+	}
+
+	if m.MemorySummary != nil {
+
+		if err := m.MemorySummary.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 var computerSystem100ComputerSystemTypePowerStatePropEnum []interface{}
 
 // prop value enum
@@ -285,6 +410,70 @@ func (m *ComputerSystem100ComputerSystem) validatePowerState(formats strfmt.Regi
 	// value enum
 	if err := m.validatePowerStateEnum("PowerState", "body", m.PowerState); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *ComputerSystem100ComputerSystem) validateProcessorSummary(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ProcessorSummary) { // not required
+		return nil
+	}
+
+	if m.ProcessorSummary != nil {
+
+		if err := m.ProcessorSummary.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ComputerSystem100ComputerSystem) validateProcessors(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Processors) { // not required
+		return nil
+	}
+
+	if m.Processors != nil {
+
+		if err := m.Processors.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ComputerSystem100ComputerSystem) validateSimpleStorage(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SimpleStorage) { // not required
+		return nil
+	}
+
+	if m.SimpleStorage != nil {
+
+		if err := m.SimpleStorage.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ComputerSystem100ComputerSystem) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if m.Status != nil {
+
+		if err := m.Status.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -353,6 +542,32 @@ type ComputerSystem100ComputerSystemActions struct {
 
 // Validate validates this computer system100 computer system actions
 func (m *ComputerSystem100ComputerSystemActions) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateNrComputerSystemReset(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ComputerSystem100ComputerSystemActions) validateNrComputerSystemReset(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NrComputerSystemReset) { // not required
+		return nil
+	}
+
+	if m.NrComputerSystemReset != nil {
+
+		if err := m.NrComputerSystemReset.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -440,7 +655,17 @@ func (m *ComputerSystem100ComputerSystemLinks) Validate(formats strfmt.Registry)
 		res = append(res, err)
 	}
 
+	if err := m.validateChassisAtOdataNavigationLink(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateCooledBy(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateCooledByAtOdataNavigationLink(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -450,7 +675,17 @@ func (m *ComputerSystem100ComputerSystemLinks) Validate(formats strfmt.Registry)
 		res = append(res, err)
 	}
 
+	if err := m.validateManagedByAtOdataNavigationLink(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validatePoweredBy(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validatePoweredByAtOdataNavigationLink(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -467,6 +702,37 @@ func (m *ComputerSystem100ComputerSystemLinks) validateChassis(formats strfmt.Re
 		return nil
 	}
 
+	for i := 0; i < len(m.Chassis); i++ {
+
+		if swag.IsZero(m.Chassis[i]) { // not required
+			continue
+		}
+
+		if m.Chassis[i] != nil {
+
+			if err := m.Chassis[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ComputerSystem100ComputerSystemLinks) validateChassisAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ChassisAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.ChassisAtOdataNavigationLink != nil {
+
+		if err := m.ChassisAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -474,6 +740,37 @@ func (m *ComputerSystem100ComputerSystemLinks) validateCooledBy(formats strfmt.R
 
 	if swag.IsZero(m.CooledBy) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.CooledBy); i++ {
+
+		if swag.IsZero(m.CooledBy[i]) { // not required
+			continue
+		}
+
+		if m.CooledBy[i] != nil {
+
+			if err := m.CooledBy[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ComputerSystem100ComputerSystemLinks) validateCooledByAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CooledByAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.CooledByAtOdataNavigationLink != nil {
+
+		if err := m.CooledByAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -485,6 +782,37 @@ func (m *ComputerSystem100ComputerSystemLinks) validateManagedBy(formats strfmt.
 		return nil
 	}
 
+	for i := 0; i < len(m.ManagedBy); i++ {
+
+		if swag.IsZero(m.ManagedBy[i]) { // not required
+			continue
+		}
+
+		if m.ManagedBy[i] != nil {
+
+			if err := m.ManagedBy[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ComputerSystem100ComputerSystemLinks) validateManagedByAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ManagedByAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.ManagedByAtOdataNavigationLink != nil {
+
+		if err := m.ManagedByAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -492,6 +820,37 @@ func (m *ComputerSystem100ComputerSystemLinks) validatePoweredBy(formats strfmt.
 
 	if swag.IsZero(m.PoweredBy) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.PoweredBy); i++ {
+
+		if swag.IsZero(m.PoweredBy[i]) { // not required
+			continue
+		}
+
+		if m.PoweredBy[i] != nil {
+
+			if err := m.PoweredBy[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ComputerSystem100ComputerSystemLinks) validatePoweredByAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PoweredByAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.PoweredByAtOdataNavigationLink != nil {
+
+		if err := m.PoweredByAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil

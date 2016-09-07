@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // GetSchemaReader is a Reader for the GetSchema structure.
@@ -21,7 +20,7 @@ type GetSchemaReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *GetSchemaReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *GetSchemaReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -53,7 +52,7 @@ func (o *GetSchemaReader) ReadResponse(response client.Response, consumer httpki
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -74,7 +73,7 @@ func (o *GetSchemaOK) Error() string {
 	return fmt.Sprintf("[GET /Schemas/{identifier}][%d] getSchemaOK  %+v", 200, o.Payload)
 }
 
-func (o *GetSchemaOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetSchemaOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.JSONSchemaFile100JSONSchemaFile)
 
@@ -103,7 +102,7 @@ func (o *GetSchemaUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /Schemas/{identifier}][%d] getSchemaUnauthorized ", 401)
 }
 
-func (o *GetSchemaUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetSchemaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -125,7 +124,7 @@ func (o *GetSchemaForbidden) Error() string {
 	return fmt.Sprintf("[GET /Schemas/{identifier}][%d] getSchemaForbidden ", 403)
 }
 
-func (o *GetSchemaForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetSchemaForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -147,7 +146,7 @@ func (o *GetSchemaInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /Schemas/{identifier}][%d] getSchemaInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetSchemaInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetSchemaInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

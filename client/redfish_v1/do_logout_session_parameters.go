@@ -4,17 +4,33 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // NewDoLogoutSessionParams creates a new DoLogoutSessionParams object
 // with the default values initialized.
 func NewDoLogoutSessionParams() *DoLogoutSessionParams {
 	var ()
-	return &DoLogoutSessionParams{}
+	return &DoLogoutSessionParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewDoLogoutSessionParamsWithTimeout creates a new DoLogoutSessionParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewDoLogoutSessionParamsWithTimeout(timeout time.Duration) *DoLogoutSessionParams {
+	var ()
+	return &DoLogoutSessionParams{
+
+		timeout: timeout,
+	}
 }
 
 /*DoLogoutSessionParams contains all the parameters to send to the API endpoint
@@ -24,6 +40,8 @@ type DoLogoutSessionParams struct {
 
 	/*Identifier*/
 	Identifier string
+
+	timeout time.Duration
 }
 
 // WithIdentifier adds the identifier to the do logout session params
@@ -33,8 +51,9 @@ func (o *DoLogoutSessionParams) WithIdentifier(identifier string) *DoLogoutSessi
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *DoLogoutSessionParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *DoLogoutSessionParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	// path param identifier

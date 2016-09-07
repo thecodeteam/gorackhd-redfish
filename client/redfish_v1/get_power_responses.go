@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // GetPowerReader is a Reader for the GetPower structure.
@@ -21,7 +20,7 @@ type GetPowerReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *GetPowerReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *GetPowerReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -60,7 +59,7 @@ func (o *GetPowerReader) ReadResponse(response client.Response, consumer httpkit
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -81,7 +80,7 @@ func (o *GetPowerOK) Error() string {
 	return fmt.Sprintf("[GET /Chassis/{identifier}/Power][%d] getPowerOK  %+v", 200, o.Payload)
 }
 
-func (o *GetPowerOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetPowerOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Power100Power)
 
@@ -110,7 +109,7 @@ func (o *GetPowerBadRequest) Error() string {
 	return fmt.Sprintf("[GET /Chassis/{identifier}/Power][%d] getPowerBadRequest ", 400)
 }
 
-func (o *GetPowerBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetPowerBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -132,7 +131,7 @@ func (o *GetPowerUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /Chassis/{identifier}/Power][%d] getPowerUnauthorized ", 401)
 }
 
-func (o *GetPowerUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetPowerUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -154,7 +153,7 @@ func (o *GetPowerForbidden) Error() string {
 	return fmt.Sprintf("[GET /Chassis/{identifier}/Power][%d] getPowerForbidden ", 403)
 }
 
-func (o *GetPowerForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetPowerForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -176,7 +175,7 @@ func (o *GetPowerInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /Chassis/{identifier}/Power][%d] getPowerInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetPowerInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetPowerInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

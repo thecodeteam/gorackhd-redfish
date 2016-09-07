@@ -4,10 +4,11 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*JSONSchemaFile100JSONSchemaFile This is the schema definition for the Schema File locator resource.
@@ -116,6 +117,21 @@ func (m *JSONSchemaFile100JSONSchemaFile) validateLocation(formats strfmt.Regist
 
 	if err := validate.Required("Location", "body", m.Location); err != nil {
 		return err
+	}
+
+	for i := 0; i < len(m.Location); i++ {
+
+		if swag.IsZero(m.Location[i]) { // not required
+			continue
+		}
+
+		if m.Location[i] != nil {
+
+			if err := m.Location[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	return nil

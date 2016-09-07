@@ -4,17 +4,33 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // NewGetSimpleStorageParams creates a new GetSimpleStorageParams object
 // with the default values initialized.
 func NewGetSimpleStorageParams() *GetSimpleStorageParams {
 	var ()
-	return &GetSimpleStorageParams{}
+	return &GetSimpleStorageParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewGetSimpleStorageParamsWithTimeout creates a new GetSimpleStorageParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewGetSimpleStorageParamsWithTimeout(timeout time.Duration) *GetSimpleStorageParams {
+	var ()
+	return &GetSimpleStorageParams{
+
+		timeout: timeout,
+	}
 }
 
 /*GetSimpleStorageParams contains all the parameters to send to the API endpoint
@@ -26,6 +42,8 @@ type GetSimpleStorageParams struct {
 	Identifier string
 	/*Index*/
 	Index string
+
+	timeout time.Duration
 }
 
 // WithIdentifier adds the identifier to the get simple storage params
@@ -41,8 +59,9 @@ func (o *GetSimpleStorageParams) WithIndex(index string) *GetSimpleStorageParams
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *GetSimpleStorageParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *GetSimpleStorageParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	// path param identifier

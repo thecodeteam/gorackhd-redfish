@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // ListRolesReader is a Reader for the ListRoles structure.
@@ -21,7 +20,7 @@ type ListRolesReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *ListRolesReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *ListRolesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -67,7 +66,7 @@ func (o *ListRolesReader) ReadResponse(response client.Response, consumer httpki
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *ListRolesOK) Error() string {
 	return fmt.Sprintf("[GET /AccountService/Roles][%d] listRolesOK  %+v", 200, o.Payload)
 }
 
-func (o *ListRolesOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListRolesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RoleCollectionRoleCollection)
 
@@ -117,7 +116,7 @@ func (o *ListRolesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /AccountService/Roles][%d] listRolesBadRequest ", 400)
 }
 
-func (o *ListRolesBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListRolesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -139,7 +138,7 @@ func (o *ListRolesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /AccountService/Roles][%d] listRolesUnauthorized ", 401)
 }
 
-func (o *ListRolesUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListRolesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -161,7 +160,7 @@ func (o *ListRolesForbidden) Error() string {
 	return fmt.Sprintf("[GET /AccountService/Roles][%d] listRolesForbidden ", 403)
 }
 
-func (o *ListRolesForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListRolesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -183,7 +182,7 @@ func (o *ListRolesNotFound) Error() string {
 	return fmt.Sprintf("[GET /AccountService/Roles][%d] listRolesNotFound ", 404)
 }
 
-func (o *ListRolesNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListRolesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -205,7 +204,7 @@ func (o *ListRolesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /AccountService/Roles][%d] listRolesInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *ListRolesInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListRolesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

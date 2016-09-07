@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // GetManagerReader is a Reader for the GetManager structure.
@@ -21,7 +20,7 @@ type GetManagerReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *GetManagerReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *GetManagerReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -67,7 +66,7 @@ func (o *GetManagerReader) ReadResponse(response client.Response, consumer httpk
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *GetManagerOK) Error() string {
 	return fmt.Sprintf("[GET /Managers/{identifier}][%d] getManagerOK  %+v", 200, o.Payload)
 }
 
-func (o *GetManagerOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetManagerOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Manager100Manager)
 
@@ -117,7 +116,7 @@ func (o *GetManagerBadRequest) Error() string {
 	return fmt.Sprintf("[GET /Managers/{identifier}][%d] getManagerBadRequest ", 400)
 }
 
-func (o *GetManagerBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetManagerBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -139,7 +138,7 @@ func (o *GetManagerUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /Managers/{identifier}][%d] getManagerUnauthorized ", 401)
 }
 
-func (o *GetManagerUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetManagerUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -161,7 +160,7 @@ func (o *GetManagerForbidden) Error() string {
 	return fmt.Sprintf("[GET /Managers/{identifier}][%d] getManagerForbidden ", 403)
 }
 
-func (o *GetManagerForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetManagerForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -183,7 +182,7 @@ func (o *GetManagerNotFound) Error() string {
 	return fmt.Sprintf("[GET /Managers/{identifier}][%d] getManagerNotFound ", 404)
 }
 
-func (o *GetManagerNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetManagerNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -205,7 +204,7 @@ func (o *GetManagerInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /Managers/{identifier}][%d] getManagerInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetManagerInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetManagerInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

@@ -6,11 +6,11 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*Power100Voltage This is the base type for addressable members of an array.
@@ -134,6 +134,16 @@ func (m *Power100Voltage) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateRelatedItemAtOdataNavigationLink(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateStatus(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -177,6 +187,53 @@ func (m *Power100Voltage) validateRelatedItem(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.RelatedItem) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.RelatedItem); i++ {
+
+		if swag.IsZero(m.RelatedItem[i]) { // not required
+			continue
+		}
+
+		if m.RelatedItem[i] != nil {
+
+			if err := m.RelatedItem[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Power100Voltage) validateRelatedItemAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.RelatedItemAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.RelatedItemAtOdataNavigationLink != nil {
+
+		if err := m.RelatedItemAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Power100Voltage) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if m.Status != nil {
+
+		if err := m.Status.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil

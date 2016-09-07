@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // ListSystemProcessorsReader is a Reader for the ListSystemProcessors structure.
@@ -21,7 +20,7 @@ type ListSystemProcessorsReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *ListSystemProcessorsReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *ListSystemProcessorsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -67,7 +66,7 @@ func (o *ListSystemProcessorsReader) ReadResponse(response client.Response, cons
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *ListSystemProcessorsOK) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/Processors][%d] listSystemProcessorsOK  %+v", 200, o.Payload)
 }
 
-func (o *ListSystemProcessorsOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSystemProcessorsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProcessorCollectionProcessorCollection)
 
@@ -117,7 +116,7 @@ func (o *ListSystemProcessorsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/Processors][%d] listSystemProcessorsBadRequest ", 400)
 }
 
-func (o *ListSystemProcessorsBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSystemProcessorsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -139,7 +138,7 @@ func (o *ListSystemProcessorsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/Processors][%d] listSystemProcessorsUnauthorized ", 401)
 }
 
-func (o *ListSystemProcessorsUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSystemProcessorsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -161,7 +160,7 @@ func (o *ListSystemProcessorsForbidden) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/Processors][%d] listSystemProcessorsForbidden ", 403)
 }
 
-func (o *ListSystemProcessorsForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSystemProcessorsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -183,7 +182,7 @@ func (o *ListSystemProcessorsNotFound) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/Processors][%d] listSystemProcessorsNotFound ", 404)
 }
 
-func (o *ListSystemProcessorsNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSystemProcessorsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -205,7 +204,7 @@ func (o *ListSystemProcessorsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/Processors][%d] listSystemProcessorsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *ListSystemProcessorsInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListSystemProcessorsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

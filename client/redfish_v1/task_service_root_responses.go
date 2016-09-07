@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // TaskServiceRootReader is a Reader for the TaskServiceRoot structure.
@@ -21,7 +20,7 @@ type TaskServiceRootReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *TaskServiceRootReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *TaskServiceRootReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -67,7 +66,7 @@ func (o *TaskServiceRootReader) ReadResponse(response client.Response, consumer 
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *TaskServiceRootOK) Error() string {
 	return fmt.Sprintf("[GET /TaskService][%d] taskServiceRootOK  %+v", 200, o.Payload)
 }
 
-func (o *TaskServiceRootOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *TaskServiceRootOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.TaskService100TaskService)
 
@@ -117,7 +116,7 @@ func (o *TaskServiceRootBadRequest) Error() string {
 	return fmt.Sprintf("[GET /TaskService][%d] taskServiceRootBadRequest ", 400)
 }
 
-func (o *TaskServiceRootBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *TaskServiceRootBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -139,7 +138,7 @@ func (o *TaskServiceRootUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /TaskService][%d] taskServiceRootUnauthorized ", 401)
 }
 
-func (o *TaskServiceRootUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *TaskServiceRootUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -161,7 +160,7 @@ func (o *TaskServiceRootForbidden) Error() string {
 	return fmt.Sprintf("[GET /TaskService][%d] taskServiceRootForbidden ", 403)
 }
 
-func (o *TaskServiceRootForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *TaskServiceRootForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -183,7 +182,7 @@ func (o *TaskServiceRootNotFound) Error() string {
 	return fmt.Sprintf("[GET /TaskService][%d] taskServiceRootNotFound ", 404)
 }
 
-func (o *TaskServiceRootNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *TaskServiceRootNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -205,7 +204,7 @@ func (o *TaskServiceRootInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /TaskService][%d] taskServiceRootInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *TaskServiceRootInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *TaskServiceRootInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

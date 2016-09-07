@@ -4,28 +4,46 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // NewListChassisParams creates a new ListChassisParams object
 // with the default values initialized.
 func NewListChassisParams() *ListChassisParams {
 
-	return &ListChassisParams{}
+	return &ListChassisParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewListChassisParamsWithTimeout creates a new ListChassisParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewListChassisParamsWithTimeout(timeout time.Duration) *ListChassisParams {
+
+	return &ListChassisParams{
+
+		timeout: timeout,
+	}
 }
 
 /*ListChassisParams contains all the parameters to send to the API endpoint
 for the list chassis operation typically these are written to a http.Request
 */
 type ListChassisParams struct {
+	timeout time.Duration
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *ListChassisParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *ListChassisParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	if len(res) > 0 {

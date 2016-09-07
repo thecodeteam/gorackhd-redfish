@@ -1,8 +1,8 @@
-package: github.com/emccode/gorackhd-redfish
+package: github.com/codedellemc/gorackhd-redfish
 ignore:
 - client
 - models
 import:
   - package: github.com/go-swagger/go-swagger
-    ref:     6b712512cbe1f1a4882354856b57c61d760499cc
+    version: 0.6.0
     vcs:     git

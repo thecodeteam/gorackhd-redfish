@@ -4,17 +4,33 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // NewGetManagerEthernetInterfaceParams creates a new GetManagerEthernetInterfaceParams object
 // with the default values initialized.
 func NewGetManagerEthernetInterfaceParams() *GetManagerEthernetInterfaceParams {
 	var ()
-	return &GetManagerEthernetInterfaceParams{}
+	return &GetManagerEthernetInterfaceParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewGetManagerEthernetInterfaceParamsWithTimeout creates a new GetManagerEthernetInterfaceParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewGetManagerEthernetInterfaceParamsWithTimeout(timeout time.Duration) *GetManagerEthernetInterfaceParams {
+	var ()
+	return &GetManagerEthernetInterfaceParams{
+
+		timeout: timeout,
+	}
 }
 
 /*GetManagerEthernetInterfaceParams contains all the parameters to send to the API endpoint
@@ -26,6 +42,8 @@ type GetManagerEthernetInterfaceParams struct {
 	Identifier string
 	/*Index*/
 	Index string
+
+	timeout time.Duration
 }
 
 // WithIdentifier adds the identifier to the get manager ethernet interface params
@@ -41,8 +59,9 @@ func (o *GetManagerEthernetInterfaceParams) WithIndex(index string) *GetManagerE
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *GetManagerEthernetInterfaceParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *GetManagerEthernetInterfaceParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	// path param identifier

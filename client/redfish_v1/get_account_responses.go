@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // GetAccountReader is a Reader for the GetAccount structure.
@@ -21,7 +20,7 @@ type GetAccountReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *GetAccountReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *GetAccountReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -53,7 +52,7 @@ func (o *GetAccountReader) ReadResponse(response client.Response, consumer httpk
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -74,7 +73,7 @@ func (o *GetAccountOK) Error() string {
 	return fmt.Sprintf("[GET /AccountService/Accounts/{name}][%d] getAccountOK  %+v", 200, o.Payload)
 }
 
-func (o *GetAccountOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetAccountOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ManagerAccount100ManagerAccount)
 
@@ -103,7 +102,7 @@ func (o *GetAccountUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /AccountService/Accounts/{name}][%d] getAccountUnauthorized ", 401)
 }
 
-func (o *GetAccountUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetAccountUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -125,7 +124,7 @@ func (o *GetAccountForbidden) Error() string {
 	return fmt.Sprintf("[GET /AccountService/Accounts/{name}][%d] getAccountForbidden ", 403)
 }
 
-func (o *GetAccountForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetAccountForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -147,7 +146,7 @@ func (o *GetAccountInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /AccountService/Accounts/{name}][%d] getAccountInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetAccountInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetAccountInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

@@ -4,13 +4,13 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // New creates a new redfish v1 API client.
-func New(transport client.Transport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -18,89 +18,8 @@ func New(transport client.Transport, formats strfmt.Registry) *Client {
 Client for redfish v1 API
 */
 type Client struct {
-	transport client.Transport
+	transport runtime.ClientTransport
 	formats   strfmt.Registry
-}
-
-/*
-GetManagersIdentifierVirtualMediaIndex retrieves information about the virtual media
-*/
-func (a *Client) GetManagersIdentifierVirtualMediaIndex(params *GetManagersIdentifierVirtualMediaIndexParams) (*GetManagersIdentifierVirtualMediaIndexOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetManagersIdentifierVirtualMediaIndexParams()
-	}
-
-	result, err := a.transport.Submit(&client.Operation{
-		ID:                 "GetManagersIdentifierVirtualMediaIndex",
-		Method:             "GET",
-		PathPattern:        "/Managers/{identifier}/VirtualMedia/{index}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetManagersIdentifierVirtualMediaIndexReader{formats: a.formats},
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*GetManagersIdentifierVirtualMediaIndexOK), nil
-}
-
-/*
-GetSystemsIdentifierEthernetInterfaces retrieves the simple storage collection
-
-Defines a collection of ethernet interfaces that are present on the system described by identifier
-
-*/
-func (a *Client) GetSystemsIdentifierEthernetInterfaces(params *GetSystemsIdentifierEthernetInterfacesParams) (*GetSystemsIdentifierEthernetInterfacesOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetSystemsIdentifierEthernetInterfacesParams()
-	}
-
-	result, err := a.transport.Submit(&client.Operation{
-		ID:                 "GetSystemsIdentifierEthernetInterfaces",
-		Method:             "GET",
-		PathPattern:        "/Systems/{identifier}/EthernetInterfaces",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetSystemsIdentifierEthernetInterfacesReader{formats: a.formats},
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*GetSystemsIdentifierEthernetInterfacesOK), nil
-}
-
-/*
-GetSystemsIdentifierEthernetInterfacesIndex retrieves the ethernet interface by device identifier
-
-Defines an ethernet interface present on the system described by identifier
-
-*/
-func (a *Client) GetSystemsIdentifierEthernetInterfacesIndex(params *GetSystemsIdentifierEthernetInterfacesIndexParams) (*GetSystemsIdentifierEthernetInterfacesIndexOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetSystemsIdentifierEthernetInterfacesIndexParams()
-	}
-
-	result, err := a.transport.Submit(&client.Operation{
-		ID:                 "GetSystemsIdentifierEthernetInterfacesIndex",
-		Method:             "GET",
-		PathPattern:        "/Systems/{identifier}/EthernetInterfaces/{index}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetSystemsIdentifierEthernetInterfacesIndexReader{formats: a.formats},
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*GetSystemsIdentifierEthernetInterfacesIndexOK), nil
 }
 
 /*
@@ -112,7 +31,7 @@ func (a *Client) CreateAccount(params *CreateAccountParams) (*CreateAccountCreat
 		params = NewCreateAccountParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "createAccount",
 		Method:             "POST",
 		PathPattern:        "/AccountService/Accounts",
@@ -137,7 +56,7 @@ func (a *Client) CreateSubscription(params *CreateSubscriptionParams) (*CreateSu
 		params = NewCreateSubscriptionParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "createSubscription",
 		Method:             "POST",
 		PathPattern:        "/EventService/Subscriptions",
@@ -162,7 +81,7 @@ func (a *Client) DeleteEvent(params *DeleteEventParams) (*DeleteEventOK, error) 
 		params = NewDeleteEventParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteEvent",
 		Method:             "DELETE",
 		PathPattern:        "/EventService/Subscriptions/{index}",
@@ -190,7 +109,7 @@ func (a *Client) DoBootImage(params *DoBootImageParams) (*DoBootImageAccepted, e
 		params = NewDoBootImageParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "doBootImage",
 		Method:             "POST",
 		PathPattern:        "/Systems/{identifier}/Actions/RackHD.BootImage",
@@ -215,7 +134,7 @@ func (a *Client) DoLogoutSession(params *DoLogoutSessionParams) (*DoLogoutSessio
 		params = NewDoLogoutSessionParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "doLogoutSession",
 		Method:             "DELETE",
 		PathPattern:        "/SessionService/Sessions/{identifier}",
@@ -243,7 +162,7 @@ func (a *Client) DoReset(params *DoResetParams) (*DoResetAccepted, error) {
 		params = NewDoResetParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "doReset",
 		Method:             "POST",
 		PathPattern:        "/Systems/{identifier}/Actions/ComputerSystem.Reset",
@@ -268,7 +187,7 @@ func (a *Client) EventServiceRoot(params *EventServiceRootParams) (*EventService
 		params = NewEventServiceRootParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "eventServiceRoot",
 		Method:             "GET",
 		PathPattern:        "/EventService",
@@ -293,7 +212,7 @@ func (a *Client) GetAccount(params *GetAccountParams) (*GetAccountOK, error) {
 		params = NewGetAccountParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getAccount",
 		Method:             "GET",
 		PathPattern:        "/AccountService/Accounts/{name}",
@@ -318,7 +237,7 @@ func (a *Client) GetAccountService(params *GetAccountServiceParams) (*GetAccount
 		params = NewGetAccountServiceParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getAccountService",
 		Method:             "GET",
 		PathPattern:        "/AccountService",
@@ -343,7 +262,7 @@ func (a *Client) GetAccounts(params *GetAccountsParams) (*GetAccountsOK, error) 
 		params = NewGetAccountsParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getAccounts",
 		Method:             "GET",
 		PathPattern:        "/AccountService/Accounts",
@@ -371,7 +290,7 @@ func (a *Client) GetChassis(params *GetChassisParams) (*GetChassisOK, error) {
 		params = NewGetChassisParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getChassis",
 		Method:             "GET",
 		PathPattern:        "/Chassis/{identifier}",
@@ -396,7 +315,7 @@ func (a *Client) GetEvent(params *GetEventParams) (*GetEventOK, error) {
 		params = NewGetEventParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getEvent",
 		Method:             "GET",
 		PathPattern:        "/EventService/Subscriptions/{index}",
@@ -421,7 +340,7 @@ func (a *Client) GetEventsCollection(params *GetEventsCollectionParams) (*GetEve
 		params = NewGetEventsCollectionParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getEventsCollection",
 		Method:             "GET",
 		PathPattern:        "/EventService/Subscriptions",
@@ -446,7 +365,7 @@ func (a *Client) GetLocalEthernetInterface(params *GetLocalEthernetInterfacePara
 		params = NewGetLocalEthernetInterfaceParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getLocalEthernetInterface",
 		Method:             "GET",
 		PathPattern:        "/Managers/RackHD/EthernetInterfaces/{index}",
@@ -471,7 +390,7 @@ func (a *Client) GetManager(params *GetManagerParams) (*GetManagerOK, error) {
 		params = NewGetManagerParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getManager",
 		Method:             "GET",
 		PathPattern:        "/Managers/{identifier}",
@@ -496,7 +415,7 @@ func (a *Client) GetManagerEthernetInterface(params *GetManagerEthernetInterface
 		params = NewGetManagerEthernetInterfaceParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getManagerEthernetInterface",
 		Method:             "GET",
 		PathPattern:        "/Managers/{identifier}/EthernetInterfaces/{index}",
@@ -524,7 +443,7 @@ func (a *Client) GetPower(params *GetPowerParams) (*GetPowerOK, error) {
 		params = NewGetPowerParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getPower",
 		Method:             "GET",
 		PathPattern:        "/Chassis/{identifier}/Power",
@@ -549,7 +468,7 @@ func (a *Client) GetRegistryFile(params *GetRegistryFileParams) (*GetRegistryFil
 		params = NewGetRegistryFileParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getRegistryFile",
 		Method:             "GET",
 		PathPattern:        "/Registries/{identifier}",
@@ -574,7 +493,7 @@ func (a *Client) GetRegistryFileContents(params *GetRegistryFileContentsParams) 
 		params = NewGetRegistryFileContentsParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getRegistryFileContents",
 		Method:             "GET",
 		PathPattern:        "/Registries/en/{identifier}",
@@ -599,7 +518,7 @@ func (a *Client) GetRole(params *GetRoleParams) (*GetRoleOK, error) {
 		params = NewGetRoleParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getRole",
 		Method:             "GET",
 		PathPattern:        "/AccountService/Roles/{identifier}",
@@ -624,7 +543,7 @@ func (a *Client) GetSchema(params *GetSchemaParams) (*GetSchemaOK, error) {
 		params = NewGetSchemaParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getSchema",
 		Method:             "GET",
 		PathPattern:        "/Schemas/{identifier}",
@@ -649,7 +568,7 @@ func (a *Client) GetSchemaContent(params *GetSchemaContentParams) (*GetSchemaCon
 		params = NewGetSchemaContentParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getSchemaContent",
 		Method:             "GET",
 		PathPattern:        "/SchemaStore/en/{identifier}",
@@ -677,7 +596,7 @@ func (a *Client) GetSelLogService(params *GetSelLogServiceParams) (*GetSelLogSer
 		params = NewGetSelLogServiceParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getSelLogService",
 		Method:             "GET",
 		PathPattern:        "/Systems/{identifier}/LogServices/sel",
@@ -705,7 +624,7 @@ func (a *Client) GetSelLogServiceEntry(params *GetSelLogServiceEntryParams) (*Ge
 		params = NewGetSelLogServiceEntryParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getSelLogServiceEntry",
 		Method:             "GET",
 		PathPattern:        "/Systems/{identifier}/LogServices/sel/Entries/{entryId}",
@@ -733,7 +652,7 @@ func (a *Client) GetServiceRoot(params *GetServiceRootParams) (*GetServiceRootOK
 		params = NewGetServiceRootParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getServiceRoot",
 		Method:             "GET",
 		PathPattern:        "/",
@@ -758,7 +677,7 @@ func (a *Client) GetSessionInfo(params *GetSessionInfoParams) (*GetSessionInfoOK
 		params = NewGetSessionInfoParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getSessionInfo",
 		Method:             "GET",
 		PathPattern:        "/SessionService/Sessions/{identifier}",
@@ -783,7 +702,7 @@ func (a *Client) GetSessionService(params *GetSessionServiceParams) (*GetSession
 		params = NewGetSessionServiceParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getSessionService",
 		Method:             "GET",
 		PathPattern:        "/SessionService",
@@ -808,7 +727,7 @@ func (a *Client) GetSessions(params *GetSessionsParams) (*GetSessionsOK, error) 
 		params = NewGetSessionsParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getSessions",
 		Method:             "GET",
 		PathPattern:        "/SessionService/Sessions",
@@ -836,7 +755,7 @@ func (a *Client) GetSimpleStorage(params *GetSimpleStorageParams) (*GetSimpleSto
 		params = NewGetSimpleStorageParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getSimpleStorage",
 		Method:             "GET",
 		PathPattern:        "/Systems/{identifier}/SimpleStorage/{index}",
@@ -864,7 +783,7 @@ func (a *Client) GetSystem(params *GetSystemParams) (*GetSystemOK, error) {
 		params = NewGetSystemParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getSystem",
 		Method:             "GET",
 		PathPattern:        "/Systems/{identifier}",
@@ -892,7 +811,7 @@ func (a *Client) GetSystemProcessor(params *GetSystemProcessorParams) (*GetSyste
 		params = NewGetSystemProcessorParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getSystemProcessor",
 		Method:             "GET",
 		PathPattern:        "/Systems/{identifier}/Processors/{socket}",
@@ -919,7 +838,7 @@ func (a *Client) GetSystemTasks(params *GetSystemTasksParams) (*GetSystemTasksOK
 		params = NewGetSystemTasksParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getSystemTasks",
 		Method:             "GET",
 		PathPattern:        "/TaskService/Oem/Tasks/{identifier}",
@@ -946,7 +865,7 @@ func (a *Client) GetTask(params *GetTaskParams) (*GetTaskOK, error) {
 		params = NewGetTaskParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getTask",
 		Method:             "GET",
 		PathPattern:        "/TaskService/Tasks/{identifier}",
@@ -974,7 +893,7 @@ func (a *Client) GetThermal(params *GetThermalParams) (*GetThermalOK, error) {
 		params = NewGetThermalParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getThermal",
 		Method:             "GET",
 		PathPattern:        "/Chassis/{identifier}/Thermal",
@@ -1002,7 +921,7 @@ func (a *Client) ListBootImage(params *ListBootImageParams) (*ListBootImageOK, e
 		params = NewListBootImageParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listBootImage",
 		Method:             "GET",
 		PathPattern:        "/Systems/{identifier}/Actions/RackHD.BootImage",
@@ -1030,7 +949,7 @@ func (a *Client) ListChassis(params *ListChassisParams) (*ListChassisOK, error) 
 		params = NewListChassisParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listChassis",
 		Method:             "GET",
 		PathPattern:        "/Chassis",
@@ -1055,7 +974,7 @@ func (a *Client) ListLocalEthernetInterfaces(params *ListLocalEthernetInterfaces
 		params = NewListLocalEthernetInterfacesParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listLocalEthernetInterfaces",
 		Method:             "GET",
 		PathPattern:        "/Managers/RackHD/EthernetInterfaces",
@@ -1083,7 +1002,7 @@ func (a *Client) ListLogService(params *ListLogServiceParams) (*ListLogServiceOK
 		params = NewListLogServiceParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listLogService",
 		Method:             "GET",
 		PathPattern:        "/Systems/{identifier}/LogServices",
@@ -1108,7 +1027,7 @@ func (a *Client) ListManagerEthernetInterfaces(params *ListManagerEthernetInterf
 		params = NewListManagerEthernetInterfacesParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listManagerEthernetInterfaces",
 		Method:             "GET",
 		PathPattern:        "/Managers/{identifier}/EthernetInterfaces",
@@ -1133,7 +1052,7 @@ func (a *Client) ListManagers(params *ListManagersParams) (*ListManagersOK, erro
 		params = NewListManagersParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listManagers",
 		Method:             "GET",
 		PathPattern:        "/Managers",
@@ -1158,7 +1077,7 @@ func (a *Client) ListRegistry(params *ListRegistryParams) (*ListRegistryOK, erro
 		params = NewListRegistryParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listRegistry",
 		Method:             "GET",
 		PathPattern:        "/Registries",
@@ -1186,7 +1105,7 @@ func (a *Client) ListResetTypes(params *ListResetTypesParams) (*ListResetTypesOK
 		params = NewListResetTypesParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listResetTypes",
 		Method:             "GET",
 		PathPattern:        "/Systems/{identifier}/Actions/ComputerSystem.Reset",
@@ -1211,7 +1130,7 @@ func (a *Client) ListRoles(params *ListRolesParams) (*ListRolesOK, error) {
 		params = NewListRolesParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listRoles",
 		Method:             "GET",
 		PathPattern:        "/AccountService/Roles",
@@ -1236,7 +1155,7 @@ func (a *Client) ListSchemas(params *ListSchemasParams) (*ListSchemasOK, error) 
 		params = NewListSchemasParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listSchemas",
 		Method:             "GET",
 		PathPattern:        "/Schemas",
@@ -1264,7 +1183,7 @@ func (a *Client) ListSelLogServiceEntries(params *ListSelLogServiceEntriesParams
 		params = NewListSelLogServiceEntriesParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listSelLogServiceEntries",
 		Method:             "GET",
 		PathPattern:        "/Systems/{identifier}/LogServices/sel/Entries",
@@ -1292,7 +1211,7 @@ func (a *Client) ListSimpleStorage(params *ListSimpleStorageParams) (*ListSimple
 		params = NewListSimpleStorageParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listSimpleStorage",
 		Method:             "GET",
 		PathPattern:        "/Systems/{identifier}/SimpleStorage",
@@ -1320,7 +1239,7 @@ func (a *Client) ListSystemProcessors(params *ListSystemProcessorsParams) (*List
 		params = NewListSystemProcessorsParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listSystemProcessors",
 		Method:             "GET",
 		PathPattern:        "/Systems/{identifier}/Processors",
@@ -1347,7 +1266,7 @@ func (a *Client) ListSystems(params *ListSystemsParams) (*ListSystemsOK, error) 
 		params = NewListSystemsParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listSystems",
 		Method:             "GET",
 		PathPattern:        "/Systems",
@@ -1374,7 +1293,7 @@ func (a *Client) ListTasks(params *ListTasksParams) (*ListTasksOK, error) {
 		params = NewListTasksParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listTasks",
 		Method:             "GET",
 		PathPattern:        "/TaskService/Tasks",
@@ -1399,7 +1318,7 @@ func (a *Client) ModifyAccount(params *ModifyAccountParams) (*ModifyAccountAccep
 		params = NewModifyAccountParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "modifyAccount",
 		Method:             "PATCH",
 		PathPattern:        "/AccountService/Accounts/{name}",
@@ -1424,7 +1343,7 @@ func (a *Client) PatchManager(params *PatchManagerParams) (*PatchManagerOK, erro
 		params = NewPatchManagerParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "patchManager",
 		Method:             "PATCH",
 		PathPattern:        "/Managers/{identifier}",
@@ -1449,7 +1368,7 @@ func (a *Client) PostSession(params *PostSessionParams) (*PostSessionCreated, er
 		params = NewPostSessionParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "postSession",
 		Method:             "POST",
 		PathPattern:        "/SessionService/Sessions",
@@ -1474,7 +1393,7 @@ func (a *Client) RemoveAccount(params *RemoveAccountParams) (*RemoveAccountNoCon
 		params = NewRemoveAccountParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "removeAccount",
 		Method:             "DELETE",
 		PathPattern:        "/AccountService/Accounts/{name}",
@@ -1501,7 +1420,7 @@ func (a *Client) TaskServiceRoot(params *TaskServiceRootParams) (*TaskServiceRoo
 		params = NewTaskServiceRootParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "taskServiceRoot",
 		Method:             "GET",
 		PathPattern:        "/TaskService",
@@ -1526,7 +1445,7 @@ func (a *Client) TestEvent(params *TestEventParams) (*TestEventOK, error) {
 		params = NewTestEventParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "testEvent",
 		Method:             "POST",
 		PathPattern:        "/EventService/Actions/EventService.SubmitTestEvent",
@@ -1543,7 +1462,10 @@ func (a *Client) TestEvent(params *TestEventParams) (*TestEventOK, error) {
 }
 
 /*
-Unimplemented retrieves information about the serial interface
+Unimplemented retrieves the ethernet interface by device identifier
+
+Defines an ethernet interface present on the system described by identifier
+
 */
 func (a *Client) Unimplemented(params *UnimplementedParams) (*UnimplementedOK, error) {
 	// TODO: Validate the params before sending
@@ -1551,10 +1473,10 @@ func (a *Client) Unimplemented(params *UnimplementedParams) (*UnimplementedOK, e
 		params = NewUnimplementedParams()
 	}
 
-	result, err := a.transport.Submit(&client.Operation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "unimplemented",
 		Method:             "GET",
-		PathPattern:        "/Managers/{identifier}/SerialInterfaces/{index}",
+		PathPattern:        "/Systems/{identifier}/EthernetInterfaces/{index}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -1568,6 +1490,6 @@ func (a *Client) Unimplemented(params *UnimplementedParams) (*UnimplementedOK, e
 }
 
 // SetTransport changes the transport on the client
-func (a *Client) SetTransport(transport client.Transport) {
+func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport
 }

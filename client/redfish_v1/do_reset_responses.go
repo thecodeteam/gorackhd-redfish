@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // DoResetReader is a Reader for the DoReset structure.
@@ -21,7 +20,7 @@ type DoResetReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *DoResetReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *DoResetReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 202:
@@ -67,7 +66,7 @@ func (o *DoResetReader) ReadResponse(response client.Response, consumer httpkit.
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *DoResetAccepted) Error() string {
 	return fmt.Sprintf("[POST /Systems/{identifier}/Actions/ComputerSystem.Reset][%d] doResetAccepted ", 202)
 }
 
-func (o *DoResetAccepted) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoResetAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -110,7 +109,7 @@ func (o *DoResetBadRequest) Error() string {
 	return fmt.Sprintf("[POST /Systems/{identifier}/Actions/ComputerSystem.Reset][%d] doResetBadRequest ", 400)
 }
 
-func (o *DoResetBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoResetBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -132,7 +131,7 @@ func (o *DoResetUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /Systems/{identifier}/Actions/ComputerSystem.Reset][%d] doResetUnauthorized ", 401)
 }
 
-func (o *DoResetUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoResetUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -154,7 +153,7 @@ func (o *DoResetForbidden) Error() string {
 	return fmt.Sprintf("[POST /Systems/{identifier}/Actions/ComputerSystem.Reset][%d] doResetForbidden ", 403)
 }
 
-func (o *DoResetForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoResetForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -176,7 +175,7 @@ func (o *DoResetNotFound) Error() string {
 	return fmt.Sprintf("[POST /Systems/{identifier}/Actions/ComputerSystem.Reset][%d] doResetNotFound ", 404)
 }
 
-func (o *DoResetNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoResetNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -198,7 +197,7 @@ func (o *DoResetInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /Systems/{identifier}/Actions/ComputerSystem.Reset][%d] doResetInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DoResetInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *DoResetInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

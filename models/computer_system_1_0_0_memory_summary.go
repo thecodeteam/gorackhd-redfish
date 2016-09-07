@@ -4,11 +4,11 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*ComputerSystem100MemorySummary This object describes the memory of the system in general detail.
@@ -33,6 +33,11 @@ type ComputerSystem100MemorySummary struct {
 func (m *ComputerSystem100MemorySummary) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateStatus(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateTotalSystemMemoryGiB(formats); err != nil {
 		// prop
 		res = append(res, err)
@@ -41,6 +46,22 @@ func (m *ComputerSystem100MemorySummary) Validate(formats strfmt.Registry) error
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *ComputerSystem100MemorySummary) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if m.Status != nil {
+
+		if err := m.Status.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 

@@ -4,19 +4,35 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // NewCreateAccountParams creates a new CreateAccountParams object
 // with the default values initialized.
 func NewCreateAccountParams() *CreateAccountParams {
 	var ()
-	return &CreateAccountParams{}
+	return &CreateAccountParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewCreateAccountParamsWithTimeout creates a new CreateAccountParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewCreateAccountParamsWithTimeout(timeout time.Duration) *CreateAccountParams {
+	var ()
+	return &CreateAccountParams{
+
+		timeout: timeout,
+	}
 }
 
 /*CreateAccountParams contains all the parameters to send to the API endpoint
@@ -26,6 +42,8 @@ type CreateAccountParams struct {
 
 	/*Payload*/
 	Payload *models.ManagerAccount100ManagerAccount
+
+	timeout time.Duration
 }
 
 // WithPayload adds the payload to the create account params
@@ -35,8 +53,9 @@ func (o *CreateAccountParams) WithPayload(payload *models.ManagerAccount100Manag
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *CreateAccountParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *CreateAccountParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	if o.Payload == nil {

@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // ListManagerEthernetInterfacesReader is a Reader for the ListManagerEthernetInterfaces structure.
@@ -21,7 +20,7 @@ type ListManagerEthernetInterfacesReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *ListManagerEthernetInterfacesReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *ListManagerEthernetInterfacesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -67,7 +66,7 @@ func (o *ListManagerEthernetInterfacesReader) ReadResponse(response client.Respo
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *ListManagerEthernetInterfacesOK) Error() string {
 	return fmt.Sprintf("[GET /Managers/{identifier}/EthernetInterfaces][%d] listManagerEthernetInterfacesOK  %+v", 200, o.Payload)
 }
 
-func (o *ListManagerEthernetInterfacesOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListManagerEthernetInterfacesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EthernetInterfaceCollectionEthernetInterfaceCollection)
 
@@ -117,7 +116,7 @@ func (o *ListManagerEthernetInterfacesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /Managers/{identifier}/EthernetInterfaces][%d] listManagerEthernetInterfacesBadRequest ", 400)
 }
 
-func (o *ListManagerEthernetInterfacesBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListManagerEthernetInterfacesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -139,7 +138,7 @@ func (o *ListManagerEthernetInterfacesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /Managers/{identifier}/EthernetInterfaces][%d] listManagerEthernetInterfacesUnauthorized ", 401)
 }
 
-func (o *ListManagerEthernetInterfacesUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListManagerEthernetInterfacesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -161,7 +160,7 @@ func (o *ListManagerEthernetInterfacesForbidden) Error() string {
 	return fmt.Sprintf("[GET /Managers/{identifier}/EthernetInterfaces][%d] listManagerEthernetInterfacesForbidden ", 403)
 }
 
-func (o *ListManagerEthernetInterfacesForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListManagerEthernetInterfacesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -183,7 +182,7 @@ func (o *ListManagerEthernetInterfacesNotFound) Error() string {
 	return fmt.Sprintf("[GET /Managers/{identifier}/EthernetInterfaces][%d] listManagerEthernetInterfacesNotFound ", 404)
 }
 
-func (o *ListManagerEthernetInterfacesNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListManagerEthernetInterfacesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -205,7 +204,7 @@ func (o *ListManagerEthernetInterfacesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /Managers/{identifier}/EthernetInterfaces][%d] listManagerEthernetInterfacesInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *ListManagerEthernetInterfacesInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListManagerEthernetInterfacesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // ListResetTypesReader is a Reader for the ListResetTypes structure.
@@ -21,7 +20,7 @@ type ListResetTypesReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *ListResetTypesReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *ListResetTypesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -67,7 +66,7 @@ func (o *ListResetTypesReader) ReadResponse(response client.Response, consumer h
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *ListResetTypesOK) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/Actions/ComputerSystem.Reset][%d] listResetTypesOK  %+v", 200, o.Payload)
 }
 
-func (o *ListResetTypesOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListResetTypesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RackHDResetActionResetAction)
 
@@ -117,7 +116,7 @@ func (o *ListResetTypesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/Actions/ComputerSystem.Reset][%d] listResetTypesBadRequest ", 400)
 }
 
-func (o *ListResetTypesBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListResetTypesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -139,7 +138,7 @@ func (o *ListResetTypesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/Actions/ComputerSystem.Reset][%d] listResetTypesUnauthorized ", 401)
 }
 
-func (o *ListResetTypesUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListResetTypesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -161,7 +160,7 @@ func (o *ListResetTypesForbidden) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/Actions/ComputerSystem.Reset][%d] listResetTypesForbidden ", 403)
 }
 
-func (o *ListResetTypesForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListResetTypesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -183,7 +182,7 @@ func (o *ListResetTypesNotFound) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/Actions/ComputerSystem.Reset][%d] listResetTypesNotFound ", 404)
 }
 
-func (o *ListResetTypesNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListResetTypesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -205,7 +204,7 @@ func (o *ListResetTypesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/Actions/ComputerSystem.Reset][%d] listResetTypesInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *ListResetTypesInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListResetTypesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

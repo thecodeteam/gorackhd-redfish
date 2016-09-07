@@ -4,28 +4,46 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // NewListTasksParams creates a new ListTasksParams object
 // with the default values initialized.
 func NewListTasksParams() *ListTasksParams {
 
-	return &ListTasksParams{}
+	return &ListTasksParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewListTasksParamsWithTimeout creates a new ListTasksParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewListTasksParamsWithTimeout(timeout time.Duration) *ListTasksParams {
+
+	return &ListTasksParams{
+
+		timeout: timeout,
+	}
 }
 
 /*ListTasksParams contains all the parameters to send to the API endpoint
 for the list tasks operation typically these are written to a http.Request
 */
 type ListTasksParams struct {
+	timeout time.Duration
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *ListTasksParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *ListTasksParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	if len(res) > 0 {

@@ -4,11 +4,11 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*Power100PowerControl This is the base type for addressable members of an array.
@@ -117,12 +117,32 @@ func (m *Power100PowerControl) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validatePowerLimit(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validatePowerMetrics(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validatePowerRequestedWatts(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateRelatedItem(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateRelatedItemAtOdataNavigationLink(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateStatus(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -185,6 +205,38 @@ func (m *Power100PowerControl) validatePowerConsumedWatts(formats strfmt.Registr
 	return nil
 }
 
+func (m *Power100PowerControl) validatePowerLimit(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PowerLimit) { // not required
+		return nil
+	}
+
+	if m.PowerLimit != nil {
+
+		if err := m.PowerLimit.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Power100PowerControl) validatePowerMetrics(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PowerMetrics) { // not required
+		return nil
+	}
+
+	if m.PowerMetrics != nil {
+
+		if err := m.PowerMetrics.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *Power100PowerControl) validatePowerRequestedWatts(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.PowerRequestedWatts) { // not required
@@ -202,6 +254,53 @@ func (m *Power100PowerControl) validateRelatedItem(formats strfmt.Registry) erro
 
 	if swag.IsZero(m.RelatedItem) { // not required
 		return nil
+	}
+
+	for i := 0; i < len(m.RelatedItem); i++ {
+
+		if swag.IsZero(m.RelatedItem[i]) { // not required
+			continue
+		}
+
+		if m.RelatedItem[i] != nil {
+
+			if err := m.RelatedItem[i].Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Power100PowerControl) validateRelatedItemAtOdataNavigationLink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.RelatedItemAtOdataNavigationLink) { // not required
+		return nil
+	}
+
+	if m.RelatedItemAtOdataNavigationLink != nil {
+
+		if err := m.RelatedItemAtOdataNavigationLink.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Power100PowerControl) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if m.Status != nil {
+
+		if err := m.Status.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil

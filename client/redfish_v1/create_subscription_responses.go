@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // CreateSubscriptionReader is a Reader for the CreateSubscription structure.
@@ -21,7 +20,7 @@ type CreateSubscriptionReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *CreateSubscriptionReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *CreateSubscriptionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -53,7 +52,7 @@ func (o *CreateSubscriptionReader) ReadResponse(response client.Response, consum
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -74,7 +73,7 @@ func (o *CreateSubscriptionOK) Error() string {
 	return fmt.Sprintf("[POST /EventService/Subscriptions][%d] createSubscriptionOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateSubscriptionOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *CreateSubscriptionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EventDestinationCollectionEventDestinationCollection)
 
@@ -103,7 +102,7 @@ func (o *CreateSubscriptionUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /EventService/Subscriptions][%d] createSubscriptionUnauthorized ", 401)
 }
 
-func (o *CreateSubscriptionUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *CreateSubscriptionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -125,7 +124,7 @@ func (o *CreateSubscriptionForbidden) Error() string {
 	return fmt.Sprintf("[POST /EventService/Subscriptions][%d] createSubscriptionForbidden ", 403)
 }
 
-func (o *CreateSubscriptionForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *CreateSubscriptionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -147,7 +146,7 @@ func (o *CreateSubscriptionNotImplemented) Error() string {
 	return fmt.Sprintf("[POST /EventService/Subscriptions][%d] createSubscriptionNotImplemented ", 501)
 }
 
-func (o *CreateSubscriptionNotImplemented) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *CreateSubscriptionNotImplemented) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

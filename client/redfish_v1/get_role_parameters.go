@@ -4,17 +4,33 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // NewGetRoleParams creates a new GetRoleParams object
 // with the default values initialized.
 func NewGetRoleParams() *GetRoleParams {
 	var ()
-	return &GetRoleParams{}
+	return &GetRoleParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewGetRoleParamsWithTimeout creates a new GetRoleParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewGetRoleParamsWithTimeout(timeout time.Duration) *GetRoleParams {
+	var ()
+	return &GetRoleParams{
+
+		timeout: timeout,
+	}
 }
 
 /*GetRoleParams contains all the parameters to send to the API endpoint
@@ -24,6 +40,8 @@ type GetRoleParams struct {
 
 	/*Identifier*/
 	Identifier string
+
+	timeout time.Duration
 }
 
 // WithIdentifier adds the identifier to the get role params
@@ -33,8 +51,9 @@ func (o *GetRoleParams) WithIdentifier(identifier string) *GetRoleParams {
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *GetRoleParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *GetRoleParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	// path param identifier

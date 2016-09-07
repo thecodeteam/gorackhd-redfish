@@ -4,17 +4,33 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // NewGetEventParams creates a new GetEventParams object
 // with the default values initialized.
 func NewGetEventParams() *GetEventParams {
 	var ()
-	return &GetEventParams{}
+	return &GetEventParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewGetEventParamsWithTimeout creates a new GetEventParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewGetEventParamsWithTimeout(timeout time.Duration) *GetEventParams {
+	var ()
+	return &GetEventParams{
+
+		timeout: timeout,
+	}
 }
 
 /*GetEventParams contains all the parameters to send to the API endpoint
@@ -24,6 +40,8 @@ type GetEventParams struct {
 
 	/*Index*/
 	Index string
+
+	timeout time.Duration
 }
 
 // WithIndex adds the index to the get event params
@@ -33,8 +51,9 @@ func (o *GetEventParams) WithIndex(index string) *GetEventParams {
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *GetEventParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *GetEventParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	// path param index

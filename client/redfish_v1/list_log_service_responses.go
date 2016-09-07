@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // ListLogServiceReader is a Reader for the ListLogService structure.
@@ -21,7 +20,7 @@ type ListLogServiceReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *ListLogServiceReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *ListLogServiceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -67,7 +66,7 @@ func (o *ListLogServiceReader) ReadResponse(response client.Response, consumer h
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *ListLogServiceOK) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/LogServices][%d] listLogServiceOK  %+v", 200, o.Payload)
 }
 
-func (o *ListLogServiceOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListLogServiceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.LogServiceCollectionLogServiceCollection)
 
@@ -117,7 +116,7 @@ func (o *ListLogServiceBadRequest) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/LogServices][%d] listLogServiceBadRequest ", 400)
 }
 
-func (o *ListLogServiceBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListLogServiceBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -139,7 +138,7 @@ func (o *ListLogServiceUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/LogServices][%d] listLogServiceUnauthorized ", 401)
 }
 
-func (o *ListLogServiceUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListLogServiceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -161,7 +160,7 @@ func (o *ListLogServiceForbidden) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/LogServices][%d] listLogServiceForbidden ", 403)
 }
 
-func (o *ListLogServiceForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListLogServiceForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -183,7 +182,7 @@ func (o *ListLogServiceNotFound) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/LogServices][%d] listLogServiceNotFound ", 404)
 }
 
-func (o *ListLogServiceNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListLogServiceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -205,7 +204,7 @@ func (o *ListLogServiceInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /Systems/{identifier}/LogServices][%d] listLogServiceInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *ListLogServiceInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListLogServiceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

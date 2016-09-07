@@ -4,11 +4,11 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
-	"github.com/go-swagger/go-swagger/swag"
+	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/errors"
-	"github.com/go-swagger/go-swagger/httpkit/validate"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/validate"
 )
 
 /*ServiceRoot100ServiceRoot This object represents the root Redfish service.
@@ -136,12 +136,57 @@ type ServiceRoot100ServiceRoot struct {
 func (m *ServiceRoot100ServiceRoot) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAccountService(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateChassis(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateEventService(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateJSONSchemas(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateLinks(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
 
+	if err := m.validateManagers(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateRedfishVersion(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateRegistries(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateSessionService(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateSystems(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateTasks(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -157,11 +202,95 @@ func (m *ServiceRoot100ServiceRoot) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *ServiceRoot100ServiceRoot) validateAccountService(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AccountService) { // not required
+		return nil
+	}
+
+	if m.AccountService != nil {
+
+		if err := m.AccountService.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ServiceRoot100ServiceRoot) validateChassis(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Chassis) { // not required
+		return nil
+	}
+
+	if m.Chassis != nil {
+
+		if err := m.Chassis.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ServiceRoot100ServiceRoot) validateEventService(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.EventService) { // not required
+		return nil
+	}
+
+	if m.EventService != nil {
+
+		if err := m.EventService.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ServiceRoot100ServiceRoot) validateJSONSchemas(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.JSONSchemas) { // not required
+		return nil
+	}
+
+	if m.JSONSchemas != nil {
+
+		if err := m.JSONSchemas.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *ServiceRoot100ServiceRoot) validateLinks(formats strfmt.Registry) error {
+
+	if err := validate.Required("Links", "body", m.Links); err != nil {
+		return err
+	}
 
 	if m.Links != nil {
 
 		if err := m.Links.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ServiceRoot100ServiceRoot) validateManagers(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Managers) { // not required
+		return nil
+	}
+
+	if m.Managers != nil {
+
+		if err := m.Managers.Validate(formats); err != nil {
 			return err
 		}
 	}
@@ -177,6 +306,70 @@ func (m *ServiceRoot100ServiceRoot) validateRedfishVersion(formats strfmt.Regist
 
 	if err := validate.Pattern("RedfishVersion", "body", string(m.RedfishVersion), `^\d+\.\d+\.\d+$`); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *ServiceRoot100ServiceRoot) validateRegistries(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Registries) { // not required
+		return nil
+	}
+
+	if m.Registries != nil {
+
+		if err := m.Registries.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ServiceRoot100ServiceRoot) validateSessionService(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SessionService) { // not required
+		return nil
+	}
+
+	if m.SessionService != nil {
+
+		if err := m.SessionService.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ServiceRoot100ServiceRoot) validateSystems(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Systems) { // not required
+		return nil
+	}
+
+	if m.Systems != nil {
+
+		if err := m.Systems.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ServiceRoot100ServiceRoot) validateTasks(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Tasks) { // not required
+		return nil
+	}
+
+	if m.Tasks != nil {
+
+		if err := m.Tasks.Validate(formats); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -214,5 +407,31 @@ type ServiceRoot100ServiceRootLinks struct {
 
 // Validate validates this service root100 service root links
 func (m *ServiceRoot100ServiceRootLinks) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateSessions(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ServiceRoot100ServiceRootLinks) validateSessions(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Sessions) { // not required
+		return nil
+	}
+
+	if m.Sessions != nil {
+
+		if err := m.Sessions.Validate(formats); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }

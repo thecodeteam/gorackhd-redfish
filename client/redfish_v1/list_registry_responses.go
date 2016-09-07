@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // ListRegistryReader is a Reader for the ListRegistry structure.
@@ -21,7 +20,7 @@ type ListRegistryReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *ListRegistryReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *ListRegistryReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -53,7 +52,7 @@ func (o *ListRegistryReader) ReadResponse(response client.Response, consumer htt
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -74,7 +73,7 @@ func (o *ListRegistryOK) Error() string {
 	return fmt.Sprintf("[GET /Registries][%d] listRegistryOK  %+v", 200, o.Payload)
 }
 
-func (o *ListRegistryOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListRegistryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.MessageRegistryFileCollectionMessageRegistryFileCollection)
 
@@ -103,7 +102,7 @@ func (o *ListRegistryUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /Registries][%d] listRegistryUnauthorized ", 401)
 }
 
-func (o *ListRegistryUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListRegistryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -125,7 +124,7 @@ func (o *ListRegistryForbidden) Error() string {
 	return fmt.Sprintf("[GET /Registries][%d] listRegistryForbidden ", 403)
 }
 
-func (o *ListRegistryForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListRegistryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -147,7 +146,7 @@ func (o *ListRegistryInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /Registries][%d] listRegistryInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *ListRegistryInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *ListRegistryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

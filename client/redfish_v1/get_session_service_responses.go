@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // GetSessionServiceReader is a Reader for the GetSessionService structure.
@@ -21,7 +20,7 @@ type GetSessionServiceReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *GetSessionServiceReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *GetSessionServiceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
@@ -67,7 +66,7 @@ func (o *GetSessionServiceReader) ReadResponse(response client.Response, consume
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *GetSessionServiceOK) Error() string {
 	return fmt.Sprintf("[GET /SessionService][%d] getSessionServiceOK  %+v", 200, o.Payload)
 }
 
-func (o *GetSessionServiceOK) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetSessionServiceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.SessionService100SessionService)
 
@@ -117,7 +116,7 @@ func (o *GetSessionServiceBadRequest) Error() string {
 	return fmt.Sprintf("[GET /SessionService][%d] getSessionServiceBadRequest ", 400)
 }
 
-func (o *GetSessionServiceBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetSessionServiceBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -139,7 +138,7 @@ func (o *GetSessionServiceUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /SessionService][%d] getSessionServiceUnauthorized ", 401)
 }
 
-func (o *GetSessionServiceUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetSessionServiceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -161,7 +160,7 @@ func (o *GetSessionServiceForbidden) Error() string {
 	return fmt.Sprintf("[GET /SessionService][%d] getSessionServiceForbidden ", 403)
 }
 
-func (o *GetSessionServiceForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetSessionServiceForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -183,7 +182,7 @@ func (o *GetSessionServiceNotFound) Error() string {
 	return fmt.Sprintf("[GET /SessionService][%d] getSessionServiceNotFound ", 404)
 }
 
-func (o *GetSessionServiceNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetSessionServiceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -205,7 +204,7 @@ func (o *GetSessionServiceInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /SessionService][%d] getSessionServiceInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetSessionServiceInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *GetSessionServiceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 

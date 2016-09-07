@@ -4,19 +4,35 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // NewCreateSubscriptionParams creates a new CreateSubscriptionParams object
 // with the default values initialized.
 func NewCreateSubscriptionParams() *CreateSubscriptionParams {
 	var ()
-	return &CreateSubscriptionParams{}
+	return &CreateSubscriptionParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewCreateSubscriptionParamsWithTimeout creates a new CreateSubscriptionParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewCreateSubscriptionParamsWithTimeout(timeout time.Duration) *CreateSubscriptionParams {
+	var ()
+	return &CreateSubscriptionParams{
+
+		timeout: timeout,
+	}
 }
 
 /*CreateSubscriptionParams contains all the parameters to send to the API endpoint
@@ -26,6 +42,8 @@ type CreateSubscriptionParams struct {
 
 	/*Payload*/
 	Payload *models.EventDestination100EventDestination
+
+	timeout time.Duration
 }
 
 // WithPayload adds the payload to the create subscription params
@@ -35,8 +53,9 @@ func (o *CreateSubscriptionParams) WithPayload(payload *models.EventDestination1
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *CreateSubscriptionParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *CreateSubscriptionParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	if o.Payload == nil {

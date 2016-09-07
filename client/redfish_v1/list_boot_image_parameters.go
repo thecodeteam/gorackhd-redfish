@@ -4,17 +4,33 @@ package redfish_v1
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/errors"
+	"time"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // NewListBootImageParams creates a new ListBootImageParams object
 // with the default values initialized.
 func NewListBootImageParams() *ListBootImageParams {
 	var ()
-	return &ListBootImageParams{}
+	return &ListBootImageParams{
+
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewListBootImageParamsWithTimeout creates a new ListBootImageParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewListBootImageParamsWithTimeout(timeout time.Duration) *ListBootImageParams {
+	var ()
+	return &ListBootImageParams{
+
+		timeout: timeout,
+	}
 }
 
 /*ListBootImageParams contains all the parameters to send to the API endpoint
@@ -24,6 +40,8 @@ type ListBootImageParams struct {
 
 	/*Identifier*/
 	Identifier string
+
+	timeout time.Duration
 }
 
 // WithIdentifier adds the identifier to the list boot image params
@@ -33,8 +51,9 @@ func (o *ListBootImageParams) WithIdentifier(identifier string) *ListBootImagePa
 }
 
 // WriteToRequest writes these params to a swagger request
-func (o *ListBootImageParams) WriteToRequest(r client.Request, reg strfmt.Registry) error {
+func (o *ListBootImageParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
+	r.SetTimeout(o.timeout)
 	var res []error
 
 	// path param identifier

@@ -7,12 +7,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-swagger/go-swagger/client"
-	"github.com/go-swagger/go-swagger/httpkit"
+	"github.com/go-openapi/runtime"
 
-	strfmt "github.com/go-swagger/go-swagger/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/emccode/gorackhd-redfish/models"
+	"github.com/codedellemc/gorackhd-redfish/models"
 )
 
 // CreateAccountReader is a Reader for the CreateAccount structure.
@@ -21,7 +20,7 @@ type CreateAccountReader struct {
 }
 
 // ReadResponse reads a server response into the recieved o.
-func (o *CreateAccountReader) ReadResponse(response client.Response, consumer httpkit.Consumer) (interface{}, error) {
+func (o *CreateAccountReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 201:
@@ -67,7 +66,7 @@ func (o *CreateAccountReader) ReadResponse(response client.Response, consumer ht
 		return nil, result
 
 	default:
-		return nil, client.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func (o *CreateAccountCreated) Error() string {
 	return fmt.Sprintf("[POST /AccountService/Accounts][%d] createAccountCreated ", 201)
 }
 
-func (o *CreateAccountCreated) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *CreateAccountCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -110,7 +109,7 @@ func (o *CreateAccountBadRequest) Error() string {
 	return fmt.Sprintf("[POST /AccountService/Accounts][%d] createAccountBadRequest ", 400)
 }
 
-func (o *CreateAccountBadRequest) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *CreateAccountBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -132,7 +131,7 @@ func (o *CreateAccountUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /AccountService/Accounts][%d] createAccountUnauthorized ", 401)
 }
 
-func (o *CreateAccountUnauthorized) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *CreateAccountUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -154,7 +153,7 @@ func (o *CreateAccountForbidden) Error() string {
 	return fmt.Sprintf("[POST /AccountService/Accounts][%d] createAccountForbidden ", 403)
 }
 
-func (o *CreateAccountForbidden) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *CreateAccountForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -176,7 +175,7 @@ func (o *CreateAccountNotFound) Error() string {
 	return fmt.Sprintf("[POST /AccountService/Accounts][%d] createAccountNotFound ", 404)
 }
 
-func (o *CreateAccountNotFound) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *CreateAccountNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }
@@ -198,7 +197,7 @@ func (o *CreateAccountInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /AccountService/Accounts][%d] createAccountInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *CreateAccountInternalServerError) readResponse(response client.Response, consumer httpkit.Consumer, formats strfmt.Registry) error {
+func (o *CreateAccountInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ErrorResponse)
 
