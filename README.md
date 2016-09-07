@@ -18,7 +18,7 @@ $ cd $GOPATH/src/github.com/codedellemc/gorackhd-redfish
 $ make
 ```
 
-The Makefile utilizes [glide](https://github.com/Masterminds/glide) to reference git commit `6b712512cbe` of [go-swagger](https://github.com/go-swagger/go-swagger) that has been tested and known to be working. The Makefile will generate a go-swagger directory in `/vendor/github.com/` and then create the client. 
+The Makefile utilizes [glide](https://github.com/Masterminds/glide) to reference git commit `0.6.0` of [go-swagger](https://github.com/go-swagger/go-swagger). The Makefile will generate a go-swagger directory in `/vendor/github.com/` and then create the client.
 
 ## Environment Variables
 | Name        | Description           |
@@ -38,7 +38,7 @@ import (
     "log"
     "os"
 
-    httptransport "github.com/go-openapi/runtime/client"
+    rc "github.com/go-openapi/runtime/client"
     "github.com/go-openapi/strfmt"
 
     apiclientRedfish "github.com/codedellemc/gorackhd-redfish/client"
@@ -48,7 +48,7 @@ import (
 func main() {
 
     // create the transport
-    transport := httptransport.New("localhost:9090", "/redfish/v1", []string{"http"})
+    transport := rc.New("localhost:9090", "/redfish/v1", []string{"http"})
 
     // configure the host. include port with environment variable. For instance the vagrant image would be localhost:9090
     if os.Getenv("GORACKHD_ENDPOINT") != "" {
@@ -90,9 +90,11 @@ import (
 )
 ```
 
-Lookup the params that are required in a struct:
+Create the params that are required:
 ```
-resp, err := client.RedfishV1.GetSystem(&redfish_v1.GetSystemParams{Identifier: "57154fe9d67951e70958c213"})
+params := redfish_v1.NewGetSystemParams()
+params = params.WithIdentifier("57154fe9d67951e70958c213")
+resp, err := client.RedfishV1.GetSystem(params)
 if err != nil {
       log.Fatal(err)
 }

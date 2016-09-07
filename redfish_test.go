@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	httptransport "github.com/go-openapi/runtime/client"
+	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
 	apiclientRedfish "github.com/codedellemc/gorackhd-redfish/client"
@@ -17,7 +17,7 @@ import (
 func TestRedfishGetAccountsOperation(t *testing.T) {
 
 	// create the transport
-	transport := httptransport.New("localhost:9090", "/redfish/v1", []string{"http"})
+	transport := rc.New("localhost:9090", "/redfish/v1", []string{"http"})
 
 	// configure the host. include port with environment variable. For instance the vagrant image would be localhost:9090
 	if os.Getenv("GORACKHD_ENDPOINT") != "" {
@@ -38,7 +38,7 @@ func TestRedfishGetAccountsOperation(t *testing.T) {
 func TestRedfishGetPowerStatus(t *testing.T) {
 
 	// create the transport
-	transport := httptransport.New("localhost:9090", "/redfish/v1", []string{"http"})
+	transport := rc.New("localhost:9090", "/redfish/v1", []string{"http"})
 
 	// configure the host. include port with environment variable. For instance the vagrant image would be localhost:9090
 	if os.Getenv("GORACKHD_ENDPOINT") != "" {
@@ -48,9 +48,9 @@ func TestRedfishGetPowerStatus(t *testing.T) {
 	// create the API client, with the transport
 	client := apiclientRedfish.New(transport, strfmt.Default)
 
-	//use any function to do REST operations
-	//resp, err := client.RedfishV1.GetPower(&redfish_v1.GetPowerParams{Identifier: "52:54:be:ef:51:1b"})
-	resp, err := client.RedfishV1.GetSystem(&redfish_v1.GetSystemParams{Identifier: "57154fe9d67951e70958c213"})
+	params := redfish_v1.NewGetSystemParams()
+	params = params.WithIdentifier("57154fe9d67951e70958c213")
+	resp, err := client.RedfishV1.GetSystem(params)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -62,7 +62,7 @@ func TestRedfishGetPowerStatus(t *testing.T) {
 func TestRedfishShutdown(t *testing.T) {
 
 	// create the transport
-	transport := httptransport.New("localhost:9090", "/redfish/v1", []string{"http"})
+	transport := rc.New("localhost:9090", "/redfish/v1", []string{"http"})
 
 	// configure the host. include port with environment variable. For instance the vagrant image would be localhost:9090
 	if os.Getenv("GORACKHD_ENDPOINT") != "" {
@@ -76,7 +76,10 @@ func TestRedfishShutdown(t *testing.T) {
 	action := &models.RackHDResetActionResetAction{
 		ResetType: &resetType,
 	}
-	resp, err := client.RedfishV1.DoReset(&redfish_v1.DoResetParams{Identifier: "57154fe9d67951e70958c213", Payload: action})
+	params := redfish_v1.NewDoResetParams()
+	params = params.WithIdentifier("57154fe9d67951e70958c213")
+	params = params.WithPayload(action)
+	resp, err := client.RedfishV1.DoReset(params)
 	if err != nil {
 		log.Fatal(err)
 	}
