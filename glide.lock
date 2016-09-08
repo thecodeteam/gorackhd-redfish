@@ -1,0 +1,80 @@
+hash: 439e72e39b58536015c6b086520325aed21ce051ee58e36ea095ce1a97759489
+updated: 2016-09-07T10:14:52.64494608-07:00
+imports:
+- name: github.com/asaskevich/govalidator
+  version: 593d64559f7600f29581a3ee42177f5dbded27a9
+  repo: https://github.com/asaskevich/govalidator
+- name: github.com/go-openapi/analysis
+  version: b44dc874b601d9e4e2f6e19140e794ba24bead3b
+  repo: https://github.com/go-openapi/analysis
+- name: github.com/go-openapi/errors
+  version: 4178436c9f2430cdd945c50301cfb61563b56573
+  repo: https://github.com/go-openapi/errors
+- name: github.com/go-openapi/jsonpointer
+  version: 46af16f9f7b149af66e5d1bd010e3574dc06de98
+  repo: https://github.com/go-openapi/jsonpointer
+- name: github.com/go-openapi/jsonreference
+  version: 13c6e3589ad90f49bd3e3bbe2c2cb3d7a4142272
+  repo: https://github.com/go-openapi/jsonreference
+- name: github.com/go-openapi/loads
+  version: 18441dfa706d924a39a030ee2c3b1d8d81917b38
+  repo: https://github.com/go-openapi/loads
+- name: github.com/go-openapi/runtime
+  version: 18efe8c11921c0ddabc8e91554971d6db1f91c7c
+  subpackages:
+  - client
+- name: github.com/go-openapi/spec
+  version: 6aced65f8501fe1217321abf0749d354824ba2ff
+  repo: https://github.com/go-openapi/spec
+- name: github.com/go-openapi/strfmt
+  version: d65c7fdb29eca313476e529628176fe17e58c488
+  repo: https://github.com/go-openapi/strfmt
+- name: github.com/go-openapi/swag
+  version: 0e04f5e499b19bf51031c01a00f098f25067d8dc
+  repo: https://github.com/go-openapi/swag
+- name: github.com/go-openapi/validate
+  version: 14872542e3bd537d6d6b9976e066ff658d41975f
+- name: github.com/go-swagger/go-swagger
+  version: 4c101d534a9bc418b0c47c4e017153f317304ca4
+  vcs: git
+- name: github.com/mailru/easyjson
+  version: 34560e358dc05e2c28f6fda2f5c9e7494a4b9b19
+  repo: https://github.com/mailru/easyjson
+  subpackages:
+  - buffer
+  - jlexer
+  - jwriter
+- name: github.com/PuerkitoBio/purell
+  version: 8a290539e2e8629dbc4e6bad948158f790ec31f4
+  repo: https://github.com/PuerkitoBio/purell
+- name: github.com/PuerkitoBio/urlesc
+  version: 5bd2802263f21d8788851d5305584c82a5c75d7e
+  repo: https://github.com/PuerkitoBio/urlesc
+- name: golang.org/x/net
+  version: 9bc2a3340c92c17a20edcd0080e93851ed58f5d5
+  repo: https://go.googlesource.com/net
+  subpackages:
+  - context
+  - context/ctxhttp
+  - idna
+  - netutil
+- name: golang.org/x/text
+  version: 09c7ea1fcb3345da09be5a32c9c52303acd1dc2c
+  repo: https://go.googlesource.com/text
+  subpackages:
+  - cases
+  - internal/gen
+  - internal/tag
+  - internal/triegen
+  - internal/ucd
+  - language
+  - runes
+  - secure/bidirule
+  - secure/precis
+  - transform
+  - unicode/bidi
+  - unicode/cldr
+  - unicode/norm
+  - unicode/rangetable
+  - width
+testImports: []

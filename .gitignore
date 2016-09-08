@@ -1,6 +1,4 @@
-glide.lock
 .go.get
-swagger
 vendor/
 
 # Compiled source #
